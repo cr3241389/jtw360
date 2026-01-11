@@ -3,31 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>JTW 360 | 金町湾及周边全攻略</title>
+    <title>JTW 360 | 金町湾全能向导</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --primary: #007aff; --accent: #00c6ff; --bg: #f2f5f8; --card: #ffffff; }
         body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; color: #333; padding-bottom: 50px; }
+        
+        /* 头部与动态条 */
         .header { background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%); color: white; padding: 35px 20px 50px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
         .header h1 { margin: 0; font-size: 28px; font-weight: 800; }
         .info-bar { margin: -25px 20px 0; background: white; border-radius: 12px; padding: 12px 15px; display: flex; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.08); font-size: 13px; }
+
+        /* 通用标题 */
         .section-title { padding: 25px 20px 10px; font-size: 17px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .section-title i { color: var(--primary); }
+
+        /* 九宫格布局 */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; }
         .nav-item { background: var(--card); border-radius: 18px; padding: 18px 10px; text-align: center; text-decoration: none; color: #444; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
         .nav-item i { font-size: 28px; margin-bottom: 8px; display: block; background: linear-gradient(135deg, #0072ff, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* 热门打卡点专用样式 */
-        .spot-container { padding: 0 20px; }
-        .spot-card { background: white; border-radius: 15px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .spot-info { padding: 15px; }
-        .spot-name { font-size: 16px; font-weight: bold; margin-bottom: 5px; display: block; }
-        .spot-guide { font-size: 13px; color: #666; line-height: 1.4; margin-bottom: 12px; background: #f9f9f9; padding: 8px; border-radius: 8px; }
-        .spot-btns { display: flex; gap: 10px; }
-        .btn-nav { flex: 1; background: #eef6ff; color: var(--primary); text-align: center; padding: 8px; border-radius: 8px; font-size: 13px; text-decoration: none; font-weight: bold; }
-        .btn-nav:active { background: #d0e5ff; }
 
+        /* 打卡点折叠板块样式 */
+        .spot-section { margin: 15px 20px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .spot-header { padding: 20px; background: #fff; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid #eee; }
+        .spot-header h3 { margin: 0; font-size: 17px; color: #ff4500; }
+        .spot-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; background: #fafafa; }
+        .spot-content.open { max-height: 2500px; transition: max-height 0.8s ease-in; }
+
+        .spot-item { padding: 15px; border-bottom: 1px dashed #ddd; }
+        .spot-item:last-child { border-bottom: none; }
+        .spot-name { font-weight: bold; color: #333; display: block; margin-bottom: 5px; font-size: 15px; }
+        .spot-desc { font-size: 13px; color: #666; line-height: 1.5; margin-bottom: 8px; }
+        .nav-link { display: inline-block; background: #eef6ff; color: var(--primary); padding: 5px 12px; border-radius: 6px; font-size: 12px; text-decoration: none; font-weight: bold; }
+
+        /* 避坑卡片 */
+        .tip-card { background: #fff5ed; margin: 0 20px 15px; padding: 15px; border-radius: 15px; border-left: 4px solid #ff8800; }
+        .tip-card h4 { margin: 0 0 5px; color: #e67e22; font-size: 15px; }
+        .tip-card p { margin: 0; font-size: 13px; color: #666; line-height: 1.5; }
+
+        /* 微信按钮 */
         .action-area { padding: 20px; }
-        .btn-primary { background: #07c160; color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: bold; }
+        .btn-weixin { background: #07c160; color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: bold; }
+        
         .footer { text-align: center; font-size: 12px; color: #bbb; padding: 20px; }
     </style>
 </head>
@@ -35,7 +52,7 @@
 
     <div class="header">
         <h1>JTW 360</h1>
-        <div style="opacity: 0.9; font-size: 14px; margin-top: 5px;">保利金町湾 · 周边游玩助手</div>
+        <div style="opacity: 0.9; font-size: 14px; margin-top: 5px;">金町湾 · 本地人带你避坑玩转汕尾</div>
     </div>
 
     <div class="info-bar">
@@ -43,68 +60,142 @@
         <span>☀️ 汕尾：28°C 晴</span>
     </div>
 
-    <div class="section-title"><i class="fas fa-th-large"></i> 基础服务</div>
+    <div class="section-title"><i class="fas fa-restroom"></i> 基础服务</div>
     <div class="grid">
         <a href="https://uri.amap.com/marker?position=115.289,22.766&name=公共厕所" class="nav-item">
-            <i class="fas fa-restroom"></i><span>找厕所</span>
+            <i class="fas fa-toilet"></i><span>找厕所</span>
         </a>
         <a href="https://uri.amap.com/marker?position=115.290,22.765&name=停车场" class="nav-item">
             <i class="fas fa-parking"></i><span>找车位</span>
         </a>
+        <a href="https://uri.amap.com/marker?position=115.291,22.764&name=更衣冲凉房" class="nav-item">
+            <i class="fas fa-shower"></i><span>冲凉换衣</span>
+        </a>
+        <a href="https://uri.amap.com/marker?position=115.292,22.763&name=医务室" class="nav-item">
+            <i class="fas fa-user-md"></i><span>医疗救助</span>
+        </a>
     </div>
 
-    <div class="section-title"><i class="fas fa-fire" style="color: #ff4500;"></i> 热门打卡点 (周边必去)</div>
-    <div class="spot-container">
-        <div class="spot-card">
-            <div class="spot-info">
-                <span class="spot-name">🏞️ 金霞光森林公园</span>
-                <div class="spot-guide">攻略：俯瞰整个金町湾全景的最佳地点。建议傍晚前往，可以看到绝美的海岸线落日。登山路较平缓。</div>
-                <div class="spot-btns">
-                    <a href="https://uri.amap.com/marker?position=115.304,22.775&name=金霞光森林公园" class="btn-nav">📍 立即导航</a>
-                </div>
+    <div class="spot-section">
+        <div class="spot-header" onclick="toggleSpots()">
+            <h3><i class="fas fa-fire"></i> 热门打卡点 (点击展开攻略)</h3>
+            <i id="arrow" class="fas fa-chevron-down" style="color: #ccc; transition: 0.3s;"></i>
+        </div>
+        <div id="spotContent" class="spot-content">
+            <div class="spot-item">
+                <span class="spot-name">金霞光森林公园 (距离：步行可达)</span>
+                <p class="spot-desc">位于城区马宫镇金亭村，是汕尾首座滨海森林公园，有山境、花境、海境等特色布局。</p>
+                <a href="https://uri.amap.com/marker?name=金霞光森林公园" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">白鹤寺海滩 (距离：约2公里)</span>
+                <p class="spot-desc">有黑礁岩和鹅卵石，是泥沙滩+礁石区混合地形，适合赶海。</p>
+                <a href="https://uri.amap.com/marker?name=白鹤寺海滩" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">长沙炮台 (距离：约5公里)</span>
+                <p class="spot-desc">古代海防要塞，和长沙湾服务区相连，感受历史与现代的交融。</p>
+                <a href="https://uri.amap.com/marker?name=长沙炮台" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">马宫沙滩 (距离：约8公里)</span>
+                <p class="spot-desc">小众景美的无人沙滩，海上吊桥适合拍照。</p>
+                <a href="https://uri.amap.com/marker?name=马宫沙滩" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">晨洲村 (距离：约9公里)</span>
+                <p class="spot-desc">被誉为“中国蚝乡”，有“蚝”博物馆和水上公路。</p>
+                <a href="https://uri.amap.com/marker?name=晨洲村" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">小岛渔村 (距离：约11公里)</span>
+                <p class="spot-desc">位于品清湖中央，有复古工业风渔船厂、砖红色环岛栈道等。</p>
+                <a href="https://uri.amap.com/marker?name=小岛渔村" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">凤山妈祖旅游区 (距离：约12公里)</span>
+                <p class="spot-desc">国家4A景区，也是汕尾文化信仰中心。</p>
+                <a href="https://uri.amap.com/marker?name=凤山妈祖旅游区" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">汕尾博物馆 (距离：约13公里)</span>
+                <p class="spot-desc">可了解汕尾历史、文化、民俗等。</p>
+                <a href="https://uri.amap.com/marker?name=汕尾博物馆" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">二马路美食街 (车程：约半小时)</span>
+                <p class="spot-desc">最具烟火气的美食街，汇聚了各类地道小吃。</p>
+                <a href="https://uri.amap.com/marker?name=二马路美食街" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">铜鼎山旅游区 (距离：约18公里)</span>
+                <p class="spot-desc">有玻璃桥、七彩滑道等，被称为“汕尾后花园”。</p>
+                <a href="https://uri.amap.com/marker?name=铜鼎山" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">江牡岛 (马宫渔港坐快艇)</span>
+                <p class="spot-desc">位于红海湾中部海域，景色壮美，可参观海洋牧场。</p>
+                <a href="https://uri.amap.com/marker?name=马宫渔港" class="nav-link">📍 导航至码头</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">鲘门百安沙滩 (距离：约27公里)</span>
+                <p class="spot-desc">人少的野生沙滩，适合散步和吃大排档。</p>
+                <a href="https://uri.amap.com/marker?name=百安沙滩" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">红海湾古堡 (距离：约39公里)</span>
+                <p class="spot-desc">新晋网红打卡地，海上古堡建筑独特，适合拍照。</p>
+                <a href="https://uri.amap.com/marker?name=红海湾遮浪旅游区" class="nav-link">📍 导航</a>
+            </div>
+            <div class="spot-item">
+                <span class="spot-name">风车岛 (距离：约45公里)</span>
+                <p class="spot-desc">以风车群为特色，沿海公路适合航拍。</p>
+                <a href="https://uri.amap.com/marker?name=风车岛" class="nav-link">📍 导航</a>
             </div>
         </div>
+    </div>
 
-        <div class="spot-card">
-            <div class="spot-info">
-                <span class="spot-name">🏖️ 马宫沙滩 (天空之镜)</span>
-                <div class="spot-guide">攻略：人比金町湾少，沙质更细。那里有著名的“天空之镜”礁石区，适合退潮时去赶海抓小螃蟹。</div>
-                <div class="spot-btns">
-                    <a href="https://uri.amap.com/marker?position=115.244,22.755&name=马宫沙滩" class="btn-nav">📍 立即导航</a>
-                </div>
-            </div>
-        </div>
+    <div class="section-title"><i class="fas fa-shopping-bag"></i> 玩乐/外卖</div>
+    <div class="grid">
+        <a href="#" class="nav-item">
+            <i class="fas fa-box-open"></i><span>外卖寄存点</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-camera"></i><span>日落摄影点</span>
+        </a>
+    </div>
 
-        <div class="spot-card">
-            <div class="spot-info">
-                <span class="spot-name">🌳 西沙滩公园</span>
-                <div class="spot-guide">攻略：适合亲子露营，有大片草地和遮荫树林。下午带上野餐垫，吹着海风看日落非常惬意。</div>
-                <div class="spot-btns">
-                    <a href="https://uri.amap.com/marker?position=115.275,22.762&name=西沙滩公园" class="btn-nav">📍 立即导航</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="spot-card">
-            <div class="spot-info">
-                <span class="spot-name">🏰 长沙湾炮台遗址</span>
-                <div class="spot-guide">攻略：历史遗迹，很有厚重感。就在长沙湾大桥附近，适合航拍，可以拍到古建筑与现代化大桥的碰撞。</div>
-                <div class="spot-btns">
-                    <a href="https://uri.amap.com/marker?position=115.265,22.781&name=长沙湾炮台" class="btn-nav">📍 立即导航</a>
-                </div>
-            </div>
-        </div>
+    <div class="section-title"><i class="fas fa-exclamation-circle"></i> 避坑指南</div>
+    <div class="tip-card">
+        <h4>📢 停车防贴单</h4>
+        <p>景区主干道严禁长时间停放，建议停在P1/P3停车场，首小时免费。</p>
+    </div>
+    <div class="tip-card">
+        <h4>💰 沙滩租伞</h4>
+        <p>遮阳伞参考价50-80元/小时。如果自带帐篷，请注意景区指定区域。</p>
     </div>
 
     <div class="action-area">
-        <a href="#" class="btn-primary">
-            <i class="fab fa-weixin"></i> 加入金町湾游客互助群
+        <a href="#" class="btn-weixin">
+            <i class="fab fa-weixin"></i> 加入游客互助群 (避坑有问必答)
         </a>
     </div>
 
     <div class="footer">
-        © 2026 JTW360.COM | 汕尾·金町湾
+        © 2026 JTW360.COM | 汕尾·保利金町湾
     </div>
 
+    <script>
+        function toggleSpots() {
+            const content = document.getElementById('spotContent');
+            const arrow = document.getElementById('arrow');
+            content.classList.toggle('open');
+            if(content.classList.contains('open')) {
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
 </body>
 </html>
