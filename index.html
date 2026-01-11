@@ -3,194 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>JTW 360 | 金町湾本地生活向导</title>
+    <title>JTW 360 | 金町湾本地导览</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --card-bg: #ffffff;
-            --text-main: #333333;
-            --text-sub: #888888;
+            --primary: #007aff;
+            --accent: #00c6ff;
+            --bg: #f2f5f8;
+            --card: #ffffff;
         }
 
-        body { 
-            font-family: -apple-system, system-ui, sans-serif; 
-            background: #f0f3f5; 
-            margin: 0; 
-            padding-bottom: 40px;
-        }
+        body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; color: #333; padding-bottom: 50px; }
+        
+        /* 头部样式 */
+        .header { background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%); color: white; padding: 35px 20px 50px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: 1px; }
+        .header .sub-title { font-size: 14px; opacity: 0.9; margin-top: 5px; }
 
-        /* 顶部蓝色区域 */
-        .header-section {
-            background: var(--primary-gradient);
-            padding: 40px 25px 60px;
-            color: white;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            position: relative;
-        }
+        /* 顶部动态信息条 */
+        .info-bar { margin: -25px 20px 0; background: white; border-radius: 12px; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); font-size: 13px; }
+        .info-tag { color: #f50; font-weight: bold; }
 
-        .weather-bar {
-            font-size: 13px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            opacity: 0.9;
-        }
+        /* 板块标题 */
+        .section-title { padding: 25px 20px 10px; font-size: 17px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .section-title i { color: var(--primary); }
 
-        .header-section h1 {
-            margin: 15px 0 5px;
-            font-size: 32px;
-            font-weight: 800;
-        }
+        /* 导航九宫格 */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; }
+        .nav-item { background: var(--card); border-radius: 18px; padding: 18px 10px; text-align: center; text-decoration: none; color: #444; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: 0.2s; }
+        .nav-item:active { transform: scale(0.96); background: #f9f9f9; }
+        .nav-item i { font-size: 28px; margin-bottom: 8px; display: block; background: linear-gradient(135deg, #0072ff, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-item span { font-size: 14px; font-weight: 500; }
 
-        .header-section p {
-            margin: 0;
-            font-size: 15px;
-            opacity: 0.8;
-        }
+        /* 避坑卡片 */
+        .tip-card { background: #fff5ed; margin: 0 20px 15px; padding: 15px; border-radius: 15px; border-left: 4px solid #ff8800; }
+        .tip-card h4 { margin: 0 0 5px; color: #e67e22; font-size: 15px; }
+        .tip-card p { margin: 0; font-size: 13px; color: #666; line-height: 1.5; }
 
-        /* 九宫格容器 */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 0 20px;
-            margin-top: -30px; /* 向上偏移产生重叠效果 */
-        }
-
-        .nav-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 25px 15px;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: 0.2s;
-        }
-
-        .nav-card:active {
-            transform: translateY(2px);
-            background: #fafafa;
-        }
-
-        .nav-card i {
-            font-size: 32px;
-            margin-bottom: 12px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-card span {
-            color: var(--text-main);
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        /* 底部提示卡片 */
-        .notice-card {
-            margin: 25px 20px;
-            background: #fff9eb;
-            border-radius: 15px;
-            padding: 18px;
-            border-left: 5px solid #ffcc00;
-        }
-
-        .notice-card h4 {
-            margin: 0 0 8px;
-            color: #d48806;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .notice-card p {
-            margin: 0;
-            font-size: 13px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* 微信联系按钮 */
-        .contact-btn {
-            margin: 0 20px;
-            background: #07c160;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(7,193,96,0.3);
-        }
-
-        .footer {
-            text-align: center;
-            color: #bbb;
-            font-size: 12px;
-            margin-top: 30px;
-        }
+        /* 底部按钮 */
+        .action-area { padding: 20px; }
+        .btn-primary { background: #07c160; color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: bold; box-shadow: 0 4px 12px rgba(7,193,96,0.2); }
+        
+        .footer { text-align: center; font-size: 12px; color: #bbb; padding: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="header-section">
-        <div class="weather-bar">
-            <span>Weather | ☀️ 28°C</span>
-            <span>💨 3级</span>
-        </div>
+    <div class="header">
         <h1>JTW 360</h1>
-        <p>汕尾保利金町湾 · 本地生活向导</p>
+        <div class="sub-title">保利金町湾 · 本地生活向导</div>
     </div>
 
-    <div class="grid-container">
-        <a href="https://uri.amap.com/marker?position=115.289,22.766&name=公共厕所" class="nav-card">
+    <div class="info-bar">
+        <span>🌊 今日潮汐：<span class="info-tag">16:30 低潮</span></span>
+        <span>☀️ 天气：28°C 晴</span>
+    </div>
+
+    <div class="section-title"><i class="fas fa-star"></i> 基础刚需</div>
+    <div class="grid">
+        <a href="https://uri.amap.com/marker?position=115.289,22.766&name=公共厕所" class="nav-item">
             <i class="fas fa-restroom"></i>
             <span>找厕所</span>
         </a>
-        <a href="https://uri.amap.com/marker?position=115.290,22.765&name=金町湾P1停车场" class="nav-card">
+        <a href="https://uri.amap.com/marker?position=115.290,22.765&name=金町湾停车场" class="nav-item">
             <i class="fas fa-parking"></i>
             <span>找车位</span>
         </a>
-        <a href="https://uri.amap.com/marker?position=115.291,22.764&name=淋浴换衣间" class="nav-card">
+        <a href="https://uri.amap.com/marker?position=115.291,22.764&name=更衣冲凉房" class="nav-item">
             <i class="fas fa-shower"></i>
             <span>冲凉换衣</span>
         </a>
-        <a href="https://uri.amap.com/marker?position=115.292,22.763&name=最佳日落点" class="nav-card">
-            <i class="fas fa-camera"></i>
-            <span>日落摄影</span>
+        <a href="https://uri.amap.com/marker?position=115.292,22.763&name=医务室" class="nav-item">
+            <i class="fas fa-user-md"></i>
+            <span>医疗救助</span>
         </a>
-        <a href="https://uri.amap.com/marker?position=115.293,22.762&name=外卖寄存点" class="nav-card">
-            <i class="fas fa-box-archive"></i>
-            <span>外卖点A</span>
+    </div>
+
+    <div class="section-title"><i class="fas fa-compass"></i> 玩乐/外卖</div>
+    <div class="grid">
+        <a href="#" class="nav-item">
+            <i class="fas fa-shovels"></i>
+            <span>最佳赶海点</span>
         </a>
-        <a href="#" class="nav-card">
+        <a href="#" class="nav-item">
+            <i class="fas fa-camera-alt"></i>
+            <span>日落摄影位</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-shopping-bag"></i>
+            <span>外卖寄存点</span>
+        </a>
+        <a href="#" class="nav-item">
             <i class="fas fa-utensils"></i>
-            <span>本地美食</span>
+            <span>美食推荐</span>
         </a>
     </div>
 
-    <div class="notice-card">
-        <h4><i class="fas fa-lightbulb"></i> 今日金町湾：</h4>
-        <p>1. 赶海提示：今日 16:30 低潮，退潮好赶海！<br>
-           2. 避坑：请勿在无救生员区域下水。</p>
+    <div class="section-title"><i class="fas fa-exclamation-circle"></i> 避坑指南</div>
+    <div class="tip-card">
+        <h4>📢 停车防贴单</h4>
+        <p>景区主干道严禁长时间停放，建议停在P1/P3停车场，首小时免费。</p>
+    </div>
+    <div class="tip-card">
+        <h4>💰 物价参考</h4>
+        <p>沙滩遮阳伞参考价：50-80元/小时，租借前请务必确认价格。</p>
     </div>
 
-    <a href="https://u.wechat.com/YOUR_QR_CODE" class="contact-btn">
-        <i class="fab fa-weixin"></i> 联系主理人 / 进游客群
-    </a>
+    <div class="action-area">
+        <a href="https://v.wechat.com/xxx" class="btn-primary">
+            <i class="fab fa-weixin"></i> 进入游客互助群 (有问必答)
+        </a>
+    </div>
 
     <div class="footer">
-        © 2026 JTW360.com All Rights Reserved.<br>
-        做金町湾最好用的导览助手
+        © 2026 JTW360.COM | 汕尾金町湾<br>
+        点击图标自动开启地图导航
     </div>
 
 </body>
