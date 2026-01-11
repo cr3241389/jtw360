@@ -12,6 +12,7 @@
         .header h1 { margin: 0; font-size: 28px; font-weight: 800; }
         .info-bar { margin: -25px 20px 0; background: white; border-radius: 12px; padding: 12px 15px; display: flex; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.08); font-size: 13px; }
         .section-title { padding: 25px 20px 10px; font-size: 17px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .section-title i { color: var(--primary); }
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; }
         .nav-item { background: var(--card); border-radius: 18px; padding: 18px 10px; text-align: center; text-decoration: none; color: #444; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
         .nav-item i { font-size: 28px; margin-bottom: 8px; display: block; background: linear-gradient(135deg, #0072ff, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -23,12 +24,16 @@
         .spot-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; background: #fafafa; }
         .spot-content.open { max-height: 5000px; transition: max-height 1s ease-in; }
         .spot-item { display: flex; gap: 12px; padding: 15px; border-bottom: 1px dashed #eee; align-items: flex-start; }
-        .spot-img { width: 90px; height: 68px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #eee; }
+        .spot-img { width: 90px; height: 68px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #eee; cursor: zoom-in; }
         .spot-info { flex: 1; }
         .spot-name { font-weight: bold; color: #333; display: block; margin-bottom: 4px; font-size: 14px; }
         .spot-desc { font-size: 12px; color: #666; line-height: 1.4; margin-bottom: 6px; }
         .nav-link { display: inline-block; background: #eef6ff; color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 11px; text-decoration: none; font-weight: bold; }
         
+        /* 大图预览灯箱样式 */
+        #lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; cursor: zoom-out; }
+        #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+
         .tip-card { background: #fff5ed; margin: 0 20px 15px; padding: 15px; border-radius: 15px; border-left: 4px solid #ff8800; }
         .btn-weixin { background: #07c160; color: white; text-align: center; padding: 15px; margin: 20px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: bold; }
         .footer { text-align: center; font-size: 11px; color: #bbb; padding: 20px; }
@@ -62,7 +67,7 @@
         <div id="spotContent" class="spot-content">
             
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/jinxia.jpg" alt="金霞光">
+                <img class="spot-img" loading="lazy" src="img/jinxia.jpg" alt="金霞光" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">金霞光森林公园</span>
                     <p class="spot-desc">步行可达，位于金亭村，首座滨海森林公园，山海境特色布局。</p>
@@ -71,7 +76,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/baihe.jpg" alt="白鹤寺">
+                <img class="spot-img" loading="lazy" src="img/baihe.jpg" alt="白鹤寺" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">白鹤寺海滩 (2km)</span>
                     <p class="spot-desc">黑礁岩和鹅卵石混合地形，适合赶海观礁。</p>
@@ -80,7 +85,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/paotai.jpg" alt="长沙炮台">
+                <img class="spot-img" loading="lazy" src="img/paotai.jpg" alt="长沙炮台" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">长沙炮台 (5km)</span>
                     <p class="spot-desc">古代海防要塞，紧邻长沙湾服务区，历史交融感强。</p>
@@ -89,7 +94,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/magong.jpg" alt="马宫沙滩">
+                <img class="spot-img" loading="lazy" src="img/magong.jpg" alt="马宫沙滩" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">马宫沙滩 (8km)</span>
                     <p class="spot-desc">小众无人沙滩，海上吊桥拍照非常出片。</p>
@@ -98,7 +103,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/chenzhou.jpg" alt="晨洲村">
+                <img class="spot-img" loading="lazy" src="img/chenzhou.jpg" alt="晨洲村" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">晨洲村 (9km)</span>
                     <p class="spot-desc">中国蚝乡，有蚝博物馆和独特的水上公路。</p>
@@ -107,7 +112,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/xiaodao.jpg" alt="小岛渔村">
+                <img class="spot-img" loading="lazy" src="img/xiaodao.jpg" alt="小岛渔村" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">小岛渔村 (11km)</span>
                     <p class="spot-desc">品清湖中央，复古工业风渔船厂，砖红栈道。</p>
@@ -116,7 +121,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/mazu.jpg" alt="凤山妈祖">
+                <img class="spot-img" loading="lazy" src="img/mazu.jpg" alt="凤山妈祖" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">凤山妈祖 (12km)</span>
                     <p class="spot-desc">4A景区，汕尾文化信仰中心，地标建筑。</p>
@@ -125,7 +130,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/museum.jpg" alt="博物馆">
+                <img class="spot-img" loading="lazy" src="img/museum.jpg" alt="博物馆" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">汕尾博物馆 (13km)</span>
                     <p class="spot-desc">深度了解汕尾历史、文化与民俗的窗口。</p>
@@ -134,7 +139,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/ermalu.jpg" alt="二马路">
+                <img class="spot-img" loading="lazy" src="img/ermalu.jpg" alt="二马路" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">二马路美食街 (30min)</span>
                     <p class="spot-desc">最具烟火气，地道小吃汇聚，晚间最热闹。</p>
@@ -143,7 +148,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/tongding.jpg" alt="铜鼎山">
+                <img class="spot-img" loading="lazy" src="img/tongding.jpg" alt="铜鼎山" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">铜鼎山旅游区 (18km)</span>
                     <p class="spot-desc">汕尾后花园，玻璃桥、七彩滑道等娱乐项目。</p>
@@ -152,7 +157,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/jiangmu.jpg" alt="江牡岛">
+                <img class="spot-img" loading="lazy" src="img/jiangmu.jpg" alt="江牡岛" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">江牡岛 (需坐船)</span>
                     <p class="spot-desc">马宫渔港快艇前往，景色壮美，海洋牧场。</p>
@@ -161,7 +166,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/baian.jpg" alt="百安沙滩">
+                <img class="spot-img" loading="lazy" src="img/baian.jpg" alt="百安沙滩" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">鲘门百安沙滩 (27km)</span>
                     <p class="spot-desc">野生冷门沙滩，人少清静，适合散步排档。</p>
@@ -170,7 +175,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/gubao.jpg" alt="古堡">
+                <img class="spot-img" loading="lazy" src="img/gubao.jpg" alt="古堡" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">红海湾古堡 (39km)</span>
                     <p class="spot-desc">网红海上古堡，风格独特，电影感十足。</p>
@@ -179,7 +184,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/fengche.jpg" alt="风车岛">
+                <img class="spot-img" loading="lazy" src="img/fengche.jpg" alt="风车岛" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">风车岛 (45km)</span>
                     <p class="spot-desc">唯美风车群，绝美沿海公路，航拍圣地。</p>
@@ -206,12 +211,22 @@
 
     <div class="footer">© 2026 JTW360.COM | 汕尾金町湾<br>部分图片来源于网络，侵删</div>
 
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="">
+    </div>
+
     <script>
         function toggleSpots() {
             const content = document.getElementById('spotContent');
             const arrow = document.getElementById('arrow');
             content.classList.toggle('open');
             arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function openLightbox(src) {
+            if(!src || src.includes('undefined')) return;
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
         }
     </script>
 </body>
