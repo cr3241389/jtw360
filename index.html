@@ -3,353 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>JTW 360 | 汕尾金町湾全能向导</title>
+    <title>JTW 360 | 金町湾全能向导</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#6366f1', // 靛蓝色主色
-                        success: '#10b981', // 绿色功能色
-                    },
-                    backgroundImage: {
-                        'gradient-light': 'linear-gradient(to bottom right, #f1f5f9, #e2e8f0)',
-                        'gradient-dark': 'linear-gradient(to bottom right, #0f172a, #1e293b)',
-                    }
-                },
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .no-scrollbar::-webkit-scrollbar { display: none; }
-            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-            .text-gradient { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-            .bg-glass {
-                @apply bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50;
-            }
-            .transition-all-300 { @apply transition-all duration-300 ease-in-out; }
-            /* 统一缩略图/大图尺寸 */
-            .spot-thumbnail { @apply w-24 h-18 rounded-xl object-cover bg-slate-200 dark:bg-slate-700 cursor-zoom-in; }
-            .spot-large-img { @apply w-[80vw] h-[60vw] max-w-[800px] max-h-[600px] object-contain; }
-        }
-    </style>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; }
-        .spot-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
-        .spot-content.open { max-height: 5000px; transition: max-height 1s ease-in; }
-        html { scroll-behavior: smooth; }
-        /* 灯箱动画 */
-        #lightbox { animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        :root { 
+            --primary: #165DFF; /* 主色调-淡蓝色 */
+            --accent: #69b1ff;  /* 辅助色-浅蓝 */
+            --bg: #e8f4ff;      /* 背景色-淡蓝底 */
+            --card: rgba(255, 255, 255, 0.85); /* 卡片背景-玻璃态 */
+            --shadow: rgba(22, 93, 255, 0.15); /* 阴影色 */
+            --border: rgba(22, 93, 255, 0.1);  /* 边框色 */
+        }
+        
+        /* 全局样式重置和基础设置 */
+        body { 
+            font-family: -apple-system, system-ui, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            color: #333; 
+            padding-bottom: 50px;
+            background-image: linear-gradient(120deg, #e8f4ff 0%, #f0f8ff 100%);
+            min-height: 100vh;
+        }
+        
+        /* 头部样式 - 玻璃渐变 */
+        .header { 
+            background: linear-gradient(135deg, #165DFF 0%, #69b1ff 100%); 
+            color: white; 
+            padding: 35px 20px 50px; 
+            border-bottom-left-radius: 30px; 
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 800; }
+        
+        /* 信息栏 - 玻璃拟态核心样式 */
+        .info-bar { 
+            margin: -25px 20px 0; 
+            background: var(--card); 
+            border-radius: 12px; 
+            padding: 12px 15px; 
+            display: flex; 
+            justify-content: space-between; 
+            box-shadow: 0 8px 32px var(--shadow); 
+            font-size: 13px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+        }
+        
+        /* 板块标题 */
+        .section-title { 
+            padding: 25px 20px 10px; 
+            font-size: 17px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        .section-title i { color: var(--primary); }
+        
+        /* 网格布局 */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            padding: 0 20px; 
+        }
+        
+        /* 导航项 - 玻璃拟态 */
+        .nav-item { 
+            background: var(--card); 
+            border-radius: 18px; 
+            padding: 18px 10px; 
+            text-align: center; 
+            text-decoration: none; 
+            color: #444; 
+            box-shadow: 0 8px 32px var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .nav-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px var(--shadow);
+        }
+        .nav-item i { 
+            font-size: 28px; 
+            margin-bottom: 8px; 
+            display: block; 
+            background: linear-gradient(135deg, #165DFF, #69b1ff); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        
+        /* 景点板块样式 - 玻璃拟态 */
+        .spot-section { 
+            margin: 15px 20px; 
+            background: var(--card); 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 8px 32px var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+        }
+        .spot-header { 
+            padding: 20px; 
+            background: transparent; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            cursor: pointer; 
+            border-bottom: 1px solid var(--border);
+        }
+        .spot-header h3 { 
+            margin: 0; 
+            font-size: 17px; 
+            color: var(--primary); /* 修改为主题蓝色 */
+        }
+        .spot-content { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.5s ease-out; 
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        .spot-content.open { 
+            max-height: 5000px; 
+            transition: max-height 1s ease-in; 
+        }
+        .spot-item { 
+            display: flex; 
+            gap: 12px; 
+            padding: 15px; 
+            border-bottom: 1px dashed var(--border); 
+            align-items: flex-start; 
+        }
+        .spot-img { 
+            width: 90px; 
+            height: 68px; 
+            border-radius: 8px; 
+            object-fit: cover; 
+            flex-shrink: 0; 
+            background: #eee; 
+            cursor: zoom-in;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .spot-info { flex: 1; }
+        .spot-name { 
+            font-weight: bold; 
+            color: #333; 
+            display: block; 
+            margin-bottom: 4px; 
+            font-size: 14px; 
+        }
+        .spot-desc { 
+            font-size: 12px; 
+            color: #666; 
+            line-height: 1.4; 
+            margin-bottom: 6px; 
+        }
+        .nav-link { 
+            display: inline-block; 
+            background: rgba(22, 93, 255, 0.1); 
+            color: var(--primary); 
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            text-decoration: none; 
+            font-weight: bold;
+            border: 1px solid var(--border);
+        }
+        
+        /* 大图预览灯箱样式 */
+        #lightbox { 
+            display: none; 
+            position: fixed; 
+            z-index: 9999; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.85); 
+            align-items: center; 
+            justify-content: center; 
+            cursor: zoom-out;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        #lightbox img { 
+            max-width: 90%; 
+            max-height: 80%; 
+            border-radius: 10px; 
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* 提示卡片 - 玻璃态调整 */
+        .tip-card { 
+            background: rgba(255, 255, 255, 0.85); 
+            margin: 0 20px 15px; 
+            padding: 15px; 
+            border-radius: 15px; 
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 8px 32px var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+        }
+        
+        /* 微信按钮 - 玻璃态调整 */
+        .btn-weixin { 
+            background: rgba(7, 193, 96, 0.1); 
+            color: #07c160; 
+            text-align: center; 
+            padding: 15px; 
+            margin: 20px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            font-weight: bold;
+            box-shadow: 0 8px 32px var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(7, 193, 96, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-weixin:hover {
+            background: rgba(7, 193, 96, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* 页脚 */
+        .footer { 
+            text-align: center; 
+            font-size: 11px; 
+            color: #666; 
+            padding: 20px; 
+        }
     </style>
 </head>
-<body class="bg-gradient-light dark:bg-gradient-dark text-slate-800 dark:text-slate-200 min-h-screen">
+<body>
 
-    <!-- 顶部操作栏 -->
-    <div class="fixed top-4 right-4 z-50 flex gap-2">
-        <div class="bg-glass rounded-full px-3 py-1 flex items-center gap-2 text-sm">
-            <button id="themeToggle" class="transition-all-300 hover:text-primary dark:hover:text-primary">
-                <i class="fas fa-moon dark:hidden"></i>
-                <i class="fas fa-sun hidden dark:block"></i>
-            </button>
-            <button class="transition-all-300 hover:text-primary dark:hover:text-primary">
-                <i class="fas fa-globe"></i>
-            </button>
-        </div>
+    <div class="header">
+        <h1>JTW 360</h1>
+        <div style="opacity: 0.9; font-size: 14px; margin-top: 5px;">金町湾 · 本地生活导览助手</div>
     </div>
 
-    <!-- 头部区域 -->
-    <header class="pt-20 pb-16 px-6 rounded-b-3xl bg-gradient-to-r from-primary/90 to-primary dark:from-primary/80 dark:to-primary/90 text-white">
-        <h1 class="text-[clamp(1.75rem,4vw,2rem)] font-extrabold mb-2">JTW 360</h1>
-        <p class="text-white/90 text-sm">汕尾金町湾 · 本地生活导览助手</p>
-    </header>
-
-    <!-- 信息栏 -->
-    <div class="mx-6 mt-[-25px] bg-glass rounded-2xl p-4 shadow-lg text-sm flex flex-wrap justify-between gap-2">
-        <span class="flex-1 min-w-[120px]">🌊 今日潮汐：<span class="text-orange-500 dark:text-orange-400 font-bold">16:30 低潮</span></span>
-        <span class="flex-1 min-w-[120px]">☀️ 汕尾：28°C 晴</span>
+    <div class="info-bar">
+        <span>🌊 今日潮汐：<span style="color:#f50; font-weight:bold;">16:30 低潮</span></span>
+        <span>☀️ 汕尾：28°C 晴</span>
     </div>
 
-    <!-- 基础服务板块 -->
-    <section class="mt-8">
-        <h2 class="px-6 py-2 text-lg font-bold flex items-center gap-2">
-            <i class="fas fa-server text-primary"></i> 基础服务
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 px-6 mt-2">
-            <a href="https://uri.amap.com/marker?position=115.292562,22.795063&name=金町湾公共厕所" 
-               class="bg-glass rounded-2xl p-6 text-center text-slate-700 dark:text-slate-200 no-underline transition-all-300 hover:scale-[1.02] hover:shadow-md">
-                <i class="fas fa-toilet text-2xl block mb-2 bg-gradient-to-r from-primary to-purple-500 text-gradient"></i>
-                <span>找厕所</span>
-            </a>
-            <a href="https://uri.amap.com/marker?position=115.292173,22.795188&name=金町湾免费停车场" 
-               class="bg-glass rounded-2xl p-6 text-center text-slate-700 dark:text-slate-200 no-underline transition-all-300 hover:scale-[1.02] hover:shadow-md">
-                <i class="fas fa-parking text-2xl block mb-2 bg-gradient-to-r from-primary to-purple-500 text-gradient"></i>
-                <span>免费停车场</span>
-            </a>
-            <a href="https://uri.amap.com/marker?position=115.294262,22.796557&name=金町湾充电桩" 
-               class="bg-glass rounded-2xl p-6 text-center text-slate-700 dark:text-slate-200 no-underline transition-all-300 hover:scale-[1.02] hover:shadow-md">
-                <i class="fas fa-charging-station text-2xl block mb-2 bg-gradient-to-r from-primary to-purple-500 text-gradient"></i>
-                <span>充电桩</span>
-            </a>
-            <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" 
-               class="bg-glass rounded-2xl p-6 text-center text-slate-700 dark:text-slate-200 no-underline transition-all-300 hover:scale-[1.02] hover:shadow-md">
-                <i class="fas fa-user-md text-2xl block mb-2 bg-gradient-to-r from-primary to-purple-500 text-gradient"></i>
-                <span>医疗救助</span>
-            </a>
-        </div>
-    </section>
+    <div class="section-title"><i class="fas fa-server"></i> 基础服务</div>
+    <div class="grid">
+        <a href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所" class="nav-item"><i class="fas fa-toilet"></i><span>找厕所</span></a>
+        <a href="https://uri.amap.com/marker?position=115.292173,22.795188&name=免费停车场" class="nav-item"><i class="fas fa-parking"></i><span>免费停车场</span></a>
+        <a href="https://uri.amap.com/marker?position=115.294262,22.796557&name=充电桩" class="nav-item"><i class="fas fa-charging-station"></i><span>充电桩</span></a>
+        <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" class="nav-item"><i class="fas fa-user-md"></i><span>医疗救助</span></a>
+    </div>
 
-    <!-- 热门打卡点板块（完整保留所有景点+统一卡片风格） -->
-    <section class="mt-8">
-        <div class="mx-6 bg-glass rounded-3xl shadow-lg overflow-hidden">
-            <div class="p-4 flex justify-between items-center cursor-pointer" onclick="toggleSpots()">
-                <h2 class="text-lg font-bold flex items-center gap-2 text-orange-500 dark:text-orange-400">
-                    <i class="fas fa-camera-retro"></i> 汕尾热门打卡点
-                </h2>
-                <i id="arrow" class="fas fa-chevron-down text-slate-400 dark:text-slate-500 transition-all-300"></i>
-            </div>
-            <div id="spotContent" class="spot-content bg-slate-50/80 dark:bg-slate-800/80 backdrop-blur-sm">
-                <div class="p-2">
-                    <!-- 1. 金霞光森林公园 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/jinxia.jpg" alt="金霞光森林公园" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">金霞光森林公园</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">步行可达，位于金亭村，首座滨海森林公园，山海境特色布局。</p>
-                            <a href="https://uri.amap.com/marker?position=115.28309,22.801956&name=金霞光森林公园" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 2. 白鹤寺海滩 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/baihe.jpg" alt="白鹤寺海滩" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">白鹤寺海滩 (2km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">黑礁岩和鹅卵石混合地形，适合赶海观礁。</p>
-                            <a href="https://uri.amap.com/marker?position=115.277448,22.790192&name=白鹤寺" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 3. 长沙炮台 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/paotai.jpg" alt="长沙炮台" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">长沙炮台 (5km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">古代海防要塞，紧邻长沙湾服务区，历史交融感强。</p>
-                            <a href="https://uri.amap.com/marker?position=115.273266,22.82449&name=长沙炮台" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 4. 马宫沙滩 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/magong.jpg" alt="马宫沙滩" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">马宫沙滩 (8km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">小众无人沙滩，海上吊桥拍照非常出片。</p>
-                            <a href="https://uri.amap.com/marker?position=115.244504,22.784115&name=马宫沙滩" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 5. 晨洲村 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/chenzhou.jpg" alt="晨洲村" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">晨洲村 (9km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">中国蚝乡，有蚝博物馆和独特的水上公路。</p>
-                            <a href="https://uri.amap.com/marker?position=115.299666,22.848598&name=晨洲村" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 6. 小岛渔村 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/xiaodao.jpg" alt="小岛渔村" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">小岛渔村 (11km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">品清湖中央，复古工业风渔船厂，砖红栈道。定位是停车的位置，停好后直行左转过马路就到了，路边随便停会罚款</p>
-                            <a href="https://uri.amap.com/marker?position=115.372939,22.768537&name=小岛渔村" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 7. 凤山妈祖 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/mazu.jpg" alt="凤山妈祖" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">凤山妈祖 (12km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">4A景区，汕尾文化信仰中心，地标建筑。</p>
-                            <a href="https://uri.amap.com/marker?position=115.370029,22.762059&name=凤山祖庙" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 8. 汕尾博物馆 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/museum.jpg" alt="汕尾博物馆" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">汕尾博物馆 (13km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">深度了解汕尾历史、文化与民俗的窗口。</p>
-                            <a href="https://uri.amap.com/marker?position=115.40,22.79&name=汕尾市博物馆地上停车场" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 9. 二马路美食街 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/ermalu.jpg" alt="二马路美食街" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">二马路美食街 (30min)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">最具烟火气，地道小吃汇聚，晚间最热闹。定位在信利大厦停车场，二马路不好停车，坐电梯到一楼出来左转过马路就到二马路了</p>
-                            <a href="https://uri.amap.com/marker?position=115.359916,22.773525&name=二马路" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 10. 铜鼎山旅游区 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/tongding.jpg" alt="铜鼎山旅游区" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">铜鼎山旅游区 (18km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">汕尾后花园，玻璃桥、七彩滑道等娱乐项目。</p>
-                            <a href="https://uri.amap.com/marker?position=115.365492,22.82482&name=铜鼎山旅游区" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 11. 江牡岛 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/jiangmu.jpg" alt="江牡岛" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">江牡岛 (需坐船)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">马宫渔港快艇前往，景色壮美，海洋牧场。</p>
-                            <a href="https://uri.amap.com/marker?position=115.241373,22.791992&name=马宫渔港" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 导航至码头
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 12. 百安沙滩 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/baian.jpg" alt="百安沙滩" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">鲘门百安沙滩 (27km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">野生冷门沙滩，人少清静，适合散步排档。</p>
-                            <a href="https://uri.amap.com/marker?position=115.174871,22.785707&name=百安沙滩" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 13. 红海湾古堡 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/gubao.jpg" alt="红海湾古堡" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">红海湾古堡 (39km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">网红海上古堡，风格独特，电影感十足。</p>
-                            <a href="https://uri.amap.com/marker?position=115.569269,22.662093&name=南海观音古堡" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
-                    <!-- 14. 风车岛 -->
-                    <div class="flex gap-3 p-3 border-b border-slate-200/50 dark:border-slate-700/50 last:border-0">
-                        <img class="spot-thumbnail" loading="lazy" src="img/fengche.jpg" alt="风车岛" onclick="openLightbox(this.src)">
-                        <div class="flex-1">
-                            <span class="block font-bold text-sm mb-1">风车岛 (45km)</span>
-                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">唯美风车群，绝美沿海公路，航拍圣地。</p>
-                            <a href="https://uri.amap.com/marker?position=115.586019,22.736799&name=风车岛" 
-                               class="inline-block bg-slate-100 dark:bg-slate-700 text-primary text-xs font-bold px-3 py-1 rounded-md no-underline transition-all-300 hover:bg-slate-200 dark:hover:bg-slate-600">
-                                📍 立即导航
-                            </a>
-                        </div>
-                    </div>
+    <div class="spot-section">
+        <div class="spot-header" onclick="toggleSpots()">
+            <h3><i class="fas fa-camera-retro"></i> 热门打卡点 (点击展开)</h3>
+            <i id="arrow" class="fas fa-chevron-down" style="color: #ccc; transition: 0.3s;"></i>
+        </div>
+        <div id="spotContent" class="spot-content">
+            
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/jinxia.jpg" alt="金霞光" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">金霞光森林公园</span>
+                    <p class="spot-desc">步行可达，位于金亭村，首座滨海森林公园，山海境特色布局。</p>
+                    <a href="https://uri.amap.com/marker?position=115.28309,22.801956&name=金霞光森林公园" class="nav-link">📍 立即导航</a>
                 </div>
             </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/baihe.jpg" alt="白鹤寺" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">白鹤寺海滩 (2km)</span>
+                    <p class="spot-desc">黑礁岩和鹅卵石混合地形，适合赶海观礁。</p>
+                    <a href="https://uri.amap.com/marker?position=115.277448,22.790192&name=白鹤寺" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/paotai.jpg" alt="长沙炮台" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">长沙炮台 (5km)</span>
+                    <p class="spot-desc">古代海防要塞，紧邻长沙湾服务区，历史交融感强。</p>
+                    <a href="https://uri.amap.com/marker?position=115.273266,22.82449&name=长沙炮台" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/magong.jpg" alt="马宫沙滩" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">马宫沙滩 (8km)</span>
+                    <p class="spot-desc">小众无人沙滩，海上吊桥拍照非常出片。</p>
+                    <a href="https://uri.amap.com/marker?position=115.244504,22.784115&name=马宫沙滩" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/chenzhou.jpg" alt="晨洲村" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">晨洲村 (9km)</span>
+                    <p class="spot-desc">中国蚝乡，有蚝博物馆和独特的水上公路。</p>
+                    <a href="https://uri.amap.com/marker?position=115.299666,22.848598&name=晨洲村" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/xiaodao.jpg" alt="小岛渔村" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">小岛渔村 (11km)</span>
+                    <p class="spot-desc">品清湖中央，复古工业风渔船厂，砖红栈道。定位是停车的位置，停好后直行左转过马路就到了，路边随便停会罚款</p>
+                    <a href="https://uri.amap.com/marker?position=115.372939,22.768537&name=小岛渔村" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/mazu.jpg" alt="凤山妈祖" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">凤山妈祖 (12km)</span>
+                    <p class="spot-desc">4A景区，汕尾文化信仰中心，地标建筑。</p>
+                    <a href="https://uri.amap.com/marker?position=115.370029,22.762059&name=凤山祖庙" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/museum.jpg" alt="博物馆" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">汕尾博物馆 (13km)</span>
+                    <p class="spot-desc">深度了解汕尾历史、文化与民俗的窗口。</p>
+                    <a href="https://uri.amap.com/marker?position=115.40,22.79&name=汕尾市博物馆地上停车场" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/ermalu.jpg" alt="二马路" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">二马路美食街 (30min)</span>
+                    <p class="spot-desc">最具烟火气，地道小吃汇聚，晚间最热闹。定位在信利大厦停车场，二马路不好停车，坐电梯到一楼出来左转过马路就到二马路了</p>
+                    <a href="https://uri.amap.com/marker?position=115.359916,22.773525&name=二马路" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/tongding.jpg" alt="铜鼎山" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">铜鼎山旅游区 (18km)</span>
+                    <p class="spot-desc">汕尾后花园，玻璃桥、七彩滑道等娱乐项目。</p>
+                    <a href="https://uri.amap.com/marker?position=115.365492,22.82482&name=铜鼎山旅游区" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/jiangmu.jpg" alt="江牡岛" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">江牡岛 (需坐船)</span>
+                    <p class="spot-desc">马宫渔港快艇前往，景色壮美，海洋牧场。</p>
+                    <a href="https://uri.amap.com/marker?position=115.241373,22.791992&name=马宫渔港" class="nav-link">📍 导航至码头</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/baian.jpg" alt="百安沙滩" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">鲘门百安沙滩 (27km)</span>
+                    <p class="spot-desc">野生冷门沙滩，人少清静，适合散步排档。</p>
+                    <a href="https://uri.amap.com/marker?position=115.174871,22.785707&name=百安沙滩" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/gubao.jpg" alt="古堡" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">红海湾古堡 (39km)</span>
+                    <p class="spot-desc">网红海上古堡，风格独特，电影感十足。</p>
+                    <a href="https://uri.amap.com/marker?position=115.569269,22.662093&name=南海观音古堡" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/fengche.jpg" alt="风车岛" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">风车岛 (45km)</span>
+                    <p class="spot-desc">唯美风车群，绝美沿海公路，航拍圣地。</p>
+                    <a href="https://uri.amap.com/marker?position=115.586019,22.736799&name=风车岛" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
         </div>
-    </section>
+    </div>
 
-    <!-- 实用服务板块 -->
-    <section class="mt-8">
-        <h2 class="px-6 py-2 text-lg font-bold flex items-center gap-2">
-            <i class="fas fa-shopping-bag text-primary"></i> 实用服务
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 px-6 mt-2">
-            <a href="https://uri.amap.com/marker?position=115.293021,22.794856&name=金町湾外卖寄存点" 
-               class="bg-glass rounded-2xl p-6 text-center text-slate-700 dark:text-slate-200 no-underline transition-all-300 hover:scale-[1.02] hover:shadow-md">
-                <i class="fas fa-box-open text-2xl block mb-2 bg-gradient-to-r from-primary to-purple-500 text-gradient"></i>
-                <span>外卖寄存点</span>
-            </a>
-            <a href="https://uri.amap.com/marker?position=115.291855,22.793988&name=金町湾日落最佳观赏点" 
-               class="bg-glass rounded-2xl p-6 text-center text-slate-700 dark:text-slate-200 no-underline transition-all-300 hover:scale-[1.02] hover:shadow-md">
-                <i class="fas fa-camera text-2xl block mb-2 bg-gradient-to-r from-primary to-purple-500 text-gradient"></i>
-                <span>日落点</span>
-            </a>
-        </div>
-    </section>
+    <div class="section-title"><i class="fas fa-shopping-bag"></i> 实用服务</div>
+    <div class="grid">
+        <a href="#" class="nav-item"><i class="fas fa-box-open"></i><span>外卖寄存点</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-camera"></i><span>日落点</span></a>
+    </div>
 
-    <!-- 避坑卡片 -->
-    <section class="mt-8 px-6">
-        <h2 class="py-2 text-lg font-bold flex items-center gap-2">
-            <i class="fas fa-info-circle text-primary"></i> 避坑卡片
-        </h2>
-        <div class="mt-2 bg-orange-50/70 dark:bg-orange-900/20 border-l-4 border-orange-500 dark:border-orange-400 rounded-2xl p-4">
-            <h4 class="font-bold text-sm mb-2 flex items-center gap-1">
-                📢 停车提示
-            </h4>
-            <p class="text-xs text-slate-600 dark:text-slate-300">金町湾主干道禁停。建议停P1/P3停车场。违停罚款150-200元。</p>
-        </div>
-    </section>
+    <div class="section-title"><i class="fas fa-info-circle"></i> 避坑卡片</div>
+    <div class="tip-card">
+        <h4>📢 停车提示</h4>
+        <p>主干道禁停。建议停P1/P3。违停罚款150-200元。</p>
+    </div>
 
-    <!-- 微信社群按钮 -->
-    <a href="#" class="block mx-6 mt-8 bg-success/90 dark:bg-success/80 text-white rounded-2xl p-4 text-center font-bold no-underline flex items-center justify-center gap-2 transition-all-300 hover:bg-success hover:shadow-lg">
-        <i class="fab fa-weixin"></i> 
-        进入汕尾金町湾游客互助群
-    </a>
+    <a href="#" class="btn-weixin"><i class="fab fa-weixin"></i> 进入游客互助群</a>
 
-    <!-- 页脚 -->
-    <footer class="mt-10 text-center text-xs text-slate-400 dark:text-slate-500 px-6 py-5">
-        © 2026 JTW360.COM | 汕尾金町湾<br>部分图片来源于网络，侵删
-    </footer>
+    <div class="footer">© 2026 JTW360.COM | 汕尾金町湾<br>部分图片来源于网络，侵删</div>
 
-    <!-- 图片预览灯箱（统一大图尺寸） -->
-    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center cursor-zoom-out" onclick="this.style.display='none'">
-        <img id="lightbox-img" class="spot-large-img rounded-2xl shadow-2xl" src="">
+    <div id="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="">
     </div>
 
     <script>
-        // 深色模式初始化与切换
-        const themeToggle = document.getElementById('themeToggle');
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            const theme = savedTheme || systemTheme;
-            if (theme === 'dark') document.documentElement.classList.add('dark');
-        }
-        themeToggle.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-
-        // 景点展开/收起
         function toggleSpots() {
             const content = document.getElementById('spotContent');
             const arrow = document.getElementById('arrow');
@@ -357,36 +433,11 @@
             arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // 图片预览（统一大图尺寸）
         function openLightbox(src) {
             if(!src || src.includes('undefined')) return;
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = src;
-            lightbox.style.display = 'flex';
-            
-            // ESC关闭
-            const closeByEsc = (e) => {
-                if(e.key === 'Escape') {
-                    lightbox.style.display = 'none';
-                    document.removeEventListener('keydown', closeByEsc);
-                }
-            };
-            document.addEventListener('keydown', closeByEsc);
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
         }
-
-        // 页面加载初始化
-        window.onload = function() {
-            initTheme();
-        }
-
-        // 监听系统主题变化
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                if (e.matches) document.documentElement.classList.add('dark');
-                else document.documentElement.classList.remove('dark');
-            }
-        });
     </script>
 </body>
 </html>
