@@ -3,71 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>JTW 360 | 金町湾全能向导</title>
+    <title>JTW 360 | 汕尾金町湾全能向导</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #007aff; --accent: #00c6ff; --bg: #f2f5f8; --card: #ffffff; }
-        body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; color: #333; padding-bottom: 50px; }
-        .header { background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%); color: white; padding: 35px 20px 50px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        :root { 
+            --primary: #007aff; 
+            --accent: #00c6ff; 
+            --bg: #f2f5f8; 
+            --card: #ffffff;
+            --warning: #ff8800;
+            --success: #07c160;
+        }
+        body { 
+            font-family: -apple-system, system-ui, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            color: #333; 
+            padding-bottom: 50px; 
+            line-height: 1.5;
+        }
+        .header { 
+            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%); 
+            color: white; 
+            padding: 35px 20px 50px; 
+            border-bottom-left-radius: 30px; 
+            border-bottom-right-radius: 30px; 
+        }
         .header h1 { margin: 0; font-size: 28px; font-weight: 800; }
-        .info-bar { margin: -25px 20px 0; background: white; border-radius: 12px; padding: 12px 15px; display: flex; justify-content: space-between; box-shadow: 0 4px 15px rgba(0,0,0,0.08); font-size: 13px; }
-        .section-title { padding: 25px 20px 10px; font-size: 17px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .header-desc { opacity: 0.9; font-size: 14px; margin-top: 5px; }
+        
+        .info-bar { 
+            margin: -25px 20px 0; 
+            background: white; 
+            border-radius: 12px; 
+            padding: 12px 15px; 
+            display: flex; 
+            flex-wrap: wrap;
+            justify-content: space-between; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            font-size: 13px; 
+            gap: 8px;
+        }
+        .info-bar span { flex: 1; min-width: 120px; }
+        .info-highlight { color:#f50; font-weight:bold; }
+        
+        .section-title { 
+            padding: 25px 20px 10px; 
+            font-size: 17px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
         .section-title i { color: var(--primary); }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; }
-        .nav-item { background: var(--card); border-radius: 18px; padding: 18px 10px; text-align: center; text-decoration: none; color: #444; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .nav-item i { font-size: 28px; margin-bottom: 8px; display: block; background: linear-gradient(135deg, #0072ff, #00c6ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            padding: 0 20px; 
+        }
+        .nav-item { 
+            background: var(--card); 
+            border-radius: 18px; 
+            padding: 18px 10px; 
+            text-align: center; 
+            text-decoration: none; 
+            color: #444; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+            transition: transform 0.2s;
+        }
+        .nav-item:hover { transform: scale(1.02); }
+        .nav-item i { 
+            font-size: 28px; 
+            margin-bottom: 8px; 
+            display: block; 
+            background: linear-gradient(135deg, #0072ff, #00c6ff); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
         
         /* 景点板块样式 */
-        .spot-section { margin: 15px 20px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .spot-header { padding: 20px; background: #fff; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid #eee; }
-        .spot-header h3 { margin: 0; font-size: 17px; color: #ff4500; }
-        .spot-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; background: #fafafa; }
-        .spot-content.open { max-height: 5000px; transition: max-height 1s ease-in; }
-        .spot-item { display: flex; gap: 12px; padding: 15px; border-bottom: 1px dashed #eee; align-items: flex-start; }
-        .spot-img { width: 90px; height: 68px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #eee; cursor: zoom-in; }
+        .spot-section { 
+            margin: 15px 20px; 
+            background: white; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+        }
+        .spot-header { 
+            padding: 20px; 
+            background: #fff; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            cursor: pointer; 
+            border-bottom: 1px solid #eee; 
+        }
+        .spot-header h3 { 
+            margin: 0; 
+            font-size: 17px; 
+            color: #ff4500; 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .spot-content { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.5s ease-out; 
+            background: #fafafa; 
+        }
+        .spot-content.open { 
+            max-height: 5000px; 
+            transition: max-height 1s ease-in; 
+        }
+        .spot-item { 
+            display: flex; 
+            gap: 12px; 
+            padding: 15px; 
+            border-bottom: 1px dashed #eee; 
+            align-items: flex-start; 
+        }
+        .spot-item:last-child { border-bottom: none; }
+        .spot-img { 
+            width: 90px; 
+            height: 68px; 
+            border-radius: 8px; 
+            object-fit: cover; 
+            flex-shrink: 0; 
+            background: #eee; 
+            cursor: zoom-in; 
+        }
         .spot-info { flex: 1; }
-        .spot-name { font-weight: bold; color: #333; display: block; margin-bottom: 4px; font-size: 14px; }
-        .spot-desc { font-size: 12px; color: #666; line-height: 1.4; margin-bottom: 6px; }
-        .nav-link { display: inline-block; background: #eef6ff; color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 11px; text-decoration: none; font-weight: bold; }
+        .spot-name { 
+            font-weight: bold; 
+            color: #333; 
+            display: block; 
+            margin-bottom: 4px; 
+            font-size: 14px; 
+        }
+        .spot-desc { 
+            font-size: 12px; 
+            color: #666; 
+            line-height: 1.4; 
+            margin-bottom: 6px; 
+        }
+        .nav-link { 
+            display: inline-block; 
+            background: #eef6ff; 
+            color: var(--primary); 
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: background 0.2s;
+        }
+        .nav-link:hover { background: #d8e8ff; }
         
         /* 大图预览灯箱样式 */
-        #lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; cursor: zoom-out; }
-        #lightbox img { max-width: 90%; max-height: 80%; border-radius: 10px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        #lightbox { 
+            display: none; 
+            position: fixed; 
+            z-index: 9999; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.9); 
+            align-items: center; 
+            justify-content: center; 
+            cursor: zoom-out; 
+        }
+        #lightbox img { 
+            max-width: 90%; 
+            max-height: 80%; 
+            border-radius: 10px; 
+            box-shadow: 0 0 20px rgba(255,255,255,0.2); 
+        }
 
-        .tip-card { background: #fff5ed; margin: 0 20px 15px; padding: 15px; border-radius: 15px; border-left: 4px solid #ff8800; }
-        .btn-weixin { background: #07c160; color: white; text-align: center; padding: 15px; margin: 20px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: bold; }
-        .footer { text-align: center; font-size: 11px; color: #bbb; padding: 20px; }
+        .tip-card { 
+            background: #fff5ed; 
+            margin: 0 20px 15px; 
+            padding: 15px; 
+            border-radius: 15px; 
+            border-left: 4px solid var(--warning); 
+        }
+        .tip-card h4 { 
+            margin: 0 0 8px 0; 
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .tip-card p { 
+            margin: 0; 
+            font-size: 13px; 
+            color: #666;
+        }
+        
+        .btn-weixin { 
+            background: var(--success); 
+            color: white; 
+            text-align: center; 
+            padding: 15px; 
+            margin: 20px; 
+            border-radius: 12px; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            font-weight: bold; 
+            box-shadow: 0 4px 8px rgba(7, 193, 96, 0.2);
+            transition: background 0.2s;
+        }
+        .btn-weixin:hover { background: #06b058; }
+        
+        .footer { 
+            text-align: center; 
+            font-size: 11px; 
+            color: #bbb; 
+            padding: 20px; 
+            margin-top: 10px;
+        }
+        
+        /* 适配小屏 */
+        @media (max-width: 375px) {
+            .grid { gap: 8px; }
+            .nav-item { padding: 14px 8px; }
+            .nav-item i { font-size: 24px; }
+            .spot-img { width: 80px; height: 60px; }
+        }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>JTW 360</h1>
-        <div style="opacity: 0.9; font-size: 14px; margin-top: 5px;">金町湾 · 本地生活导览助手</div>
+        <div class="header-desc">汕尾金町湾 · 本地生活导览助手</div>
     </div>
 
     <div class="info-bar">
-        <span>🌊 今日潮汐：<span style="color:#f50; font-weight:bold;">16:30 低潮</span></span>
+        <span>🌊 今日潮汐：<span class="info-highlight">16:30 低潮</span></span>
         <span>☀️ 汕尾：28°C 晴</span>
     </div>
 
     <div class="section-title"><i class="fas fa-server"></i> 基础服务</div>
     <div class="grid">
-        <a href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所" class="nav-item"><i class="fas fa-toilet"></i><span>找厕所</span></a>
-        <a href="https://uri.amap.com/marker?position=115.292173,22.795188&name=免费停车场" class="nav-item"><i class="fas fa-parking"></i><span>免费停车场</span></a>
-        <a href="https://uri.amap.com/marker?position=115.294262,22.796557&name=充电桩" class="nav-item"><i class="fas fa-charging-station"></i><span>充电桩</span></a>
-        <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" class="nav-item"><i class="fas fa-user-md"></i><span>医疗救助</span></a>
+        <a href="https://uri.amap.com/marker?position=115.292562,22.795063&name=金町湾公共厕所" class="nav-item">
+            <i class="fas fa-toilet"></i>
+            <span>找厕所</span>
+        </a>
+        <a href="https://uri.amap.com/marker?position=115.292173,22.795188&name=金町湾免费停车场" class="nav-item">
+            <i class="fas fa-parking"></i>
+            <span>免费停车场</span>
+        </a>
+        <a href="https://uri.amap.com/marker?position=115.294262,22.796557&name=金町湾充电桩" class="nav-item">
+            <i class="fas fa-charging-station"></i>
+            <span>充电桩</span>
+        </a>
+        <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" class="nav-item">
+            <i class="fas fa-user-md"></i>
+            <span>医疗救助</span>
+        </a>
     </div>
 
     <div class="spot-section">
         <div class="spot-header" onclick="toggleSpots()">
-            <h3><i class="fas fa-camera-retro"></i> 热门打卡点 (点击展开)</h3>
+            <h3><i class="fas fa-camera-retro"></i> 汕尾热门打卡点</h3>
             <i id="arrow" class="fas fa-chevron-down" style="color: #ccc; transition: 0.3s;"></i>
         </div>
         <div id="spotContent" class="spot-content">
             
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/jinxia.jpg" alt="金霞光" onclick="openLightbox(this.src)">
+                <img class="spot-img" loading="lazy" src="img/jinxia.jpg" alt="金霞光森林公园" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">金霞光森林公园</span>
                     <p class="spot-desc">步行可达，位于金亭村，首座滨海森林公园，山海境特色布局。</p>
@@ -76,7 +287,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/baihe.jpg" alt="白鹤寺" onclick="openLightbox(this.src)">
+                <img class="spot-img" loading="lazy" src="img/baihe.jpg" alt="白鹤寺海滩" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">白鹤寺海滩 (2km)</span>
                     <p class="spot-desc">黑礁岩和鹅卵石混合地形，适合赶海观礁。</p>
@@ -130,7 +341,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/museum.jpg" alt="博物馆" onclick="openLightbox(this.src)">
+                <img class="spot-img" loading="lazy" src="img/museum.jpg" alt="汕尾博物馆" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">汕尾博物馆 (13km)</span>
                     <p class="spot-desc">深度了解汕尾历史、文化与民俗的窗口。</p>
@@ -139,7 +350,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/ermalu.jpg" alt="二马路" onclick="openLightbox(this.src)">
+                <img class="spot-img" loading="lazy" src="img/ermalu.jpg" alt="二马路美食街" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">二马路美食街 (30min)</span>
                     <p class="spot-desc">最具烟火气，地道小吃汇聚，晚间最热闹。定位在信利大厦停车场，二马路不好停车，坐电梯到一楼出来左转过马路就到二马路了</p>
@@ -148,7 +359,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/tongding.jpg" alt="铜鼎山" onclick="openLightbox(this.src)">
+                <img class="spot-img" loading="lazy" src="img/tongding.jpg" alt="铜鼎山旅游区" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">铜鼎山旅游区 (18km)</span>
                     <p class="spot-desc">汕尾后花园，玻璃桥、七彩滑道等娱乐项目。</p>
@@ -175,7 +386,7 @@
             </div>
 
             <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/gubao.jpg" alt="古堡" onclick="openLightbox(this.src)">
+                <img class="spot-img" loading="lazy" src="img/gubao.jpg" alt="红海湾古堡" onclick="openLightbox(this.src)">
                 <div class="spot-info">
                     <span class="spot-name">红海湾古堡 (39km)</span>
                     <p class="spot-desc">网红海上古堡，风格独特，电影感十足。</p>
@@ -197,17 +408,26 @@
 
     <div class="section-title"><i class="fas fa-shopping-bag"></i> 实用服务</div>
     <div class="grid">
-        <a href="#" class="nav-item"><i class="fas fa-box-open"></i><span>外卖寄存点</span></a>
-        <a href="#" class="nav-item"><i class="fas fa-camera"></i><span>日落点</span></a>
+        <a href="https://uri.amap.com/marker?position=115.293021,22.794856&name=金町湾外卖寄存点" class="nav-item">
+            <i class="fas fa-box-open"></i>
+            <span>外卖寄存点</span>
+        </a>
+        <a href="https://uri.amap.com/marker?position=115.291855,22.793988&name=金町湾日落最佳观赏点" class="nav-item">
+            <i class="fas fa-camera"></i>
+            <span>日落点</span>
+        </a>
     </div>
 
     <div class="section-title"><i class="fas fa-info-circle"></i> 避坑卡片</div>
     <div class="tip-card">
         <h4>📢 停车提示</h4>
-        <p>主干道禁停。建议停P1/P3。违停罚款150-200元。</p>
+        <p>金町湾主干道禁停。建议停P1/P3停车场。违停罚款150-200元。</p>
     </div>
 
-    <a href="#" class="btn-weixin"><i class="fab fa-weixin"></i> 进入游客互助群</a>
+    <a href="#" class="btn-weixin">
+        <i class="fab fa-weixin"></i> 
+        进入汕尾金町湾游客互助群
+    </a>
 
     <div class="footer">© 2026 JTW360.COM | 汕尾金町湾<br>部分图片来源于网络，侵删</div>
 
@@ -216,6 +436,7 @@
     </div>
 
     <script>
+        // 初始化展开/收起功能
         function toggleSpots() {
             const content = document.getElementById('spotContent');
             const arrow = document.getElementById('arrow');
@@ -223,10 +444,26 @@
             arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
+        // 图片预览功能
         function openLightbox(src) {
             if(!src || src.includes('undefined')) return;
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = src;
+            lightbox.style.display = 'flex';
+            
+            // 点击ESC关闭
+            document.addEventListener('keydown', function(e) {
+                if(e.key === 'Escape') {
+                    lightbox.style.display = 'none';
+                }
+            });
+        }
+
+        // 页面加载完成后初始化
+        window.onload = function() {
+            // 可选：默认展开景点列表
+            // toggleSpots();
         }
     </script>
 </body>
