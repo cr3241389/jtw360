@@ -178,6 +178,28 @@
             border: 1px solid var(--border);
         }
         
+        /* 状态标签 */
+        .status-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        .status-free {
+            background: rgba(7, 193, 96, 0.2);
+            color: #07c160;
+        }
+        .status-paid {
+            background: rgba(255, 149, 0, 0.2);
+            color: #ff9500;
+        }
+        .status-full {
+            background: rgba(255, 59, 48, 0.2);
+            color: #ff3b30;
+        }
+        
         /* 大图预览灯箱样式 */
         #lightbox { 
             display: none; 
@@ -264,7 +286,7 @@
     <div class="section-title"><i class="fas fa-server"></i> 基础服务</div>
     <div class="grid">
         <a href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所" class="nav-item"><i class="fas fa-toilet"></i><span>找厕所</span></a>
-        <a href="https://uri.amap.com/marker?position=115.292173,22.795188&name=免费停车场" class="nav-item"><i class="fas fa-parking"></i><span>免费停车场</span></a>
+        <a href="#parking-section" class="nav-item"><i class="fas fa-parking"></i><span>停车指南</span></a>
         <a href="https://uri.amap.com/marker?position=115.294262,22.796557&name=充电桩" class="nav-item"><i class="fas fa-charging-station"></i><span>充电桩1</span></a>
         <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" class="nav-item"><i class="fas fa-user-md"></i><span>医疗救助</span></a>
     </div>
@@ -419,6 +441,70 @@
         <a href="#" class="nav-item"><i class="fas fa-camera"></i><span>日落点</span></a>
     </div>
 
+    <div id="parking-section" class="spot-section">
+        <div class="spot-header" onclick="toggleParking()">
+            <h3><i class="fas fa-parking"></i> 停车场指南 (点击展开)</h3>
+            <i id="parking-arrow" class="fas fa-chevron-down" style="color: #ccc; transition: 0.3s;"></i>
+        </div>
+        <div id="parkingContent" class="spot-content">
+            
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/jinxia.jpg" alt="服务中心停车场" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">服务中心停车场 <span class="status-tag status-free">免费</span></span>
+                    <p class="spot-desc">位于金町湾服务中心，车位充足，距离海滩步行5分钟，免费停车。</p>
+                    <a href="https://uri.amap.com/marker?position=115.292173,22.795188&name=金町湾服务中心停车场" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/baihe.jpg" alt="保利酒店停车场" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">保利金町湾酒店停车场 <span class="status-tag status-paid">收费</span></span>
+                    <p class="spot-desc">高端酒店配套停车场，车位充足，可停放过夜，收费标准请咨询酒店前台。</p>
+                    <a href="https://uri.amap.com/marker?position=115.289876,22.798765&name=保利金町湾酒店停车场" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/paotai.jpg" alt="游客中心停车场" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">游客中心停车场 <span class="status-tag status-free">免费</span></span>
+                    <p class="spot-desc">靠近游客服务中心，免费停车，节假日车位紧张，建议早到。</p>
+                    <a href="https://uri.amap.com/marker?position=115.296543,22.794321&name=金町湾游客中心停车场" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/magong.jpg" alt="商业广场停车场" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">商业广场停车场 <span class="status-tag status-paid">收费</span></span>
+                    <p class="spot-desc">位于金町湾商业区，停车位较多，收费标准按小时计费。</p>
+                    <a href="https://uri.amap.com/marker?position=115.293456,22.801234&name=金町湾商业广场停车场" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/chenzhou.jpg" alt="海滩临时停车场" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">海滩临时停车场 <span class="status-tag status-free">免费</span></span>
+                    <p class="spot-desc">节假日期间临时增设的停车场，车位有限，先到先得。</p>
+                    <a href="https://uri.amap.com/marker?position=115.291234,22.793456&name=金町湾海滩临时停车场" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/xiaodao.jpg" alt="度假村停车场" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">金町湾度假村停车场 <span class="status-tag status-paid">收费</span></span>
+                    <p class="spot-desc">高端度假村配套停车场，环境优美，需预订住宿方可停车。</p>
+                    <a href="https://uri.amap.com/marker?position=115.287654,22.799876&name=金町湾度假村停车场" class="nav-link">📍 立即导航</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="section-title"><i class="fas fa-info-circle"></i> 避坑卡片</div>
     <div class="tip-card">
         <h4>📢 停车提示</h4>
@@ -437,6 +523,13 @@
         function toggleSpots() {
             const content = document.getElementById('spotContent');
             const arrow = document.getElementById('arrow');
+            content.classList.toggle('open');
+            arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function toggleParking() {
+            const content = document.getElementById('parkingContent');
+            const arrow = document.getElementById('parking-arrow');
             content.classList.toggle('open');
             arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
