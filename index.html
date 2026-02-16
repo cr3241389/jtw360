@@ -15,6 +15,111 @@
             --border: rgba(22, 93, 255, 0.1);  /* 边框色 */
         }
         
+        body.dark-mode {
+            --primary: #4a9eff;
+            --accent: #69b1ff;
+            --bg: #1a1a2e;
+            --card: rgba(30, 30, 50, 0.85);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode {
+            background: #1a1a2e;
+            background-image: linear-gradient(120deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+        }
+        
+        body.dark-mode .header,
+        body.dark-mode .section-title,
+        body.dark-mode .spot-header,
+        body.dark-mode .spot-item,
+        body.dark-mode .tip-card,
+        body.dark-mode .nav-item,
+        body.dark-mode .nav-link,
+        body.dark-mode .spot-desc,
+        body.dark-mode .nav-link {
+            color: #eee;
+        }
+        
+        body.dark-mode .header {
+            background: rgba(30, 30, 50, 0.95);
+        }
+        
+        body.dark-mode .nav-item,
+        body.dark-mode .spot-item,
+        body.dark-mode .tip-card,
+        body.dark-mode .spot-content {
+            background: rgba(30, 30, 50, 0.85);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .spot-name {
+            color: #fff;
+        }
+        
+        body.dark-mode .status-tag {
+            background: rgba(74, 158, 255, 0.3);
+            color: #69b1ff;
+        }
+        
+        body.dark-mode .section-title i,
+        body.dark-mode .spot-header i,
+        body.dark-mode .nav-item i {
+            color: #69b1ff;
+        }
+        
+        body.dark-mode .mode-toggle,
+        body.dark-mode .lang-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #eee;
+        }
+        
+        /* WeChat QR Code Lightbox */
+        #wechat-lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .wechat-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .wechat-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #333;
+        }
+        
+        .wechat-content p {
+            margin: 10px 0;
+            color: #666;
+        }
+        
+        body.dark-mode .wechat-content {
+            background: rgba(30, 30, 50, 0.95);
+            color: #eee;
+        }
+        
+        body.dark-mode .wechat-content h3,
+        body.dark-mode .wechat-content p {
+            color: #eee;
+        }
+        
         /* 全局样式重置和基础设置 */
         body { 
             font-family: -apple-system, system-ui, sans-serif; 
@@ -36,6 +141,26 @@
             box-shadow: 0 8px 32px var(--shadow);
         }
         .header h1 { margin: 0; font-size: 28px; font-weight: 800; }
+        
+        .header-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .mode-toggle, .lang-toggle {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .mode-toggle:hover, .lang-toggle:hover {
+            background: rgba(255,255,255,0.3);
+        }
         
         /* 信息栏 - 玻璃拟态核心样式 */
         .info-bar { 
@@ -274,65 +399,105 @@
 <body>
 
     <div class="header">
-        <h1>JTW 360</h1>
-        <div style="opacity: 0.9; font-size: 14px; margin-top: 5px;">金町湾 · 本地生活导览助手</div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>JTW 360</h1>
+                <div style="opacity: 0.9; font-size: 14px; margin-top: 5px;" data-lang="金町湾 · 本地生活导览助手" data-lang-en="JTW360 · Local Life Guide">金町湾 · 本地生活导览助手</div>
+            </div>
+            <div class="header-controls">
+                <button class="mode-toggle" onclick="toggleMode()" title="切换模式">🌙</button>
+                <button class="lang-toggle" onclick="toggleLanguage()" title="中英文切换">EN</button>
+            </div>
+        </div>
     </div>
 
-    <div class="info-bar">
-        <span>🌊 今日潮汐：<span style="color:#f50; font-weight:bold;">16:30 低潮</span></span>
-        <span>☀️ 汕尾：28°C 晴</span>
-    </div>
-
-    <div class="section-title"><i class="fas fa-server"></i> 基础服务</div>
+    <div class="section-title"><i class="fas fa-server"></i> <span data-lang="基础服务" data-lang-en="Basic Services">基础服务</span></div>
     <div class="grid">
-        <a href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所" class="nav-item"><i class="fas fa-toilet"></i><span>找厕所</span></a>
-        <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" class="nav-item"><i class="fas fa-user-md"></i><span>医疗救助</span></a>
+        <a href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所" class="nav-item"><i class="fas fa-toilet"></i><span data-lang="洗手间/母婴室" data-lang-en="Restroom/Nursing">洗手间/母婴室</span></a>
+        <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" class="nav-item"><i class="fas fa-user-md"></i><span data-lang="医疗救助" data-lang-en="Medical Help">医疗救助</span></a>
+        <a href="#" class="nav-item"><i class="fas fa-suitcase"></i><span data-lang="行李寄存点" data-lang-en="Luggage Storage">行李寄存点</span></a>
+        <a href="https://uri.amap.com/marker?position=115.340372,22.783278&name=西沙滩公园烟花燃放点" class="nav-item"><i class="fas fa-star"></i><span data-lang="烟花燃放点" data-lang-en="Fireworks Spot">烟花燃放点</span></a>
     </div>
 
     <div id="parking-section" class="spot-section">
         <div class="spot-header" onclick="toggleParking()">
-            <h3><i class="fas fa-parking"></i> 停车场指南 (点击展开)</h3>
+            <h3><i class="fas fa-parking"></i> <span data-lang="免费停车场指南 (点击展开)" data-lang-en="Free Parking Guide (Tap to expand)">免费停车场指南 (点击展开)</span></h3>
             <i id="parking-arrow" class="fas fa-chevron-down" style="color: #ccc; transition: 0.3s;"></i>
         </div>
         <div id="parkingContent" class="spot-content">
             
             <div class="spot-item" style="padding: 15px;">
                 <div class="spot-info" style="flex: 1;">
-                    <span class="spot-name">服务中心停车场 <span class="status-tag status-free">免费</span></span>
-                    <p class="spot-desc">位于金町湾服务中心，车位充足，距离海滩步行5分钟，免费停车。</p>
-                    <a href="https://uri.amap.com/marker?position=115.292173,22.795188&name=金町湾服务中心停车场" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name"><span data-lang="听涛路免费停车场" data-lang-en="Tingtao Rd Free Parking">听涛路免费停车场</span> <span class="status-tag status-free"><span data-lang="免费" data-lang-en="Free">免费</span></span></span>
+                    <p class="spot-desc" data-lang="靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。" data-lang-en="Near Haiyu, Tianyi, Huaxia Jinshawan, walking distance to beach.">靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。</p>
+                    <a href="https://uri.amap.com/marker?position=115.29211,22.79516&name=听涛路免费停车场" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
             <div class="spot-item" style="padding: 15px;">
                 <div class="spot-info" style="flex: 1;">
-                    <span class="spot-name">游客中心停车场 <span class="status-tag status-free">免费</span></span>
-                    <p class="spot-desc">靠近游客服务中心，免费停车，节假日车位紧张，建议早到。</p>
-                    <a href="https://uri.amap.com/marker?position=115.296543,22.794321&name=金町湾游客中心停车场" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name"><span data-lang="无双墅西停车场" data-lang-en="Wushuangshu West Parking">无双墅西停车场</span> <span class="status-tag status-free"><span data-lang="免费" data-lang-en="Free">免费</span></span></span>
+                    <p class="spot-desc" data-lang="靠近无双墅、亲海寓，步行可达海滩。" data-lang-en="Near Wushuangshu, Qinhaiyu, walking distance to beach.">靠近无双墅、亲海寓，步行可达海滩。</p>
+                    <a href="https://uri.amap.com/marker?position=115.295833,22.793737&name=无双墅西停车场" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
             <div class="spot-item" style="padding: 15px;">
                 <div class="spot-info" style="flex: 1;">
-                    <span class="spot-name">海滩临时停车场 <span class="status-tag status-free">免费</span></span>
-                    <p class="spot-desc">节假日期间临时增设的停车场，车位有限，先到先得。</p>
-                    <a href="https://uri.amap.com/marker?position=115.291234,22.793456&name=金町湾海滩临时停车场" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name"><span data-lang="无双墅东停车场" data-lang-en="Wushuangshu East Parking">无双墅东停车场</span> <span class="status-tag status-free"><span data-lang="免费" data-lang-en="Free">免费</span></span></span>
+                    <p class="spot-desc" data-lang="靠近无双墅、亲海寓，步行可达海滩。" data-lang-en="Near Wushuangshu, Qinhaiyu, walking distance to beach.">靠近无双墅、亲海寓，步行可达海滩。</p>
+                    <a href="https://uri.amap.com/marker?position=115.29718,22.793647&name=无双墅东停车场" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
         </div>
     </div>
-    <div class="section-title"><i class="fas fa-charging-station"></i> 金町湾充电桩</div>
-    <div class="grid">
-        <a href="https://uri.amap.com/marker?position=115.291234,22.793456&name=金町湾服务中心充电桩" class="nav-item"><i class="fas fa-plug"></i><span>金町湾服务中心</span></a>
-        <a href="https://uri.amap.com/marker?position=115.289876,22.798765&name=保利金町湾酒店充电桩" class="nav-item"><i class="fas fa-hotel"></i><span>保利金町湾酒店</span></a>
-        <a href="https://uri.amap.com/marker?position=115.296543,22.794321&name=金町湾游客中心充电桩" class="nav-item"><i class="fas fa-users"></i><span>游客中心</span></a>
-        <a href="https://uri.amap.com/marker?position=115.293456,22.801234&name=金町湾商业广场充电桩" class="nav-item"><i class="fas fa-shopping-cart"></i><span>商业广场</span></a>
+
+    <div class="spot-section">
+        <div class="spot-header" onclick="toggleCharging()">
+            <h3><i class="fas fa-charging-station"></i> <span data-lang="免停车费充电桩 (点击展开)" data-lang-en="Free Parking EV Chargers (Tap to expand)">免停车费充电桩 (点击展开)</span></h3>
+            <i id="charging-arrow" class="fas fa-chevron-down" style="color: #ccc; transition: 0.3s;"></i>
+        </div>
+        <div id="chargingContent" class="spot-content">
+            
+            <div class="spot-item" style="padding: 15px;">
+                <div class="spot-info" style="flex: 1;">
+                    <span class="spot-name"><span data-lang="金沙湾1号充电站" data-lang-en="Jinshawan No.1 Station">金沙湾1号充电站</span> <span class="status-tag status-free"><span data-lang="快充11个桩" data-lang-en="11 Fast Chargers">快充11个桩</span></span></span>
+                    <p class="spot-desc" data-lang="位于海遇小区、华夏金沙湾、天奕附近。" data-lang-en="Near Haiyu, Huaxia Jinshawan, Tianyi.">位于海遇小区、华夏金沙湾、天奕附近。</p>
+                    <a href="https://uri.amap.com/marker?position=115.291382,22.796298&name=金沙湾1号充电站" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item" style="padding: 15px;">
+                <div class="spot-info" style="flex: 1;">
+                    <span class="spot-name"><span data-lang="金沙湾2号充电站" data-lang-en="Jinshawan No.2 Station">金沙湾2号充电站</span> <span class="status-tag status-free"><span data-lang="快充11个桩" data-lang-en="11 Fast Chargers">快充11个桩</span></span></span>
+                    <p class="spot-desc" data-lang="位于海遇小区、华夏金沙湾、天奕、天銮附近。" data-lang-en="Near Haiyu, Huaxia Jinshawan, Tianyi, Tianluan.">位于海遇小区、华夏金沙湾、天奕、天銮附近。</p>
+                    <a href="https://uri.amap.com/marker?position=115.29426,22.796553&name=金沙湾2号充电站" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item" style="padding: 15px;">
+                <div class="spot-info" style="flex: 1;">
+                    <span class="spot-name"><span data-lang="蔚景云充电站" data-lang-en="Weijingyun Station">蔚景云充电站</span> <span class="status-tag status-free"><span data-lang="快充12个桩" data-lang-en="12 Fast Chargers">快充12个桩</span></span></span>
+                    <p class="spot-desc" data-lang="位于无双墅、亲海寓、玥海附近。" data-lang-en="Near Wushuangshu, Qinhaiyu, Yuehai.">位于无双墅、亲海寓、玥海附近。</p>
+                    <a href="https://uri.amap.com/marker?position=115.296043,22.79367&name=蔚景云充电站" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item" style="padding: 15px;">
+                <div class="spot-info" style="flex: 1;">
+                    <span class="spot-name"><span data-lang="南网充电站" data-lang-en="Nanwang Station">南网充电站</span> <span class="status-tag status-free"><span data-lang="快充" data-lang-en="Fast Charging">快充</span></span></span>
+                    <p class="spot-desc" data-lang="位于无双墅、亲海寓、玥海附近。" data-lang-en="Near Wushuangshu, Qinhaiyu, Yuehai.">位于无双墅、亲海寓、玥海附近。</p>
+                    <a href="https://uri.amap.com/marker?position=115.297225,22.793636&name=南网充电站" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <div class="spot-section">
         <div class="spot-header" onclick="toggleSpots()">
-            <h3><i class="fas fa-camera-retro"></i> 热门打卡点 (点击展开)</h3>
+            <h3><i class="fas fa-camera-retro"></i> <span data-lang="热门打卡点 (点击展开)" data-lang-en="Popular Spots (Tap to expand)">热门打卡点 (点击展开)</span></h3>
             <i id="arrow" class="fas fa-chevron-down" style="color: #ccc; transition: 0.3s;"></i>
         </div>
         <div id="spotContent" class="spot-content">
@@ -340,130 +505,130 @@
             <div class="spot-item">
                 <img class="spot-img" loading="lazy" src="img/jinxia.jpg" alt="金霞光" onclick="openLightbox(this.src)">
                 <div class="spot-info">
-                    <span class="spot-name">金霞光森林公园</span>
-                    <p class="spot-desc">步行可达，位于金亭村，首座滨海森林公园，山海境特色布局。</p>
-                    <a href="https://uri.amap.com/marker?position=115.28309,22.801956&name=金霞光森林公园" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name">🌟🌟🌟🌟🌟 <span data-lang="金霞光森林公园" data-lang-en="Jinxiaguang Forest Park">金霞光森林公园</span> (0.5km)</span>
+                    <p class="spot-desc" data-lang="步行可达，位于金亭村，首座滨海森林公园，山海境特色布局。" data-lang-en="Walking distance, located in Jinting Village, first coastal forest park.">步行可达，位于金亭村，首座滨海森林公园，山海境特色布局。</p>
+                    <a href="https://uri.amap.com/marker?position=115.28309,22.801956&name=金霞光森林公园" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
             <div class="spot-item">
                 <img class="spot-img" loading="lazy" src="img/baihe.jpg" alt="白鹤寺" onclick="openLightbox(this.src)">
                 <div class="spot-info">
-                    <span class="spot-name">白鹤寺海滩 (2km)</span>
-                    <p class="spot-desc">黑礁岩和鹅卵石混合地形，适合赶海观礁。</p>
-                    <a href="https://uri.amap.com/marker?position=115.277448,22.790192&name=白鹤寺" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name">🌟🌟🌟🌟 <span data-lang="白鹤寺海滩" data-lang-en="Baihe Temple Beach">白鹤寺海滩</span> (2km)</span>
+                    <p class="spot-desc" data-lang="黑礁岩和鹅卵石混合地形，适合赶海观礁。" data-lang-en="Black reef and pebble terrain, great for beachcombing.">黑礁岩和鹅卵石混合地形，适合赶海观礁。</p>
+                    <a href="https://uri.amap.com/marker?position=115.277448,22.790192&name=白鹤寺" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
             <div class="spot-item">
                 <img class="spot-img" loading="lazy" src="img/paotai.jpeg" alt="长沙炮台" onclick="openLightbox(this.src)">
                 <div class="spot-info">
-                    <span class="spot-name">长沙炮台 (5km)</span>
-                    <p class="spot-desc">古代海防要塞，紧邻长沙湾服务区，历史交融感强。</p>
-                    <a href="https://uri.amap.com/marker?position=115.273266,22.82449&name=长沙炮台" class="nav-link">📍 立即导航</a>
-                </div>
-            </div>
-
-            <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/magong.jpg" alt="马宫沙滩" onclick="openLightbox(this.src)">
-                <div class="spot-info">
-                    <span class="spot-name">马宫沙滩 (8km)</span>
-                    <p class="spot-desc">小众无人沙滩，海上吊桥拍照非常出片。</p>
-                    <a href="https://uri.amap.com/marker?position=115.244504,22.784115&name=马宫沙滩" class="nav-link">📍 立即导航</a>
-                </div>
-            </div>
-
-            <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/chenzhou.jpeg" alt="晨洲村" onclick="openLightbox(this.src)">
-                <div class="spot-info">
-                    <span class="spot-name">晨洲村 (9km)</span>
-                    <p class="spot-desc">中国蚝乡，有蚝博物馆和独特的水上公路。</p>
-                    <a href="https://uri.amap.com/marker?position=115.299666,22.848598&name=晨洲村" class="nav-link">📍 立即导航</a>
-                </div>
-            </div>
-
-            <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/xiaodao.webp" alt="小岛渔村" onclick="openLightbox(this.src)">
-                <div class="spot-info">
-                    <span class="spot-name">小岛渔村 (11km)</span>
-                    <p class="spot-desc">品清湖中央，复古工业风渔船厂，砖红栈道。定位是停车的位置，停好后直行左转过马路就到了，路边随便停会罚款</p>
-                    <a href="https://uri.amap.com/marker?position=115.372939,22.768537&name=小岛渔村" class="nav-link">📍 立即导航</a>
-                </div>
-            </div>
-
-            <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/mazu.jpg" alt="凤山妈祖" onclick="openLightbox(this.src)">
-                <div class="spot-info">
-                    <span class="spot-name">凤山妈祖 (12km)</span>
-                    <p class="spot-desc">4A景区，汕尾文化信仰中心，地标建筑。</p>
-                    <a href="https://uri.amap.com/marker?position=115.370029,22.762059&name=凤山祖庙" class="nav-link">📍 立即导航</a>
-                </div>
-            </div>
-
-            <div class="spot-item">
-                <img class="spot-img" loading="lazy" src="img/museum.png" alt="博物馆" onclick="openLightbox(this.src)">
-                <div class="spot-info">
-                    <span class="spot-name">汕尾博物馆 (13km)</span>
-                    <p class="spot-desc">深度了解汕尾历史、文化与民俗的窗口。</p>
-                    <a href="https://uri.amap.com/marker?position=115.40,22.79&name=汕尾市博物馆地上停车场" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name">🌟🌟🌟🌟 <span data-lang="长沙炮台" data-lang-en="Changsha Fort">长沙炮台</span> (5km)</span>
+                    <p class="spot-desc" data-lang="古代海防要塞，紧邻长沙湾服务区，历史交融感强。" data-lang-en="Ancient coastal defense fort, rich historical atmosphere.">古代海防要塞，紧邻长沙湾服务区，历史交融感强。</p>
+                    <a href="https://uri.amap.com/marker?position=115.273266,22.82449&name=长沙炮台" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
             <div class="spot-item">
                 <img class="spot-img" loading="lazy" src="img/ermalu.png" alt="二马路" onclick="openLightbox(this.src)">
                 <div class="spot-info">
-                    <span class="spot-name">二马路美食街 (30min)</span>
-                    <p class="spot-desc">最具烟火气，地道小吃汇聚，晚间最热闹。定位在信利大厦停车场，二马路不好停车，坐电梯到一楼出来左转过马路就到二马路了</p>
-                    <a href="https://uri.amap.com/marker?position=115.359916,22.773525&name=二马路" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name">🌟🌟🌟🌟🌟 <span data-lang="二马路美食街" data-lang-en="Ermalu Food Street">二马路美食街</span> (8.3km)</span>
+                    <p class="spot-desc" data-lang="最具烟火气，地道小吃汇聚，晚间最热闹。定位在信利大厦停车场，二马路不好停车，坐电梯到一楼出来左转过马路就到二马路了" data-lang-en="Best local food street, lively in the evening. Park at Xinli Building, cross the street.">最具烟火气，地道小吃汇聚，晚间最热闹。定位在信利大厦停车场，二马路不好停车，坐电梯到一楼出来左转过马路就到二马路了</p>
+                    <a href="https://uri.amap.com/marker?position=115.359916,22.773525&name=二马路" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/magong.jpg" alt="马宫沙滩" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">🌟🌟🌟 <span data-lang="马宫沙滩" data-lang-en="Magong Beach">马宫沙滩</span> (8km)</span>
+                    <p class="spot-desc" data-lang="小众无人沙滩，海上吊桥拍照非常出片。" data-lang-en="Hidden gem beach, great for photos with sea bridge.">小众无人沙滩，海上吊桥拍照非常出片。</p>
+                    <a href="https://uri.amap.com/marker?position=115.244504,22.784115&name=马宫沙滩" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/chenzhou.jpeg" alt="晨洲村" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">🌟🌟 <span data-lang="晨洲村" data-lang-en="Chenzhou Village">晨洲村</span> (9km)</span>
+                    <p class="spot-desc" data-lang="中国蚝乡，有蚝博物馆和独特的水上公路。" data-lang-en="Oyster village with museum and water road.">中国蚝乡，有蚝博物馆和独特的水上公路。</p>
+                    <a href="https://uri.amap.com/marker?position=115.299666,22.848598&name=晨洲村" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/xiaodao.webp" alt="小岛渔村" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">🌟🌟🌟🌟 <span data-lang="小岛渔村" data-lang-en="Xiaodao Fishing Village">小岛渔村</span> (11km)</span>
+                    <p class="spot-desc" data-lang="品清湖中央，复古工业风渔船厂，砖红栈道。定位是停车的位置，停好后直行左转过马路就到了，路边随便停会罚款" data-lang-en="In Pinqing Lake, retro industrial style, red brick walkway.">品清湖中央，复古工业风渔船厂，砖红栈道。定位是停车的位置，停好后直行左转过马路就到了，路边随便停会罚款</p>
+                    <a href="https://uri.amap.com/marker?position=115.372939,22.768537&name=小岛渔村" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/mazu.jpg" alt="凤山妈祖" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">🌟🌟🌟🌟 <span data-lang="凤山妈祖" data-lang-en="Fengshan Mazu Temple">凤山妈祖</span> (12km)</span>
+                    <p class="spot-desc" data-lang="4A景区，汕尾文化信仰中心，地标建筑。" data-lang-en="4A scenic area, cultural landmark of Shanwei.">4A景区，汕尾文化信仰中心，地标建筑。</p>
+                    <a href="https://uri.amap.com/marker?position=115.370029,22.762059&name=凤山祖庙" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item">
+                <img class="spot-img" loading="lazy" src="img/museum.png" alt="博物馆" onclick="openLightbox(this.src)">
+                <div class="spot-info">
+                    <span class="spot-name">🌟🌟🌟🌟 <span data-lang="汕尾博物馆" data-lang-en="Shanwei Museum">汕尾博物馆</span> (13km)</span>
+                    <p class="spot-desc" data-lang="深度了解汕尾历史、文化与民俗的窗口。" data-lang-en="Learn about Shanwei history, culture and folk customs.">深度了解汕尾历史、文化与民俗的窗口。</p>
+                    <a href="https://uri.amap.com/marker?position=115.40,22.79&name=汕尾市博物馆地上停车场" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
             <div class="spot-item">
                 <img class="spot-img" loading="lazy" src="img/tongding.jpg" alt="铜鼎山" onclick="openLightbox(this.src)">
                 <div class="spot-info">
-                    <span class="spot-name">铜鼎山旅游区 (18km)</span>
-                    <p class="spot-desc">汕尾后花园，玻璃桥、七彩滑道等娱乐项目。</p>
-                    <a href="https://uri.amap.com/marker?position=115.365492,22.82482&name=铜鼎山旅游区" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name">🌟🌟 <span data-lang="铜鼎山旅游区" data-lang-en="Tongdingshan Scenic Area">铜鼎山旅游区</span> (18km)</span>
+                    <p class="spot-desc" data-lang="汕尾后花园，玻璃桥、七彩滑道等娱乐项目。" data-lang-en="Shanwei's backyard garden with glass bridge and slides.">汕尾后花园，玻璃桥、七彩滑道等娱乐项目。</p>
+                    <a href="https://uri.amap.com/marker?position=115.365492,22.82482&name=铜鼎山旅游区" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
             <div class="spot-item">
                 <img class="spot-img" loading="lazy" src="img/gubao.jpeg" alt="古堡" onclick="openLightbox(this.src)">
                 <div class="spot-info">
-                    <span class="spot-name">红海湾古堡 (39km)</span>
-                    <p class="spot-desc">网红海上古堡，风格独特，电影感十足。</p>
-                    <a href="https://uri.amap.com/marker?position=115.569269,22.662093&name=南海观音古堡" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name">🌟🌟🌟🌟 <span data-lang="红海湾古堡" data-lang-en="Honghaiwan Castle">红海湾古堡</span> (39km)</span>
+                    <p class="spot-desc" data-lang="网红海上古堡，风格独特，电影感十足。" data-lang-en="Viral seaside castle, cinematic atmosphere.">网红海上古堡，风格独特，电影感十足。</p>
+                    <a href="https://uri.amap.com/marker?position=115.569269,22.662093&name=南海观音古堡" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
             <div class="spot-item">
                 <img class="spot-img" loading="lazy" src="img/fengche.jpeg" alt="风车岛" onclick="openLightbox(this.src)">
                 <div class="spot-info">
-                    <span class="spot-name">风车岛 (45km)</span>
-                    <p class="spot-desc">唯美风车群，绝美沿海公路，航拍圣地。</p>
-                    <a href="https://uri.amap.com/marker?position=115.586019,22.736799&name=风车岛" class="nav-link">📍 立即导航</a>
+                    <span class="spot-name">🌟🌟🌟 <span data-lang="风车岛" data-lang-en="Windmill Island">风车岛</span> (45km)</span>
+                    <p class="spot-desc" data-lang="唯美风车群，绝美沿海公路，航拍圣地。" data-lang-en="Beautiful windmills, stunning coastal road, drone paradise.">唯美风车群，绝美沿海公路，航拍圣地。</p>
+                    <a href="https://uri.amap.com/marker?position=115.586019,22.736799&name=风车岛" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div class="section-title"><i class="fas fa-shopping-bag"></i> 实用服务</div>
-    <div class="grid">
-        <a href="#" class="nav-item"><i class="fas fa-box-open"></i><span>行李寄存点</span></a>
-        <a href="#" class="nav-item"><i class="fas fa-camera"></i><span>日落点</span></a>
-    </div>
-
-
-    <div class="section-title"><i class="fas fa-info-circle"></i> 避坑卡片</div>
+    <div class="section-title"><i class="fas fa-exclamation-triangle"></i> <span data-lang="景区注意事项" data-lang-en="Important Notes">景区注意事项</span></div>
     <div class="tip-card">
-        <h4>📢 停车提示</h4>
-        <p>主干道禁停。建议停P1/P3。违停罚款150-200元。</p>
+        <h4 data-lang="⚠️ 重要提示" data-lang-en="⚠️ Important Notice">⚠️ 重要提示</h4>
+        <p data-lang="金町湾全域禁止烟花燃放！违者将依法处理，请大家共同维护景区安全。" data-lang-en="Fireworks are prohibited in Jinting Bay! Violators will be penalized. Please help maintain safety.">金町湾全域禁止烟花燃放！违者将依法处理，请大家共同维护景区安全。</p>
     </div>
 
-    <a href="#" class="btn-weixin"><i class="fab fa-weixin"></i> 进入游客互助群</a>
+    <a href="javascript:void(0)" onclick="showWechatQR()" class="btn-weixin"><i class="fab fa-weixin"></i> <span data-lang="进入游客互助群" data-lang-en="Join Visitor Group">进入游客互助群</span></a>
 
-    <div class="footer">© 2026 JTW360.COM | 汕尾金町湾<br>实时更新 · 便民服务</div>
+    <div id="wechat-lightbox" onclick="this.style.display='none'">
+        <div class="wechat-content">
+            <h3 data-lang="游客互助群" data-lang-en="Visitor Help Group">游客互助群</h3>
+            <img src="img/qrcode.jpg" alt="WeChat Group QR Code" style="width: 300px; height: 300px; margin: 20px 0;">
+            <p data-lang="请扫码加入游客互助群" data-lang-en="Please scan to join group">请扫码加入游客互助群</p>
+            <p style="font-size: 12px; opacity: 0.7;" data-lang="二维码有效期至: 2026年2月23日" data-lang-en="QR code valid until: Feb 23, 2026">二维码有效期至: 2026年2月23日</p>
+        </div>
+    </div>
 
     <div id="lightbox" onclick="this.style.display='none'">
         <img id="lightbox-img" src="">
@@ -484,10 +649,46 @@
             arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
+        function toggleCharging() {
+            const content = document.getElementById('chargingContent');
+            const arrow = document.getElementById('charging-arrow');
+            content.classList.toggle('open');
+            arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
         function openLightbox(src) {
             if(!src || src.includes('undefined')) return;
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function showWechatQR() {
+            document.getElementById('wechat-lightbox').style.display = 'flex';
+        }
+
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.mode-toggle');
+            btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        }
+
+        function toggleLanguage() {
+            const btn = document.querySelector('.lang-toggle');
+            const isEnglish = btn.textContent === '中文';
+            
+            if (isEnglish) {
+                btn.textContent = 'EN';
+                // 切换到中文
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                    el.textContent = el.dataset.lang;
+                });
+            } else {
+                btn.textContent = '中文';
+                // 切换到英文
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                    el.textContent = el.dataset.langEn;
+                });
+            }
         }
     </script>
 </body>
