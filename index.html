@@ -343,7 +343,7 @@
         }
         #lightbox img { 
             max-width: 90%; 
-            max-height: 80%; 
+            max-height: 90%; 
             border-radius: 10px; 
             box-shadow: 0 0 30px rgba(255,255,255,0.2);
             border: 2px solid rgba(255, 255, 255, 0.8);
@@ -415,7 +415,7 @@
     <div class="grid">
         <a href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所" class="nav-item"><i class="fas fa-toilet"></i><span data-lang="洗手间/母婴室" data-lang-en="Restroom/Nursing">洗手间/母婴室</span></a>
         <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" class="nav-item"><i class="fas fa-user-md"></i><span data-lang="医疗救助" data-lang-en="Medical Help">医疗救助</span></a>
-        <a href="#" class="nav-item"><i class="fas fa-suitcase"></i><span data-lang="行李寄存点" data-lang-en="Luggage Storage">行李寄存点</span></a>
+        <a href="javascript:void(0)" onclick="scrollToLuggage()" class="nav-item"><i class="fas fa-suitcase"></i><span data-lang="行李寄存点" data-lang-en="Luggage Storage">行李寄存点</span></a>
         <a href="https://uri.amap.com/marker?position=115.340372,22.783278&name=西沙滩公园烟花燃放点" class="nav-item"><i class="fas fa-star"></i><span data-lang="烟花燃放点" data-lang-en="Fireworks Spot">烟花燃放点</span></a>
     </div>
 
@@ -447,6 +447,48 @@
                     <span class="spot-name"><span data-lang="无双墅东停车场" data-lang-en="Wushuangshu East Parking">无双墅东停车场</span> <span class="status-tag status-free"><span data-lang="免费" data-lang-en="Free">免费</span></span></span>
                     <p class="spot-desc" data-lang="靠近无双墅、亲海寓，步行可达海滩。" data-lang-en="Near Wushuangshu, Qinhaiyu, walking distance to beach.">靠近无双墅、亲海寓，步行可达海滩。</p>
                     <a href="https://uri.amap.com/marker?position=115.29718,22.793647&name=无双墅东停车场" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="luggage-section" class="spot-section">
+        <div class="spot-header" onclick="toggleLuggage()">
+            <h3><i class="fas fa-suitcase"></i> <span data-lang="行李寄存点 (点击展开)" data-lang-en="Luggage Storage (Tap to expand)">行李寄存点 (点击展开)</span></h3>
+            <i id="luggage-arrow" class="fas fa-chevron-down" style="color: #ccc; transition: 0.3s;"></i>
+        </div>
+        <div id="luggageContent" class="spot-content">
+            
+            <div class="spot-item" style="padding: 15px;">
+                <div class="spot-info" style="flex: 1;">
+                    <span class="spot-name"><span data-lang="玥海北门1号存包柜" data-lang-en="Yuehai North Gate No.1 Locker">玥海北门1号存包柜</span></span>
+                    <p class="spot-desc" data-lang="位于玥海小区北门，提供自助存包服务。" data-lang-en="Located at Yuehai North Gate, self-service lockers available.">位于玥海小区北门，提供自助存包服务。</p>
+                    <a href="https://uri.amap.com/marker?position=115.29294,22.792649&name=玥海北门1号存包柜" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item" style="padding: 15px;">
+                <div class="spot-info" style="flex: 1;">
+                    <span class="spot-name"><span data-lang="风帆礼堂沙滩入口存包柜" data-lang-en="Sail Auditorium Beach Entrance Locker">风帆礼堂沙滩入口存包柜</span></span>
+                    <p class="spot-desc" data-lang="位于风帆礼堂沙滩入口处，方便游客存放物品。" data-lang-en="Located at Sail Auditorium Beach entrance, convenient for beachgoers.">位于风帆礼堂沙滩入口处，方便游客存放物品。</p>
+                    <a href="https://uri.amap.com/marker?position=115.292332,22.791426&name=风帆礼堂沙滩入口存包柜" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item" style="padding: 15px;">
+                <div class="spot-info" style="flex: 1;">
+                    <span class="spot-name"><span data-lang="独秀居南门存包柜" data-lang-en="Duxiu Ju South Gate Locker">独秀居南门存包柜</span></span>
+                    <p class="spot-desc" data-lang="位于独秀居小区南门，提供安全的存包服务。" data-lang-en="Located at Duxiu Ju South Gate, secure luggage storage.">位于独秀居小区南门，提供安全的存包服务。</p>
+                    <a href="https://uri.amap.com/marker?position=115.298001,22.795466&name=独秀居南门存包柜" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
+                </div>
+            </div>
+
+            <div class="spot-item" style="padding: 15px;">
+                <div class="spot-info" style="flex: 1;">
+                    <span class="spot-name"><span data-lang="听海沙滩入口存包柜" data-lang-en="Tinghai Beach Entrance Locker">听海沙滩入口存包柜</span></span>
+                    <p class="spot-desc" data-lang="位于听海沙滩入口处，方便游客就近存放物品。" data-lang-en="Located at Tinghai Beach entrance, convenient for quick storage.">位于听海沙滩入口处，方便游客就近存放物品。</p>
+                    <a href="https://uri.amap.com/marker?position=115.288851,22.791529&name=听海沙滩入口存包柜" class="nav-link"><span data-lang="📍 立即导航" data-lang-en="📍 Navigate Now">📍 立即导航</span></a>
                 </div>
             </div>
 
@@ -624,7 +666,7 @@
     <div id="wechat-lightbox" onclick="this.style.display='none'">
         <div class="wechat-content">
             <h3 data-lang="游客互助群" data-lang-en="Visitor Help Group">游客互助群</h3>
-            <img src="img/qrcode.jpg" alt="WeChat Group QR Code" style="width: 300px; height: 300px; margin: 20px 0;">
+            <img src="img/code.jpg" alt="WeChat Group QR Code" style="width: 300px; height: 300px; margin: 20px 0; cursor: pointer;" onclick="openLightbox(this.src); event.stopPropagation();">
             <p data-lang="请扫码加入游客互助群" data-lang-en="Please scan to join group">请扫码加入游客互助群</p>
             <p style="font-size: 12px; opacity: 0.7;" data-lang="二维码有效期至: 2026年2月23日" data-lang-en="QR code valid until: Feb 23, 2026">二维码有效期至: 2026年2月23日</p>
         </div>
@@ -654,6 +696,26 @@
             const arrow = document.getElementById('charging-arrow');
             content.classList.toggle('open');
             arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function toggleLuggage() {
+            const content = document.getElementById('luggageContent');
+            const arrow = document.getElementById('luggage-arrow');
+            content.classList.toggle('open');
+            arrow.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function scrollToLuggage() {
+            document.getElementById('luggage-section').scrollIntoView({ behavior: 'smooth' });
+            // Automatically expand the section
+            setTimeout(() => {
+                const content = document.getElementById('luggageContent');
+                const arrow = document.getElementById('luggage-arrow');
+                if (!content.classList.contains('open')) {
+                    content.classList.add('open');
+                    arrow.style.transform = 'rotate(180deg)';
+                }
+            }, 300);
         }
 
         function openLightbox(src) {
