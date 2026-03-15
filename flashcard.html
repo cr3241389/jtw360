@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flashcard Studio Pro | JTW 360</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { 
+            --primary: #165DFF; /* 主色调-淡蓝色 */
+            --accent: #69b1ff;  /* 辅助色-浅蓝 */
+            --bg: #e8f4ff;      /* 背景色-淡蓝底 */
+            --card: rgba(255, 255, 255, 0.85); /* 卡片背景-玻璃态 */
+            --shadow: rgba(22, 93, 255, 0.15); /* 阴影色 */
+            --border: rgba(22, 93, 255, 0.1);  /* 边框色 */
+        }
+        
+        body.dark-mode {
+            --primary: #4a9eff;
+            --accent: #69b1ff;
+            --bg: #1a1a2e;
+            --card: rgba(30, 30, 50, 0.85);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode {
+            background: #1a1a2e;
+            background-image: linear-gradient(120deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+        }
+        
+        body {
+            font-family: -apple-system, system-ui, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            color: #333; 
+            padding-bottom: 50px;
+            background-image: linear-gradient(120deg, #e8f4ff 0%, #f0f8ff 100%);
+            min-height: 100vh;
+        }
+        
+        /* 头部样式 */
+        .header { 
+            background: linear-gradient(135deg, #165DFF 0%, #69b1ff 100%); 
+            color: white; 
+            padding: 35px 20px 50px; 
+            border-bottom-left-radius: 30px; 
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+        }
+        
+        .header h1 { 
+            margin: 0; 
+            font-size: 28px; 
+            font-weight: 800; 
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .mode-toggle, .lang-toggle {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+        }
+        
+        .mode-toggle:hover, .lang-toggle:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 上传区域 */
+        .upload-section {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: -25px auto 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            max-width: 800px;
+        }
+        
+        .upload-area {
+            border: 4px dashed var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(22, 93, 255, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 60px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .upload-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .upload-subtext {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        body.dark-mode .upload-subtext {
+            color: #aaa;
+        }
+        
+        .upload-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        /* 模式切换 */
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .mode-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--card);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .mode-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* 编辑区域 */
+        .editor-section {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        /* 预览区域 */
+        .preview-area {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+        }
+        
+        .preview-header {
+            margin-bottom: 30px;
+        }
+        
+        .preview-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .preview-subtitle {
+            color: #666;
+        }
+        
+        body.dark-mode .preview-subtitle {
+            color: #aaa;
+        }
+        
+        .preview-content {
+            position: relative;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        
+        body.dark-mode .preview-content {
+            background: #2a2a4a;
+        }
+        
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 控制面板 */
+        .control-panel {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+        }
+        
+        .control-section {
+            margin-bottom: 30px;
+        }
+        
+        .control-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        
+        body.dark-mode .form-label {
+            color: #aaa;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+        
+        body.dark-mode .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .color-option.active {
+            border-color: var(--primary);
+        }
+        
+        .export-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        /* API设置 */
+        .api-section {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+        }
+        
+        .api-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        body.dark-mode .api-input {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .api-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .api-btn:hover {
+            background: var(--accent);
+        }
+        
+        .demo-btn {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-btn:hover {
+            background: #D97706;
+        }
+        
+        .error-message {
+            background: #FEE2E2;
+            border: 1px solid #FCA5A5;
+            color: #DC2626;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        body.dark-mode .error-message {
+            background: rgba(220, 38, 38, 0.1);
+            border-color: rgba(220, 38, 38, 0.3);
+            color: #FCA5A5;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(22, 93, 255, 0.1);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 标签气泡 */
+        .label-bubble {
+            position: absolute;
+            background: rgba(234, 179, 8, 0.95);
+            color: black;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: move;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 150px;
+            z-index: 10;
+        }
+        
+        .label-bubble .part {
+            font-size: 10px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 2px;
+        }
+        
+        .label-bubble .word {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .label-bubble .phonetic {
+            font-size: 10px;
+            font-style: italic;
+            opacity: 0.6;
+            margin-top: 2px;
+        }
+        
+        /* 指针点 */
+        .pointer-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #EAB308;
+            border: 3px solid white;
+            border-radius: 50%;
+            cursor: move;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+        }
+        
+        /* 连接线 */
+        .connector-line {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .editor-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .upload-section {
+                padding: 20px;
+            }
+            
+            .upload-area {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <div class="container">
+            <h1>Flashcard Studio Pro</h1>
+            <div class="header-controls">
+                <button class="mode-toggle" onclick="toggleMode()">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="lang-toggle" onclick="toggleLanguage()">
+                    EN
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <div class="container">
+        <!-- API设置 -->
+        <div class="api-section">
+            <h3 style="margin-top: 0; color: var(--primary);" data-lang="API设置" data-lang-en="API Settings">API设置</h3>
+            <input type="password" class="api-input" id="apiKeyInput" placeholder="输入Google Gemini API Key (可选)" data-lang-placeholder="输入Google Gemini API Key (可选)" data-lang-en-placeholder="Enter Google Gemini API Key (Optional)">
+            <div style="display: flex; gap: 10px;">
+                <button class="api-btn" onclick="saveApiKey()" data-lang="保存API Key" data-lang-en="Save API Key">保存API Key</button>
+                <button class="demo-btn" onclick="useDemoMode()" data-lang="使用演示模式" data-lang-en="Use Demo Mode">使用演示模式</button>
+            </div>
+            <div class="error-message" id="errorMessage"></div>
+        </div>
+
+        <!-- 上传区域 -->
+        <div class="upload-section">
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h2 class="upload-text" data-lang="上传场景图片" data-lang-en="Upload Scene Image">上传场景图片</h2>
+                <p class="upload-subtext" data-lang="点击或拖拽图片到此处" data-lang-en="Click or drag image here">点击或拖拽图片到此处</p>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()" data-lang="选择图片" data-lang-en="Select Image">选择图片</button>
+            </div>
+        </div>
+
+        <!-- 模式选择 -->
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="poster" onclick="setMode('poster')" data-lang="海报模式" data-lang-en="Poster Mode">海报模式</button>
+            <button class="mode-btn" data-mode="vocabulary" onclick="setMode('vocabulary')" data-lang="词汇模式" data-lang-en="Vocabulary Mode">词汇模式</button>
+            <button class="mode-btn" data-mode="sentences" onclick="setMode('sentences')" data-lang="句子模式" data-lang-en="Sentences Mode">句子模式</button>
+        </div>
+
+        <!-- 编辑区域 -->
+        <div class="editor-section" id="editorSection" style="display: none;">
+            <!-- 预览区域 -->
+            <div class="preview-area">
+                <div class="preview-header">
+                    <h2 class="preview-title" data-lang="预览" data-lang-en="Preview">预览</h2>
+                    <p class="preview-subtitle" data-lang="编辑您的闪卡内容" data-lang-en="Edit your flashcard content">编辑您的闪卡内容</p>
+                </div>
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p data-lang="正在分析图片..." data-lang-en="Analyzing image...">正在分析图片...</p>
+                </div>
+                <div class="preview-content" id="previewContent">
+                    <img id="previewImage" class="preview-image" src="" alt="Preview">
+                </div>
+            </div>
+
+            <!-- 控制面板 -->
+            <div class="control-panel">
+                <!-- 海报标题 -->
+                <div class="control-section">
+                    <h3 class="control-title" data-lang="海报标题" data-lang-en="Poster Title">海报标题</h3>
+                    <div class="form-group">
+                        <label class="form-label" data-lang="中文标题" data-lang-en="Chinese Title">中文标题</label>
+                        <input type="text" class="form-input" id="chineseTitle" placeholder="输入中文标题">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-lang="英文标题" data-lang-en="English Title">英文标题</label>
+                        <input type="text" class="form-input" id="englishTitle" placeholder="Input English Title">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-lang="拼音" data-lang-en="Pinyin">拼音</label>
+                        <input type="text" class="form-input" id="pinyin" placeholder="输入拼音">
+                    </div>
+                </div>
+
+                <!-- 颜色选择 -->
+                <div class="control-section">
+                    <h3 class="control-title" data-lang="颜色设置" data-lang-en="Color Settings">颜色设置</h3>
+                    <div class="form-group">
+                        <label class="form-label" data-lang="标题颜色" data-lang-en="Title Color">标题颜色</label>
+                        <div class="color-picker" id="titleColorPicker">
+                            <div class="color-option active" style="background-color: #000000;" data-color="#000000"></div>
+                            <div class="color-option" style="background-color: #EF4444;" data-color="#EF4444"></div>
+                            <div class="color-option" style="background-color: #3B82F6;" data-color="#3B82F6"></div>
+                            <div class="color-option" style="background-color: #10B981;" data-color="#10B981"></div>
+                            <div class="color-option" style="background-color: #F59E0B;" data-color="#F59E0B"></div>
+                            <div class="color-option" style="background-color: #8B5CF6;" data-color="#8B5CF6"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 导出按钮 -->
+                <button class="export-btn" onclick="exportFlashcard()" data-lang="导出闪卡" data-lang-en="Export Flashcard">导出闪卡</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'poster';
+        let currentLanguage = 'zh';
+        let currentImage = null;
+        let apiKey = localStorage.getItem('flashcardApiKey') || '';
+        let isDemoMode = false;
+        let flashcardData = [];
+        let selectedElement = null;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+
+        // 切换模式
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+        }
+
+        // 保存API Key
+        function saveApiKey() {
+            const input = document.getElementById('apiKeyInput');
+            if (input.value.trim()) {
+                apiKey = input.value.trim();
+                localStorage.setItem('flashcardApiKey', apiKey);
+                alert('API Key已保存！');
+            } else {
+                showError('请输入有效的API Key');
+            }
+        }
+
+        // 使用演示模式
+        function useDemoMode() {
+            isDemoMode = true;
+            document.getElementById('apiKeyInput').value = '';
+            localStorage.removeItem('flashcardApiKey');
+            apiKey = '';
+            alert('已切换到演示模式');
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // 处理图片上传
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentImage = e.target.result;
+                    document.getElementById('previewImage').src = currentImage;
+                    document.getElementById('editorSection').style.display = 'grid';
+                    processImage(currentImage, file.type);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 处理图片
+        async function processImage(imageData, mimeType) {
+            const loadingSpinner = document.querySelector('.loading-spinner');
+            loadingSpinner.style.display = 'block';
+            
+            try {
+                if (isDemoMode || !apiKey) {
+                    // 演示模式 - 使用模拟数据
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    flashcardData = generateDemoData();
+                } else {
+                    // 使用真实API
+                    const base64 = imageData.split(',')[1];
+                    flashcardData = await callGeminiAPI(base64, mimeType);
+                }
+                
+                renderLabels();
+            } catch (error) {
+                console.error('处理图片失败:', error);
+                showError('处理图片失败，请检查API Key或使用演示模式');
+            } finally {
+                loadingSpinner.style.display = 'none';
+            }
+        }
+
+        // 调用Gemini API
+        async function callGeminiAPI(base64Image, mimeType) {
+            const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=' + apiKey, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [
+                            {
+                                inlineData: {
+                                    data: base64Image,
+                                    mimeType: mimeType
+                                }
+                            },
+                            {
+                                text: "Identify ALL significant elements in this image. For each element, provide: 1. The English word. 2. IPA phonetic transcription. 3. Chinese translation with Pinyin (with tone marks). 4. A simple example sentence in English. 5. The Chinese translation of that sentence. 6. Pinyin for Chinese sentence. 7. IPA for English sentence. 8. Precise [x, y] coordinates (0-100 percentage). Return as a JSON array."
+                            }
+                        ]
+                    }],
+                    generationConfig: {
+                        responseMimeType: "application/json"
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('API请求失败');
+            }
+
+            const data = await response.json();
+            return JSON.parse(data.candidates[0].content.parts[0].text || "[]");
+        }
+
+        // 生成演示数据
+        function generateDemoData() {
+            return [
+                {
+                    part: "天空",
+                    word: "Sky",
+                    phonetic: "/skaɪ/",
+                    pinyin: "tiān kōng",
+                    sentence: "The sky is blue today.",
+                    sentenceChinese: "今天是蓝天。",
+                    sentencePinyin: "jīn tiān shì lán tiān.",
+                    sentencePhonetic: "/ðə skaɪ ɪz bluː təˈdeɪ/",
+                    x: 50,
+                    y: 15,
+                    labelX: 50,
+                    labelY: 10,
+                    pointerX: 50,
+                    pointerY: 15
+                },
+                {
+                    part: "海滩",
+                    word: "Beach",
+                    phonetic: "/biːtʃ/",
+                    pinyin: "hǎi tān",
+                    sentence: "We walked along the beach.",
+                    sentenceChinese: "我们沿着海滩走。",
+                    sentencePinyin: "wǒ men yán zhe hǎi tān zǒu.",
+                    sentencePhonetic: "/wiː wɔːkt əˈlɒŋ ðə biːtʃ/",
+                    x: 30,
+                    y: 70,
+                    labelX: 30,
+                    labelY: 60,
+                    pointerX: 30,
+                    pointerY: 70
+                },
+                {
+                    part: "海浪",
+                    word: "Waves",
+                    phonetic: "/weɪvz/",
+                    pinyin: "hǎi làng",
+                    sentence: "The waves are strong today.",
+                    sentenceChinese: "今天的海浪很大。",
+                    sentencePinyin: "jīn tiān de hǎi làng hěn dà.",
+                    sentencePhonetic: "/ðə weɪvz ɑːr strɒŋ təˈdeɪ/",
+                    x: 70,
+                    y: 75,
+                    labelX: 70,
+                    labelY: 65,
+                    pointerX: 70,
+                    pointerY: 75
+                }
+            ];
+        }
+
+        // 渲染标签
+        function renderLabels() {
+            const previewContent = document.querySelector('.preview-content');
+            
+            // 清除现有的标签和连接线
+            previewContent.querySelectorAll('.label-bubble, .pointer-dot, .connector-line').forEach(el => el.remove());
+            
+            // 创建SVG层用于连接线
+            let svg = previewContent.querySelector('svg');
+            if (!svg) {
+                svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.className = 'connector-line';
+                svg.style.position = 'absolute';
+                svg.style.top = '0';
+                svg.style.left = '0';
+                svg.style.width = '100%';
+                svg.style.height = '100%';
+                previewContent.appendChild(svg);
+            }
+            svg.innerHTML = '';
+            
+            flashcardData.forEach((item, index) => {
+                // 创建标签气泡
+                const bubble = document.createElement('div');
+                bubble.className = 'label-bubble';
+                bubble.style.left = item.labelX + '%';
+                bubble.style.top = item.labelY + '%';
+                bubble.innerHTML = `
+                    <div class="part">${item.part}</div>
+                    <div class="word">${item.word}</div>
+                    <div class="phonetic">/${item.phonetic}/</div>
+                `;
+                bubble.dataset.index = index;
+                bubble.addEventListener('mousedown', startDrag);
+                previewContent.appendChild(bubble);
+                
+                // 创建指针点
+                const pointer = document.createElement('div');
+                pointer.className = 'pointer-dot';
+                pointer.style.left = item.pointerX + '%';
+                pointer.style.top = item.pointerY + '%';
+                pointer.dataset.index = index;
+                pointer.addEventListener('mousedown', startDrag);
+                previewContent.appendChild(pointer);
+                
+                // 创建连接线
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', item.labelX + '%');
+                line.setAttribute('y1', item.labelY + '%');
+                line.setAttribute('x2', item.pointerX + '%');
+                line.setAttribute('y2', item.pointerY + '%');
+                line.setAttribute('stroke', '#EAB308');
+                line.setAttribute('stroke-width', '2');
+                line.setAttribute('stroke-dasharray', '6 4');
+                line.setAttribute('opacity', '0.6');
+                line.dataset.index = index;
+                svg.appendChild(line);
+            });
+        }
+
+        // 拖拽功能
+        function startDrag(e) {
+            e.preventDefault();
+            selectedElement = e.target;
+            isDragging = true;
+            const rect = selectedElement.getBoundingClientRect();
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDrag);
+        }
+
+        function drag(e) {
+            if (!isDragging || !selectedElement) return;
+            
+            const previewContent = document.querySelector('.preview-content');
+            const rect = previewContent.getBoundingClientRect();
+            
+            let x = ((e.clientX - rect.left) / rect.width) * 100;
+            let y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            x = Math.max(0, Math.min(100, x));
+            y = Math.max(0, Math.min(100, y));
+            
+            const index = parseInt(selectedElement.dataset.index);
+            
+            if (selectedElement.classList.contains('label-bubble')) {
+                flashcardData[index].labelX = x;
+                flashcardData[index].labelY = y;
+                selectedElement.style.left = x + '%';
+                selectedElement.style.top = y + '%';
+                
+                // 更新连接线
+                const line = document.querySelector(`line[data-index="${index}"]`);
+                if (line) {
+                    line.setAttribute('x1', x + '%');
+                    line.setAttribute('y1', y + '%');
+                }
+            } else if (selectedElement.classList.contains('pointer-dot')) {
+                flashcardData[index].pointerX = x;
+                flashcardData[index].pointerY = y;
+                selectedElement.style.left = x + '%';
+                selectedElement.style.top = y + '%';
+                
+                // 更新连接线
+                const line = document.querySelector(`line[data-index="${index}"]`);
+                if (line) {
+                    line.setAttribute('x2', x + '%');
+                    line.setAttribute('y2', y + '%');
+                }
+            }
+        }
+
+        function stopDrag() {
+            isDragging = false;
+            selectedElement = null;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+        }
+
+        // 切换语言
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
+            document.querySelector('.lang-toggle').textContent = currentLanguage.toUpperCase();
+            updateLanguage();
+        }
+
+        // 更新语言
+        function updateLanguage() {
+            document.querySelectorAll('[data-lang], [data-lang-en]').forEach(element => {
+                if (currentLanguage === 'zh') {
+                    if (element.getAttribute('data-lang')) {
+                        element.textContent = element.getAttribute('data-lang');
+                    }
+                    if (element.getAttribute('data-lang-placeholder')) {
+                        element.placeholder = element.getAttribute('data-lang-placeholder');
+                    }
+                } else {
+                    if (element.getAttribute('data-lang-en')) {
+                        element.textContent = element.getAttribute('data-lang-en');
+                    }
+                    if (element.getAttribute('data-lang-en-placeholder')) {
+                        element.placeholder = element.getAttribute('data-lang-en-placeholder');
+                    }
+                }
+            });
+        }
+
+        // 切换日夜模式
+        function toggleMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('.mode-toggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+
+        // 颜色选择
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 导出闪卡
+        function exportFlashcard() {
+            alert('闪卡导出功能已触发！');
+            // 这里可以实现实际的导出逻辑
+        }
+
+        // 初始化
+        function init() {
+            // 检查本地存储中的设置
+            const savedMode = localStorage.getItem('flashcardMode');
+            if (savedMode) {
+                setMode(savedMode);
+            }
+
+            const savedLanguage = localStorage.getItem('flashcardLanguage');
+            if (savedLanguage) {
+                currentLanguage = savedLanguage;
+                document.querySelector('.lang-toggle').textContent = currentLanguage.toUpperCase();
+                updateLanguage();
+            }
+
+            const savedDarkMode = localStorage.getItem('flashcardDarkMode');
+            if (savedDarkMode === 'true') {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.mode-toggle i').className = 'fas fa-sun';
+            }
+            
+            // 恢复API Key
+            if (apiKey) {
+                document.getElementById('apiKeyInput').value = apiKey;
+            }
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
