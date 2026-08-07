@@ -745,18 +745,17 @@
     </div>
 
     <!-- Floating WeChat Button -->
-    <div class="fab-wechat" onclick="showWechatModal()">
+    <a class="fab-wechat" href="weixin://dl/add?username=feel607" aria-label="添加微信联系人" onclick="handleWechatContact(event)">
         <i class="fab fa-weixin"></i>
-    </div>
+    </a>
 
-    <!-- WeChat Modal -->
+    <!-- WeChat Fallback Modal -->
     <div id="wechatModal" class="modal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="document.getElementById('wechatModal').classList.remove('show')">&times;</button>
-            <h3 data-lang="游客互助群" data-lang-en="Visitor Help Group">游客互助群</h3>
-            <p data-lang="扫描二维码加入微信群" data-lang-en="Scan QR code to join WeChat group">扫描二维码加入微信群</p>
-            <img src="img/qrcode.jpg" alt="WeChat Group" class="modal-img" onerror="this.src='img/code.jpg'" onclick="openLightbox(this.src)">
-            <p style="font-size: 12px; margin-top: 15px; opacity: 0.6;" data-lang="点击二维码可放大" data-lang-en="Tap QR code to zoom">点击二维码可放大</p>
+            <h3 data-lang="添加微信联系人" data-lang-en="Add WeChat Contact">添加微信联系人</h3>
+            <p data-lang="请在微信中搜索以下微信号添加：" data-lang-en="Search this WeChat ID in WeChat to add the contact:">请在微信中搜索以下微信号添加：</p>
+            <p style="font-size: 22px; font-weight: 700; letter-spacing: 1px; margin: 18px 0;">feel607</p>
         </div>
     </div>
 
@@ -805,6 +804,12 @@
 
         function showWechatModal() {
             document.getElementById('wechatModal').classList.add('show');
+        }
+
+        function handleWechatContact(event) {
+            event.preventDefault();
+            window.location.href = event.currentTarget.href;
+            setTimeout(showWechatModal, 1200);
         }
 
         function closeModal(event) {
