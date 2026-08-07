@@ -295,6 +295,9 @@
             cursor: pointer;
             z-index: 100;
             transition: transform 0.2s;
+            border: none;
+            padding: 0;
+            text-decoration: none;
         }
         .fab-wechat:active { transform: scale(0.9); }
 
@@ -344,6 +347,32 @@
         }
         .modal h3 { margin: 0 0 10px 0; color: var(--text-main); font-size: 20px; }
         .modal p { margin: 0; color: var(--text-sub); font-size: 14px; line-height: 1.5; }
+        .wechat-id {
+            display: block;
+            width: 100%;
+            margin: 18px 0 10px;
+            padding: 14px;
+            border: 1px dashed #07C160;
+            border-radius: var(--radius-md);
+            background: rgba(7, 193, 96, 0.08);
+            color: #07C160;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .wechat-open {
+            width: 100%;
+            margin-top: 14px;
+            padding: 13px 18px;
+            border: none;
+            border-radius: var(--radius-md);
+            background: #07C160;
+            color: #FFF;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
         /* Lightbox Image */
         #lightbox {
@@ -745,17 +774,19 @@
     </div>
 
     <!-- Floating WeChat Button -->
-    <a class="fab-wechat" href="weixin://dl/add?username=feel607" aria-label="添加微信联系人" onclick="handleWechatContact(event)">
+    <button class="fab-wechat" type="button" aria-label="添加微信联系人" onclick="showWechatModal()">
         <i class="fab fa-weixin"></i>
-    </a>
+    </button>
 
     <!-- WeChat Fallback Modal -->
     <div id="wechatModal" class="modal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="document.getElementById('wechatModal').classList.remove('show')">&times;</button>
-            <h3 data-lang="添加微信联系人" data-lang-en="Add WeChat Contact">添加微信联系人</h3>
-            <p data-lang="请在微信中搜索以下微信号添加：" data-lang-en="Search this WeChat ID in WeChat to add the contact:">请在微信中搜索以下微信号添加：</p>
-            <p style="font-size: 22px; font-weight: 700; letter-spacing: 1px; margin: 18px 0;">feel607</p>
+            <h3 data-lang="添加房东微信" data-lang-en="Add Landlord on WeChat">添加房东微信</h3>
+            <p data-lang="点击微信号复制，然后打开微信添加：" data-lang-en="Tap the WeChat ID to copy, then open WeChat to add:">点击微信号复制，然后打开微信添加：</p>
+            <button class="wechat-id" type="button" onclick="copyWechatId()">feel607</button>
+            <p id="copyStatus" data-lang="点击微信号即可复制" data-lang-en="Tap the WeChat ID to copy">点击微信号即可复制</p>
+            <button class="wechat-open" type="button" onclick="openWechat()" data-lang="打开微信" data-lang-en="Open WeChat">打开微信</button>
         </div>
     </div>
 
@@ -806,10 +837,40 @@
             document.getElementById('wechatModal').classList.add('show');
         }
 
-        function handleWechatContact(event) {
-            event.preventDefault();
-            window.location.href = event.currentTarget.href;
-            setTimeout(showWechatModal, 1200);
+        function copyWechatId() {
+            const wechatId = 'feel607';
+            const status = document.getElementById('copyStatus');
+            const copiedText = document.querySelector('.lang-toggle').textContent === '中文' ? '已复制微信号' : 'WeChat ID copied';
+
+            const showCopiedStatus = () => {
+                status.textContent = copiedText;
+                setTimeout(() => {
+                    status.textContent = document.querySelector('.lang-toggle').textContent === '中文' ? status.dataset.langEn : status.dataset.lang;
+                }, 1800);
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(wechatId).then(showCopiedStatus).catch(() => showCopiedStatus());
+                return;
+            }
+
+            const input = document.createElement('textarea');
+            input.value = wechatId;
+            input.style.position = 'fixed';
+            input.style.opacity = '0';
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            input.remove();
+            showCopiedStatus();
+        }
+
+        function openWechat() {
+            window.location.href = 'weixin://dl/add?username=feel607';
+            setTimeout(() => {
+                const status = document.getElementById('copyStatus');
+                status.textContent = document.querySelector('.lang-toggle').textContent === '中文' ? '如果未自动打开微信，请手动打开微信搜索 feel607' : 'If WeChat did not open, search feel607 in WeChat manually';
+            }, 1200);
         }
 
         function closeModal(event) {
