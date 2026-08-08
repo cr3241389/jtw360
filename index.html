@@ -2,8 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#007AFF">
     <title>JTW 360 | 金町湾全能向导</title>
+    <link rel="preload" as="image" href="img/gubao.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
@@ -18,6 +20,9 @@
             --radius-lg: 24px;
             --radius-md: 16px;
             --radius-sm: 10px;
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --nav-border: rgba(0, 0, 0, 0.08);
+            color-scheme: light;
         }
         
         body.dark-mode {
@@ -29,28 +34,42 @@
             --text-sub: #8E8E93;
             --shadow: rgba(0, 0, 0, 0.4);
             --border: rgba(255, 255, 255, 0.1);
+            --nav-bg: rgba(28, 28, 30, 0.85);
+            --nav-border: rgba(255, 255, 255, 0.12);
+            color-scheme: dark;
         }
         
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+        html, body { overflow-x: hidden; overflow-x: clip; }
         
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             background: var(--bg); 
             margin: 0; 
             color: var(--text-main); 
-            padding-bottom: 80px;
+            padding-bottom: calc(90px + env(safe-area-inset-bottom));
             transition: background 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
         }
+        a, button { touch-action: manipulation; }
         
         /* Hero Header */
         .hero {
             position: relative;
             background: url('img/gubao.jpeg') center/cover no-repeat;
-            height: 280px;
+            height: clamp(240px, 30vh, 300px);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 35px 25px;
+            padding-top: calc(35px + env(safe-area-inset-top));
+            padding-right: 25px;
+            padding-bottom: 35px;
+            padding-left: 25px;
             border-bottom-left-radius: 35px;
             border-bottom-right-radius: 35px;
             box-shadow: 0 10px 30px var(--shadow);
@@ -68,12 +87,12 @@
             z-index: 2;
             color: #FFF;
         }
-        .hero h1 { margin: 0 0 8px 0; font-size: 34px; font-weight: 800; letter-spacing: 0.5px; }
+        .hero h1 { margin: 0 0 8px 0; font-size: clamp(28px, 9vw, 34px); font-weight: 800; letter-spacing: 0.5px; }
         .hero p { margin: 0; font-size: 16px; opacity: 0.9; font-weight: 400; }
         
         .header-controls {
             position: absolute;
-            top: 25px;
+            top: calc(25px + env(safe-area-inset-top));
             right: 20px;
             z-index: 3;
             display: flex;
@@ -96,8 +115,9 @@
 
         /* Container */
         .container {
+            max-width: 600px;
+            margin: -35px auto 0;
             padding: 0 20px;
-            margin-top: -35px;
             position: relative;
             z-index: 10;
         }
@@ -139,6 +159,43 @@
             line-height: 1.2;
         }
 
+        /* Quick Navigation */
+        .quick-nav {
+            position: sticky;
+            top: env(safe-area-inset-top);
+            z-index: 50;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 10px 20px;
+            margin: 0 -20px 18px;
+            scrollbar-width: none;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--nav-border);
+        }
+        .quick-nav::-webkit-scrollbar { display: none; }
+        .quick-nav-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 2px 8px var(--shadow);
+            touch-action: manipulation;
+        }
+        .quick-nav-item:active { transform: scale(0.96); opacity: 0.85; }
+        .quick-nav-item i { font-size: 14px; }
+
         /* Section Title */
         .section-title {
             font-size: 20px;
@@ -158,6 +215,7 @@
             box-shadow: 0 6px 20px var(--shadow);
             border: 1px solid var(--border);
             overflow: hidden;
+            scroll-margin-top: calc(64px + env(safe-area-inset-top));
         }
         .accordion-header {
             padding: 20px 22px;
@@ -182,7 +240,7 @@
             background: var(--card);
         }
         .accordion-content.open {
-            max-height: 3000px;
+            max-height: 6000px;
         }
 
         /* Spot List */
@@ -283,7 +341,7 @@
         /* Floating Wechat Button */
         .fab-wechat {
             position: fixed;
-            bottom: 30px;
+            bottom: calc(30px + env(safe-area-inset-bottom));
             right: 20px;
             background: #07C160;
             color: #FFF;
@@ -324,6 +382,9 @@
             text-align: center;
             max-width: 340px;
             width: 100%;
+            max-height: 90vh;
+            max-height: 90dvh;
+            overflow-y: auto;
             transform: translateY(20px);
             transition: transform 0.3s;
             position: relative;
@@ -403,6 +464,41 @@
             margin: 30px 0;
             opacity: 0.6;
         }
+
+        /* Small Screen Polish */
+        @media (max-width: 380px) {
+            .container { padding: 0 14px; }
+            .services-grid { gap: 10px; padding: 16px 10px; }
+            .service-icon { width: 44px; height: 44px; font-size: 21px; border-radius: 14px; }
+            .service-item span { font-size: 12px; }
+            .accordion-header { padding: 16px 16px; font-size: 16px; }
+            .spot-list { padding: 0 16px 12px; }
+            .spot-img-wrap { width: 84px; height: 84px; }
+            .spot-name { font-size: 15px; }
+            .modal { padding: 14px; }
+            .modal-content { padding: 28px 18px; }
+            .modal-img { width: 160px; height: 160px; }
+            .hero p { font-size: 15px; }
+            .quick-nav { margin: 0 -14px 16px; padding: 10px 14px; }
+        }
+
+        /* Very Small Screens (320px) */
+        @media (max-width: 340px) {
+            .hero { height: clamp(220px, 28vh, 260px); }
+            .service-icon { width: 40px; height: 40px; font-size: 19px; border-radius: 12px; }
+            .service-item span { font-size: 11.5px; }
+            .fab-wechat { width: 52px; height: 52px; font-size: 25px; }
+            .btn-icon { width: 38px; height: 38px; font-size: 16px; }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -441,6 +537,17 @@
                 <span data-lang="平价餐厅（无溢价）" data-lang-en="Affordable Dining (No Markup)">平价餐厅（无溢价）</span>
             </a>
         </div>
+
+        <!-- 快捷导航 -->
+        <nav class="quick-nav" aria-label="快捷导航">
+            <a class="quick-nav-item" href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所"><i class="fas fa-restroom" style="color:#007AFF;"></i> <span data-lang="洗手间" data-lang-en="Restroom">洗手间</span></a>
+            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('hospitalContent', 'hospital-arrow')"><i class="fas fa-hospital" style="color:#FF3B30;"></i> <span data-lang="医院" data-lang-en="Hospital">医院</span></a>
+            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('restaurantContent', 'restaurant-arrow')"><i class="fas fa-utensils" style="color:#34C759;"></i> <span data-lang="平价餐厅" data-lang-en="Dining">平价餐厅</span></a>
+            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('parkingContent', 'parking-arrow')"><i class="fas fa-square-parking" style="color:#007AFF;"></i> <span data-lang="停车场" data-lang-en="Parking">停车场</span></a>
+            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('luggageContent', 'luggage-arrow')"><i class="fas fa-suitcase-rolling" style="color:#FF9500;"></i> <span data-lang="行李寄存" data-lang-en="Luggage">行李寄存</span></a>
+            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('chargingContent', 'charging-arrow')"><i class="fas fa-bolt" style="color:#FFD60A;"></i> <span data-lang="充电桩" data-lang-en="Charging">充电桩</span></a>
+            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('spotContent', 'spot-arrow')"><i class="fas fa-camera-retro" style="color:#AF52DE;"></i> <span data-lang="打卡点" data-lang-en="Spots">打卡点</span></a>
+        </nav>
 
         <div class="notice-card">
             <h4 data-lang="⚠️ 重要提示" data-lang-en="⚠️ Important Notice"><i class="fas fa-triangle-exclamation"></i> ⚠️ 重要提示</h4>
@@ -557,7 +664,7 @@
         </div>
 
         <!-- 免费停车场 -->
-        <div class="accordion-card">
+        <div class="accordion-card" id="parking-section">
             <div class="accordion-header" onclick="toggleAccordion('parkingContent', 'parking-arrow')">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-square-parking" style="color: var(--primary); font-size: 20px;"></i>
@@ -645,7 +752,7 @@
         </div>
 
         <!-- 充电桩 -->
-        <div class="accordion-card">
+        <div class="accordion-card" id="charging-section">
             <div class="accordion-header" onclick="toggleAccordion('chargingContent', 'charging-arrow')">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-charging-station" style="color: #34C759; font-size: 20px;"></i>
@@ -700,7 +807,7 @@
         </div>
 
         <!-- 热门打卡点 - 默认展开 -->
-        <div class="accordion-card">
+        <div class="accordion-card" id="spot-section">
             <div class="accordion-header" onclick="toggleAccordion('spotContent', 'spot-arrow')">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-camera-retro" style="color: #AF52DE; font-size: 20px;"></i>
@@ -992,15 +1099,22 @@
             }
         }
 
-        function toggleMode() {
-            document.body.classList.toggle('dark-mode');
+        function applyTheme(dark) {
+            document.body.classList.toggle('dark-mode', dark);
             const btn = document.querySelector('.mode-toggle i');
-            if (document.body.classList.contains('dark-mode')) {
-                btn.className = 'fas fa-sun';
-            } else {
-                btn.className = 'fas fa-moon';
-            }
+            if (btn) btn.className = dark ? 'fas fa-sun' : 'fas fa-moon';
         }
+
+        function toggleMode() {
+            const dark = !document.body.classList.contains('dark-mode');
+            applyTheme(dark);
+            try { localStorage.setItem('jtw360-theme', dark ? 'dark' : 'light'); } catch (e) {}
+        }
+
+        // 恢复上次选择的主题
+        try {
+            if (localStorage.getItem('jtw360-theme') === 'dark') applyTheme(true);
+        } catch (e) {}
 
         function toggleLanguage() {
             const btn = document.querySelector('.lang-toggle');
