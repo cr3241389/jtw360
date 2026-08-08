@@ -424,9 +424,9 @@
                 <div class="service-icon"><i class="fas fa-restroom"></i></div>
                 <span data-lang="洗手间" data-lang-en="Restroom">洗手间</span>
             </a>
-            <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草卫生院" class="service-item">
+            <a href="javascript:void(0)" onclick="openAccordion('hospitalContent', 'hospital-arrow')" class="service-item">
                 <div class="service-icon" style="color: #FF3B30; background: rgba(255,59,48,0.15)"><i class="fas fa-kit-medical"></i></div>
-                <span data-lang="医疗救助" data-lang-en="Medical">医疗救助</span>
+                <span data-lang="医院" data-lang-en="Hospital">医院</span>
             </a>
             <a href="javascript:void(0)" onclick="openAccordion('luggageContent', 'luggage-arrow')" class="service-item">
                 <div class="service-icon" style="color: #FF9500; background: rgba(255,149,0,0.15)"><i class="fas fa-suitcase-rolling"></i></div>
@@ -441,6 +441,35 @@
         <div class="notice-card">
             <h4 data-lang="⚠️ 重要提示" data-lang-en="⚠️ Important Notice"><i class="fas fa-triangle-exclamation"></i> ⚠️ 重要提示</h4>
             <p data-lang="金町湾全域禁止烟花燃放！违者将依法处理，请大家共同维护景区安全。" data-lang-en="Fireworks are prohibited in Jinting Bay! Violators will be penalized. Please help maintain safety.">金町湾全域禁止烟花燃放！违者将依法处理，请大家共同维护景区安全。</p>
+        </div>
+
+        <!-- 医院 -->
+        <div class="accordion-card" id="hospital-section">
+            <div class="accordion-header" onclick="toggleAccordion('hospitalContent', 'hospital-arrow')">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-hospital" style="color: #FF3B30; font-size: 20px;"></i>
+                    <span data-lang="医院" data-lang-en="Hospitals">医院</span>
+                </div>
+                <i id="hospital-arrow" class="fas fa-chevron-down"></i>
+            </div>
+            <div id="hospitalContent" class="accordion-content">
+                <div class="spot-list">
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="深汕中医医院" data-lang-en="Shenshan TCM Hospital">深汕中医医院</span></span>
+                            <p class="spot-desc" data-lang="电话：06606162398" data-lang-en="Tel: 06606162398">电话：<a href="tel:06606162398">06606162398</a></p>
+                            <a href="https://uri.amap.com/marker?position=115.305937,22.796466&name=深汕中医医院" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="红草中心卫生院" data-lang-en="Hongcao Central Health Center">红草中心卫生院</span></span>
+                            <p class="spot-desc" data-lang="电话：06603445366" data-lang-en="Tel: 06603445366">电话：<a href="tel:06603445366">06603445366</a></p>
+                            <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草中心卫生院" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- 免费停车场 -->
