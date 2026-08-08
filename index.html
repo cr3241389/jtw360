@@ -436,6 +436,10 @@
                 <div class="service-icon" style="color: #AF52DE; background: rgba(175,82,222,0.15)"><i class="fas fa-fire"></i></div>
                 <span data-lang="烟花点" data-lang-en="Fireworks">烟花点</span>
             </a>
+            <a href="javascript:void(0)" onclick="openAccordion('restaurantContent', 'restaurant-arrow')" class="service-item" style="grid-column: 1 / -1; flex-direction: row; justify-content: center; gap: 12px; background: linear-gradient(135deg, rgba(52,199,89,0.10), rgba(52,199,89,0.03)); border: 1px dashed rgba(52,199,89,0.35); border-radius: 16px; padding: 10px 0; margin-top: 2px;">
+                <div class="service-icon" style="color: #34C759; background: rgba(52,199,89,0.15)"><i class="fas fa-utensils"></i></div>
+                <span data-lang="平价餐厅（无溢价）" data-lang-en="Affordable Dining (No Markup)">平价餐厅（无溢价）</span>
+            </a>
         </div>
 
         <div class="notice-card">
@@ -466,6 +470,86 @@
                             <span class="spot-name"><span data-lang="红草中心卫生院" data-lang-en="Hongcao Central Health Center">红草中心卫生院</span></span>
                             <p class="spot-desc" data-lang="电话：06603445366" data-lang-en="Tel: 06603445366">电话：<a href="tel:06603445366">06603445366</a></p>
                             <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草中心卫生院" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 平价餐厅（无溢价） -->
+        <div class="accordion-card" id="restaurant-section">
+            <div class="accordion-header" onclick="toggleAccordion('restaurantContent', 'restaurant-arrow')">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-utensils" style="color: #34C759; font-size: 20px;"></i>
+                    <span data-lang="平价餐厅（无溢价）" data-lang-en="Affordable Restaurants (No Markup)">平价餐厅（无溢价）</span>
+                </div>
+                <i id="restaurant-arrow" class="fas fa-chevron-down"></i>
+            </div>
+            <div id="restaurantContent" class="accordion-content">
+                <div style="background: rgba(255,149,0,0.10); border: 1px solid rgba(255,149,0,0.25); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #B25E00; line-height: 1.6; margin-bottom: 14px;">
+                    <i class="fas fa-circle-info"></i> <span data-lang="景区海鲜有大幅溢价，推荐餐厅均为房东日常消费店铺。吃海鲜请下午6点前到，否则会排队。" data-lang-en="Seafood in the scenic area is heavily marked up. These are the landlord's daily local picks. For seafood, arrive before 6 PM or expect to queue.">景区海鲜有大幅溢价，推荐餐厅均为房东日常消费店铺。吃海鲜请下午6点前到，否则会排队。</span>
+                </div>
+                <div class="spot-list">
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name">
+                                <span data-lang="肯德基" data-lang-en="KFC">肯德基</span>
+                                <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
+                                <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
+                            </span>
+                            <a href="https://uri.amap.com/marker?position=115.292374,22.795705&name=肯德基" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name">
+                                <span data-lang="吃自知牛杂世家(保利金町湾店)" data-lang-en="Chizhizhi Beef Offal (Baoli Jintingwan)">吃自知牛杂世家(保利金町湾店)</span>
+                                <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
+                                <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
+                            </span>
+                            <a href="https://uri.amap.com/marker?position=115.29314,22.795955&name=吃自知牛杂世家" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="南沣烧腊快餐" data-lang-en="Nanfeng Roast Meat Fast Food">南沣烧腊快餐</span></span>
+                            <a href="https://uri.amap.com/marker?position=115.293398,22.796174&name=南沣烧腊快餐" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="品清园味牛腩店" data-lang-en="Pinqingyuan Beef Brisket">品清园味牛腩店</span></span>
+                            <a href="https://uri.amap.com/marker?position=115.293505,22.796238&name=品清园味牛腩店" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name">
+                                <span data-lang="迎东大酒楼" data-lang-en="Yingdong Grand Restaurant">迎东大酒楼</span>
+                                <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
+                            </span>
+                            <a href="https://uri.amap.com/marker?position=115.323069,22.792713&name=迎东大酒楼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name">
+                                <span data-lang="阿国薄饼" data-lang-en="Aguo Thin Pancake">阿国薄饼</span>
+                                <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
+                            </span>
+                            <a href="https://uri.amap.com/marker?position=115.349618,22.781474&name=阿国薄饼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="新明园餐厅(海鲜)" data-lang-en="Xinmingyuan Restaurant (Seafood)">新明园餐厅(海鲜)</span></span>
+                            <a href="https://uri.amap.com/marker?position=115.359453,22.785996&name=新明园餐厅" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="丰富大排档(海鲜)" data-lang-en="Fengfu Food Stall (Seafood)">丰富大排档(海鲜)</span></span>
+                            <a href="https://uri.amap.com/marker?position=115.352591,22.776596&name=丰富大排档" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                 </div>
