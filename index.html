@@ -480,6 +480,7 @@
             <a class="quick-nav-item" href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所"><i class="fas fa-restroom" style="color:#007AFF;"></i> <span data-lang="洗手间" data-lang-en="Restroom">洗手间</span></a>
             <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('hospitalContent', 'hospital-arrow')"><i class="fas fa-hospital" style="color:#FF3B30;"></i> <span data-lang="医院" data-lang-en="Hospital">医院</span></a>
             <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('restaurantContent', 'restaurant-arrow')"><i class="fas fa-utensils" style="color:#34C759;"></i> <span data-lang="平价餐厅" data-lang-en="Dining">平价餐厅</span></a>
+            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('trafficFoodContent', 'traffic-food-arrow')"><i class="fas fa-route" style="color:#FF9500;"></i> <span data-lang="避堵美食路线" data-lang-en="Less-Crowded Food Route">避堵美食路线</span></a>
             <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('parkingContent', 'parking-arrow')"><i class="fas fa-square-parking" style="color:#007AFF;"></i> <span data-lang="停车场" data-lang-en="Parking">停车场</span></a>
             <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('luggageContent', 'luggage-arrow')"><i class="fas fa-suitcase-rolling" style="color:#FF9500;"></i> <span data-lang="行李寄存" data-lang-en="Luggage">行李寄存</span></a>
             <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('chargingContent', 'charging-arrow')"><i class="fas fa-bolt" style="color:#FFD60A;"></i> <span data-lang="充电桩" data-lang-en="Charging">充电桩</span></a>
@@ -640,6 +641,58 @@
                         </div>
                         <div style="background: rgba(0,122,255,0.08); border: 1px solid rgba(0,122,255,0.20); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--primary); line-height: 1.6;">
                             <i class="fas fa-circle-info"></i> <span data-lang="信利城市广场商户消费可在信利大厦凭票免费停车2-3小时" data-lang-en="Spend at Xinli City Plaza merchants and park free at Xinli Building for 2-3 hours with ticket.">信利城市广场商户消费可在信利大厦凭票免费停车2-3小时</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 避堵美食路线 -->
+        <div class="accordion-card" id="traffic-food-section">
+            <div class="accordion-header" onclick="toggleAccordion('trafficFoodContent', 'traffic-food-arrow')">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-route" style="color: #FF9500; font-size: 20px;"></i>
+                    <span data-lang="避堵美食路线" data-lang-en="Less-Crowded Food Route">避堵美食路线</span>
+                </div>
+                <i id="traffic-food-arrow" class="fas fa-chevron-down"></i>
+            </div>
+            <div id="trafficFoodContent" class="accordion-content">
+                <div class="restaurant-note" style="margin: 0 20px 14px;"><i class="fas fa-house"></i> <span data-lang="房东日常消费店铺，避开景区高峰人流，适合顺路吃饭和休闲。" data-lang-en="The landlord's everyday local picks, away from peak scenic-area crowds. Great for a relaxed food stop.">房东日常消费店铺，避开景区高峰人流，适合顺路吃饭和休闲。</span></div>
+                <div class="spot-list">
+                    <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/daxi-teahouse.webp" alt="大喜茶楼参考图">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="大喜茶楼" data-lang-en="Daxi Tea House">大喜茶楼</span><span class="tag tag-free" data-lang="房东日常消费" data-lang-en="Local daily pick">房东日常消费</span></span>
+                            <p class="spot-desc" data-lang="茶楼点心，适合错峰用餐和喝茶聊天。" data-lang-en="Dim sum and tea, ideal for a relaxed meal away from the crowds.">茶楼点心，适合错峰用餐和喝茶聊天。</p>
+                            <p class="spot-price" data-lang="图片参考菜单：¥33起" data-lang-en="Reference menu in image: CNY 33+">图片参考菜单：¥33起</p>
+                            <a href="https://uri.amap.com/marker?position=115.379406,22.788853&name=大喜茶楼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/xiaba-flavor.webp" alt="呷霸风味堂参考图">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="呷霸风味堂" data-lang-en="Xiaba Flavor House">呷霸风味堂</span><span class="tag tag-free" data-lang="房东日常消费" data-lang-en="Local daily pick">房东日常消费</span></span>
+                            <p class="spot-desc" data-lang="台湾风味小吃，适合快速解决一餐。" data-lang-en="Taiwan-inspired local food for a quick, easy meal.">台湾风味小吃，适合快速解决一餐。</p>
+                            <p class="spot-price" data-lang="图片参考菜单：¥15起" data-lang-en="Reference menu in image: CNY 15+">图片参考菜单：¥15起</p>
+                            <a href="https://uri.amap.com/marker?position=115.379788,22.78886&name=呷霸风味堂" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/niujang-yakiniku.webp" alt="牛将烧肉参考图">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="牛将烧肉" data-lang-en="Niujang Yakiniku">牛将烧肉</span><span class="tag tag-free" data-lang="房东日常消费" data-lang-en="Local daily pick">房东日常消费</span></span>
+                            <p class="spot-desc" data-lang="烧肉聚餐选择，适合避开景区海鲜高峰。" data-lang-en="A yakiniku option for gatherings, away from the scenic-area seafood rush.">烧肉聚餐选择，适合避开景区海鲜高峰。</p>
+                            <p class="spot-price" data-lang="图片参考菜单：¥42起" data-lang-en="Reference menu in image: CNY 42+">图片参考菜单：¥42起</p>
+                            <a href="https://uri.amap.com/marker?position=115.37962,22.788858&name=牛将烧肉" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
+                        </div>
+                    </div>
+                    <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/yuxin-bookstore.webp" alt="愈欣书店参考图">
+                        <div class="spot-info">
+                            <span class="spot-name"><span data-lang="愈欣书店" data-lang-en="Yuxin Bookstore">愈欣书店</span><span class="tag" data-lang="休闲去处" data-lang-en="Leisure stop">休闲去处</span></span>
+                            <p class="spot-desc" data-lang="用餐后可顺路逛逛的书店，适合拍照、阅读和休息。" data-lang-en="A nearby bookstore for photos, reading, and a quiet break after a meal.">用餐后可顺路逛逛的书店，适合拍照、阅读和休息。</p>
+                            <p class="spot-price" data-lang="店内消费以现场为准" data-lang-en="Check in-store prices">店内消费以现场为准</p>
+                            <a href="https://uri.amap.com/marker?position=115.379708,22.78854&name=愈欣书店" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                 </div>
