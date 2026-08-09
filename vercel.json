@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/places/:slug", "destination": "/index.html?place=:slug" },
+    { "source": "/food/:slug", "destination": "/index.html?place=:slug" },
+    { "source": "/parking/:slug", "destination": "/index.html?place=:slug" }
+  ]
+}
