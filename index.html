@@ -239,6 +239,18 @@
             flex-wrap: wrap;
             gap: 6px;
         }
+        .restaurant-name {
+            border: 0;
+            padding: 0;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            font-weight: inherit;
+            text-align: left;
+            cursor: pointer;
+        }
+        .restaurant-name:hover,
+        .restaurant-name:focus-visible { color: var(--primary); }
         .spot-desc {
             font-size: 13px;
             color: var(--text-sub);
@@ -263,10 +275,8 @@
             object-position: left top;
             flex-shrink: 0;
             background: #eef2f5;
-            cursor: zoom-in;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: default;
         }
-        .restaurant-photo:active { transform: scale(0.97); }
         .restaurant-note {
             margin: -4px 0 14px;
             padding: 9px 12px;
@@ -291,6 +301,8 @@
             transition: background 0.2s;
         }
         .spot-action:active { background: #005bb5; }
+        #restaurantContent > .spot-list .spot-action,
+        #trafficFoodContent > .spot-list .spot-action { display: none; }
 
         /* Tags */
         .tag {
@@ -356,6 +368,48 @@
             transition: transform 0.3s;
             position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .restaurant-detail-modal {
+            max-width: 520px;
+            text-align: left;
+            padding: 24px;
+        }
+        .restaurant-detail-modal h3 {
+            margin: 0 0 8px;
+            font-size: 22px;
+            color: var(--text-main);
+        }
+        .restaurant-detail-modal .detail-meta {
+            color: var(--text-sub);
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0 0 14px;
+        }
+        .restaurant-detail-image {
+            display: block;
+            width: 100%;
+            max-height: 48vh;
+            max-height: 48dvh;
+            object-fit: contain;
+            background: var(--bg);
+            border-radius: var(--radius-md);
+            margin: 14px 0;
+        }
+        .restaurant-detail-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .restaurant-detail-actions .spot-action { margin: 0; }
+        .restaurant-detail-close {
+            border: 0;
+            background: var(--bg);
+            color: var(--text-sub);
+            border-radius: 18px;
+            min-height: 36px;
+            padding: 0 14px;
+            cursor: pointer;
         }
         .modal.show .modal-content { transform: translateY(0); }
         .modal-close {
@@ -536,10 +590,10 @@
                 <div class="restaurant-note"><i class="fas fa-tag"></i> <span data-lang="价格为参考人均或团购起价，来自当前图片信息，实际以美团、抖音或现场菜单为准。" data-lang-en="Prices are reference per-person or group-deal starting prices. Check Meituan, Douyin, or the on-site menu for current prices.">价格为参考人均或团购起价，来自当前图片信息，实际以美团、抖音或现场菜单为准。</span></div>
                 <div class="spot-list">
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/kfc.webp" alt="肯德基套餐参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/kfc.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/kfc-thumb.webp" alt="肯德基美食缩略图">
                         <div class="spot-info">
                             <span class="spot-name">
-                                <span data-lang="肯德基" data-lang-en="KFC">肯德基</span>
+                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('kfc')"><span data-lang="肯德基" data-lang-en="KFC">肯德基</span></button>
                                 <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
                                 <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
                             </span>
@@ -548,10 +602,10 @@
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/mcdonalds.webp" alt="麦当劳套餐参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/mcdonalds.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/mcdonalds-thumb.webp" alt="麦当劳美食缩略图">
                         <div class="spot-info">
                             <span class="spot-name">
-                                <span data-lang="麦当劳" data-lang-en="McDonald's">麦当劳</span>
+                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('mcdonalds')"><span data-lang="麦当劳" data-lang-en="McDonald's">麦当劳</span></button>
                                 <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
                                 <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
                             </span>
@@ -560,10 +614,10 @@
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/chizizhi.webp" alt="吃自知牛杂世家参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/chizizhi.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/chizizhi-thumb.webp" alt="吃自知牛杂世家美食缩略图">
                         <div class="spot-info">
                             <span class="spot-name">
-                                <span data-lang="吃自知牛杂世家(保利金町湾店)" data-lang-en="Chizhizhi Beef Offal (Baoli Jintingwan)">吃自知牛杂世家(保利金町湾店)</span>
+                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('chizizhi')"><span data-lang="吃自知牛杂世家(保利金町湾店)" data-lang-en="Chizhizhi Beef Offal (Baoli Jintingwan)">吃自知牛杂世家(保利金町湾店)</span></button>
                                 <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
                                 <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
                             </span>
@@ -572,26 +626,26 @@
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/nanfeng.webp" alt="南沣烧腊快餐参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/nanfeng.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/nanfeng-thumb.webp" alt="南沣烧腊快餐美食缩略图">
                         <div class="spot-info">
-                            <span class="spot-name"><span data-lang="南沣烧腊快餐" data-lang-en="Nanfeng Roast Meat Fast Food">南沣烧腊快餐</span></span>
+                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('nanfeng')"><span data-lang="南沣烧腊快餐" data-lang-en="Nanfeng Roast Meat Fast Food">南沣烧腊快餐</span></button></span>
                             <p class="spot-price" data-lang="参考人均：¥15–25" data-lang-en="Reference spend: CNY 15–25/person">参考人均：¥15–25</p>
                             <a href="https://uri.amap.com/marker?position=115.293398,22.796174&name=南沣烧腊快餐" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/pinqingyuan.webp" alt="品清园味牛腩店参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/pinqingyuan.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/pinqingyuan-thumb.webp" alt="品清园味牛腩店美食缩略图">
                         <div class="spot-info">
-                            <span class="spot-name"><span data-lang="品清园味牛腩店" data-lang-en="Pinqingyuan Beef Brisket">品清园味牛腩店</span></span>
+                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('pinqingyuan')"><span data-lang="品清园味牛腩店" data-lang-en="Pinqingyuan Beef Brisket">品清园味牛腩店</span></button></span>
                             <p class="spot-price" data-lang="参考人均：¥15–30" data-lang-en="Reference spend: CNY 15–30/person">参考人均：¥15–30</p>
                             <a href="https://uri.amap.com/marker?position=115.293505,22.796238&name=品清园味牛腩店" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/yingdong.webp" alt="迎东大酒楼参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/yingdong.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/yingdong-thumb.webp" alt="迎东大酒楼美食缩略图">
                         <div class="spot-info">
                             <span class="spot-name">
-                                <span data-lang="迎东大酒楼" data-lang-en="Yingdong Grand Restaurant">迎东大酒楼</span>
+                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('yingdong')"><span data-lang="迎东大酒楼" data-lang-en="Yingdong Grand Restaurant">迎东大酒楼</span></button>
                                 <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
                             </span>
                             <p class="spot-price" data-lang="参考团购：¥68起（2人餐）" data-lang-en="Reference group deal: CNY 68+ (2-person set)">参考团购：¥68起（2人餐）</p>
@@ -599,10 +653,10 @@
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/aguo.webp" alt="阿国薄饼参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/aguo.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/aguo-thumb.webp" alt="阿国薄饼美食缩略图">
                         <div class="spot-info">
                             <span class="spot-name">
-                                <span data-lang="阿国薄饼" data-lang-en="Aguo Thin Pancake">阿国薄饼</span>
+                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('aguo')"><span data-lang="阿国薄饼" data-lang-en="Aguo Thin Pancake">阿国薄饼</span></button>
                                 <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
                             </span>
                             <p class="spot-price" data-lang="参考人均：¥10–20" data-lang-en="Reference spend: CNY 10–20/person">参考人均：¥10–20</p>
@@ -610,17 +664,17 @@
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/xinmingyuan.webp" alt="新明园餐厅海鲜参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/xinmingyuan.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/xinmingyuan-thumb.webp" alt="新明园餐厅海鲜美食缩略图">
                         <div class="spot-info">
-                            <span class="spot-name"><span data-lang="新明园餐厅(海鲜)" data-lang-en="Xinmingyuan Restaurant (Seafood)">新明园餐厅(海鲜)</span></span>
+                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('xinmingyuan')"><span data-lang="新明园餐厅(海鲜)" data-lang-en="Xinmingyuan Restaurant (Seafood)">新明园餐厅(海鲜)</span></button></span>
                             <p class="spot-price" data-lang="参考人均：¥60–100" data-lang-en="Reference spend: CNY 60–100/person">参考人均：¥60–100</p>
                             <a href="https://uri.amap.com/marker?position=115.359453,22.785996&name=新明园餐厅" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/fengfu.webp" alt="丰富大排档海鲜参考图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/fengfu.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/fengfu-thumb.webp" alt="丰富大排档海鲜美食缩略图">
                         <div class="spot-info">
-                            <span class="spot-name"><span data-lang="丰富大排档(海鲜)" data-lang-en="Fengfu Food Stall (Seafood)">丰富大排档(海鲜)</span></span>
+                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('fengfu')"><span data-lang="丰富大排档(海鲜)" data-lang-en="Fengfu Food Stall (Seafood)">丰富大排档(海鲜)</span></button></span>
                             <p class="spot-price" data-lang="参考人均：¥50–80" data-lang-en="Reference spend: CNY 50–80/person">参考人均：¥50–80</p>
                             <a href="https://uri.amap.com/marker?position=115.352591,22.776596&name=丰富大排档" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
@@ -663,36 +717,36 @@
                 <div class="restaurant-note" style="margin: 0 20px 14px;"><i class="fas fa-house"></i> <span data-lang="房东日常消费店铺。节假日城区人流量大，城区停车困难，吃饭排队严重，可以来这里，地库停车免费。" data-lang-en="Everyday local picks from the landlord. During holidays, downtown gets crowded, parking is difficult, and restaurants have long queues. Come here instead; basement parking is free.">房东日常消费店铺。节假日城区人流量大，城区停车困难，吃饭排队严重，可以来这里，地库停车免费。</span></div>
                 <div class="spot-list">
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/daxi-thumb.webp" alt="大喜茶楼美食缩略图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/daxi-teahouse.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/daxi-thumb.webp" alt="大喜茶楼美食缩略图">
                         <div class="spot-info">
-                            <span class="spot-name"><span data-lang="大喜茶楼" data-lang-en="Daxi Tea House">大喜茶楼</span></span>
+                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('daxi')"><span data-lang="大喜茶楼" data-lang-en="Daxi Tea House">大喜茶楼</span></button></span>
                             <p class="spot-desc" data-lang="茶楼点心，适合错峰用餐和喝茶聊天。" data-lang-en="Dim sum and tea, ideal for a relaxed meal away from the crowds.">茶楼点心，适合错峰用餐和喝茶聊天。</p>
                             <p class="spot-price" data-lang="图片参考菜单：¥33起" data-lang-en="Reference menu in image: CNY 33+">图片参考菜单：¥33起</p>
                             <a href="https://uri.amap.com/marker?position=115.379406,22.788853&name=大喜茶楼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/xiaba-thumb.webp" alt="呷霸风味堂美食缩略图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/xiaba-flavor.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/xiaba-thumb.webp" alt="呷霸风味堂美食缩略图">
                         <div class="spot-info">
-                            <span class="spot-name"><span data-lang="呷霸风味堂" data-lang-en="Xiaba Flavor House">呷霸风味堂</span></span>
+                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('xiaba')"><span data-lang="呷霸风味堂" data-lang-en="Xiaba Flavor House">呷霸风味堂</span></button></span>
                             <p class="spot-desc" data-lang="台湾风味小吃，适合快速解决一餐。" data-lang-en="Taiwan-inspired local food for a quick, easy meal.">台湾风味小吃，适合快速解决一餐。</p>
                             <p class="spot-price" data-lang="图片参考菜单：¥15起" data-lang-en="Reference menu in image: CNY 15+">图片参考菜单：¥15起</p>
                             <a href="https://uri.amap.com/marker?position=115.379788,22.78886&name=呷霸风味堂" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/niujang-thumb.webp" alt="牛将烧肉美食缩略图，点击查看完整菜单" title="点击查看完整菜单" onclick="openLightbox('img/food/niujang-yakiniku.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/niujang-thumb.webp" alt="牛将烧肉美食缩略图">
                         <div class="spot-info">
-                            <span class="spot-name"><span data-lang="牛将烧肉" data-lang-en="Niujang Yakiniku">牛将烧肉</span></span>
+                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('niujang')"><span data-lang="牛将烧肉" data-lang-en="Niujang Yakiniku">牛将烧肉</span></button></span>
                             <p class="spot-desc" data-lang="烧肉聚餐选择，适合避开景区海鲜高峰。" data-lang-en="A yakiniku option for gatherings, away from the scenic-area seafood rush.">烧肉聚餐选择，适合避开景区海鲜高峰。</p>
                             <p class="spot-price" data-lang="图片参考菜单：¥42起" data-lang-en="Reference menu in image: CNY 42+">图片参考菜单：¥42起</p>
                             <a href="https://uri.amap.com/marker?position=115.37962,22.788858&name=牛将烧肉" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/yuxin-thumb.webp" alt="愈欣书店图片缩略图，点击查看大图" title="点击查看大图" onclick="openLightbox('img/food/yuxin-bookstore.webp')">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/yuxin-thumb.webp" alt="愈欣书店图片缩略图">
                         <div class="spot-info">
-                            <span class="spot-name"><span data-lang="愈欣书店" data-lang-en="Yuxin Bookstore">愈欣书店</span></span>
+                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('yuxin')"><span data-lang="愈欣书店" data-lang-en="Yuxin Bookstore">愈欣书店</span></button></span>
                             <p class="spot-desc" data-lang="用餐后可顺路逛逛的书店，适合拍照、阅读和休息。" data-lang-en="A nearby bookstore for photos, reading, and a quiet break after a meal.">用餐后可顺路逛逛的书店，适合拍照、阅读和休息。</p>
                             <p class="spot-price" data-lang="店内消费以现场为准" data-lang-en="Check in-store prices">店内消费以现场为准</p>
                             <a href="https://uri.amap.com/marker?position=115.379708,22.78854&name=愈欣书店" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
@@ -1054,6 +1108,14 @@
         <img id="lightbox-img" src="" onclick="event.stopPropagation()">
     </div>
 
+    <!-- Restaurant detail sheet -->
+    <div id="restaurantDetailModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content restaurant-detail-modal" onclick="event.stopPropagation()">
+            <button class="modal-close" type="button" onclick="closeRestaurantDetail()">&times;</button>
+            <div id="restaurantDetailContent"></div>
+        </div>
+    </div>
+
     <script>
         function toggleAccordion(contentId, arrowId) {
             const content = document.getElementById(contentId);
@@ -1080,6 +1142,99 @@
             setTimeout(() => {
                 content.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 300);
+        }
+
+        const restaurantDetails = {
+            kfc: {
+                name: '肯德基', menu: 'img/food/kfc.webp', price: '参考人均：¥20–45',
+                description: '快餐选择，团购信息以美团、抖音当前页面为准。',
+                url: 'https://uri.amap.com/marker?position=115.292374,22.795705&name=肯德基'
+            },
+            mcdonalds: {
+                name: '麦当劳', menu: 'img/food/mcdonalds.webp', price: '参考人均：¥20–45',
+                description: '快餐选择，团购信息以美团、抖音当前页面为准。',
+                url: 'https://uri.amap.com/marker?position=115.298594,22.797381&name=麦当劳'
+            },
+            chizizhi: {
+                name: '吃自知牛杂世家(保利金町湾店)', menu: 'img/food/chizizhi.webp', price: '参考人均：¥20–40',
+                description: '牛杂和牛肉小吃，适合日常简餐。',
+                url: 'https://uri.amap.com/marker?position=115.29314,22.795955&name=吃自知牛杂世家'
+            },
+            nanfeng: {
+                name: '南沣烧腊快餐', menu: 'img/food/nanfeng.webp', price: '参考人均：¥15–25',
+                description: '烧腊快餐，适合快速解决一餐。',
+                url: 'https://uri.amap.com/marker?position=115.293398,22.796174&name=南沣烧腊快餐'
+            },
+            pinqingyuan: {
+                name: '品清园味牛腩店', menu: 'img/food/pinqingyuan.webp', price: '参考人均：¥15–30',
+                description: '牛腩和牛肉小吃，适合日常消费。',
+                url: 'https://uri.amap.com/marker?position=115.293505,22.796238&name=品清园味牛腩店'
+            },
+            yingdong: {
+                name: '迎东大酒楼', menu: 'img/food/yingdong.webp', price: '参考团购：¥68起（2人餐）',
+                description: '城区通航路碧桂园华附凤凰城。', address: '城区通航路碧桂园华附凤凰城',
+                phone: '0660-8333888 / 15918554894', meituan: 'http://dpurl.cn/UGwcD9Kz',
+                url: 'https://uri.amap.com/marker?position=115.323069,22.792713&name=迎东大酒楼'
+            },
+            aguo: {
+                name: '阿国薄饼', menu: 'img/food/aguo.webp', price: '参考人均：¥10–20',
+                description: '薄饼和汕尾风味小吃，适合轻松用餐。',
+                url: 'https://uri.amap.com/marker?position=115.349618,22.781474&name=阿国薄饼'
+            },
+            xinmingyuan: {
+                name: '新明园餐厅(海鲜)', menu: 'img/food/xinmingyuan.webp', price: '参考人均：¥60–100',
+                description: '海鲜和本地菜，建议提前到店避开排队。',
+                url: 'https://uri.amap.com/marker?position=115.359453,22.785996&name=新明园餐厅'
+            },
+            fengfu: {
+                name: '丰富大排档(海鲜)', menu: 'img/food/fengfu.webp', price: '参考人均：¥50–80',
+                description: '海鲜大排档，价格以现场点单为准。',
+                url: 'https://uri.amap.com/marker?position=115.352591,22.776596&name=丰富大排档'
+            },
+            daxi: {
+                name: '大喜茶楼', menu: 'img/food/daxi-teahouse.webp', price: '图片参考菜单：¥33起',
+                description: '茶楼点心，适合错峰用餐和喝茶聊天。',
+                url: 'https://uri.amap.com/marker?position=115.379406,22.788853&name=大喜茶楼'
+            },
+            xiaba: {
+                name: '呷霸风味堂', menu: 'img/food/xiaba-flavor.webp', price: '图片参考菜单：¥15起',
+                description: '台湾风味小吃，适合快速解决一餐。',
+                url: 'https://uri.amap.com/marker?position=115.379788,22.78886&name=呷霸风味堂'
+            },
+            niujang: {
+                name: '牛将烧肉', menu: 'img/food/niujang-yakiniku.webp', price: '图片参考菜单：¥42起',
+                description: '烧肉聚餐选择，适合避开景区海鲜高峰。',
+                url: 'https://uri.amap.com/marker?position=115.37962,22.788858&name=牛将烧肉'
+            },
+            yuxin: {
+                name: '愈欣书店', menu: 'img/food/yuxin-bookstore.webp', price: '店内消费以现场为准',
+                description: '用餐后可顺路逛逛的书店，适合拍照、阅读和休息。',
+                url: 'https://uri.amap.com/marker?position=115.379708,22.78854&name=愈欣书店'
+            }
+        };
+
+        function openRestaurantDetail(id) {
+            const detail = restaurantDetails[id];
+            if (!detail) return;
+            const contact = detail.phone ? `<p class="detail-meta">电话：<a href="tel:${detail.phone.replace(/[^0-9]/g, '')}">${detail.phone}</a></p>` : '';
+            const meituan = detail.meituan ? `<a class="spot-action" href="${detail.meituan}" target="_blank" rel="noreferrer">打开美团</a>` : '';
+            document.getElementById('restaurantDetailContent').innerHTML = `
+                <h3>${detail.name}</h3>
+                <p class="detail-meta">${detail.description}</p>
+                ${detail.address ? `<p class="detail-meta">地址：${detail.address}</p>` : ''}
+                ${contact}
+                <img class="restaurant-detail-image" src="${detail.menu}" alt="${detail.name}完整菜单">
+                <p class="spot-price">${detail.price}</p>
+                <div class="restaurant-detail-actions">
+                    <a class="spot-action" href="${detail.url}" target="_blank" rel="noreferrer"><i class="fas fa-location-arrow"></i> 导航</a>
+                    ${meituan}
+                    <button class="restaurant-detail-close" type="button" onclick="closeRestaurantDetail()">关闭</button>
+                </div>`;
+            document.getElementById('restaurantDetailModal').classList.add('show');
+        }
+
+        function closeRestaurantDetail() {
+            document.getElementById('restaurantDetailModal').classList.remove('show');
         }
 
         function openLightbox(src) {
