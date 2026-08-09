@@ -249,6 +249,30 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+        .spot-price {
+            margin: -4px 0 12px;
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .restaurant-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            object-position: left center;
+            flex-shrink: 0;
+            background: #eef2f5;
+        }
+        .restaurant-note {
+            margin: -4px 0 14px;
+            padding: 9px 12px;
+            border-radius: var(--radius-sm);
+            color: var(--text-sub);
+            background: var(--bg);
+            font-size: 12px;
+            line-height: 1.5;
+        }
         .spot-action {
             align-self: flex-start;
             background: var(--primary);
@@ -411,6 +435,7 @@
             .accordion-header { padding: 16px 16px; font-size: 16px; }
             .spot-list { padding: 0 16px 12px; }
             .spot-img-wrap { width: 84px; height: 84px; }
+            .restaurant-photo { width: 84px; height: 84px; }
             .spot-name { font-size: 15px; }
             .modal { padding: 14px; }
             .modal-content { padding: 28px 18px; }
@@ -504,76 +529,95 @@
                 <div style="background: rgba(255,149,0,0.10); border: 1px solid rgba(255,149,0,0.25); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #B25E00; line-height: 1.6; margin-bottom: 14px;">
                     <i class="fas fa-circle-info"></i> <span data-lang="景区海鲜有大幅溢价，推荐餐厅均为房东日常消费店铺。吃海鲜请下午6点前到，否则会排队。" data-lang-en="Seafood in the scenic area is heavily marked up. These are the landlord's daily local picks. For seafood, arrive before 6 PM or expect to queue.">景区海鲜有大幅溢价，推荐餐厅均为房东日常消费店铺。吃海鲜请下午6点前到，否则会排队。</span>
                 </div>
+                <div class="restaurant-note"><i class="fas fa-tag"></i> <span data-lang="价格为参考人均或团购起价，来自当前图片信息，实际以美团、抖音或现场菜单为准。" data-lang-en="Prices are reference per-person or group-deal starting prices. Check Meituan, Douyin, or the on-site menu for current prices.">价格为参考人均或团购起价，来自当前图片信息，实际以美团、抖音或现场菜单为准。</span></div>
                 <div class="spot-list">
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/kfc.webp" alt="肯德基套餐参考图">
                         <div class="spot-info">
                             <span class="spot-name">
                                 <span data-lang="肯德基" data-lang-en="KFC">肯德基</span>
                                 <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
                                 <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
                             </span>
+                            <p class="spot-price" data-lang="参考人均：¥20–45" data-lang-en="Reference spend: CNY 20–45/person">参考人均：¥20–45</p>
                             <a href="https://uri.amap.com/marker?position=115.292374,22.795705&name=肯德基" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/mcdonalds.webp" alt="麦当劳套餐参考图">
                         <div class="spot-info">
                             <span class="spot-name">
                                 <span data-lang="麦当劳" data-lang-en="McDonald's">麦当劳</span>
                                 <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
                                 <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
                             </span>
+                            <p class="spot-price" data-lang="参考人均：¥20–45" data-lang-en="Reference spend: CNY 20–45/person">参考人均：¥20–45</p>
                             <a href="https://uri.amap.com/marker?position=115.298594,22.797381&name=麦当劳" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/chizizhi.webp" alt="吃自知牛杂世家参考图">
                         <div class="spot-info">
                             <span class="spot-name">
                                 <span data-lang="吃自知牛杂世家(保利金町湾店)" data-lang-en="Chizhizhi Beef Offal (Baoli Jintingwan)">吃自知牛杂世家(保利金町湾店)</span>
                                 <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
                                 <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
                             </span>
+                            <p class="spot-price" data-lang="参考人均：¥20–40" data-lang-en="Reference spend: CNY 20–40/person">参考人均：¥20–40</p>
                             <a href="https://uri.amap.com/marker?position=115.29314,22.795955&name=吃自知牛杂世家" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/nanfeng.webp" alt="南沣烧腊快餐参考图">
                         <div class="spot-info">
                             <span class="spot-name"><span data-lang="南沣烧腊快餐" data-lang-en="Nanfeng Roast Meat Fast Food">南沣烧腊快餐</span></span>
+                            <p class="spot-price" data-lang="参考人均：¥15–25" data-lang-en="Reference spend: CNY 15–25/person">参考人均：¥15–25</p>
                             <a href="https://uri.amap.com/marker?position=115.293398,22.796174&name=南沣烧腊快餐" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/pinqingyuan.webp" alt="品清园味牛腩店参考图">
                         <div class="spot-info">
                             <span class="spot-name"><span data-lang="品清园味牛腩店" data-lang-en="Pinqingyuan Beef Brisket">品清园味牛腩店</span></span>
+                            <p class="spot-price" data-lang="参考人均：¥15–30" data-lang-en="Reference spend: CNY 15–30/person">参考人均：¥15–30</p>
                             <a href="https://uri.amap.com/marker?position=115.293505,22.796238&name=品清园味牛腩店" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/yingdong.webp" alt="迎东大酒楼参考图">
                         <div class="spot-info">
                             <span class="spot-name">
                                 <span data-lang="迎东大酒楼" data-lang-en="Yingdong Grand Restaurant">迎东大酒楼</span>
                                 <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
                             </span>
+                            <p class="spot-price" data-lang="参考团购：¥68起（2人餐）" data-lang-en="Reference group deal: CNY 68+ (2-person set)">参考团购：¥68起（2人餐）</p>
                             <a href="https://uri.amap.com/marker?position=115.323069,22.792713&name=迎东大酒楼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/aguo.webp" alt="阿国薄饼参考图">
                         <div class="spot-info">
                             <span class="spot-name">
                                 <span data-lang="阿国薄饼" data-lang-en="Aguo Thin Pancake">阿国薄饼</span>
                                 <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
                             </span>
+                            <p class="spot-price" data-lang="参考人均：¥10–20" data-lang-en="Reference spend: CNY 10–20/person">参考人均：¥10–20</p>
                             <a href="https://uri.amap.com/marker?position=115.349618,22.781474&name=阿国薄饼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/xinmingyuan.webp" alt="新明园餐厅海鲜参考图">
                         <div class="spot-info">
                             <span class="spot-name"><span data-lang="新明园餐厅(海鲜)" data-lang-en="Xinmingyuan Restaurant (Seafood)">新明园餐厅(海鲜)</span></span>
+                            <p class="spot-price" data-lang="参考人均：¥60–100" data-lang-en="Reference spend: CNY 60–100/person">参考人均：¥60–100</p>
                             <a href="https://uri.amap.com/marker?position=115.359453,22.785996&name=新明园餐厅" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
                     <div class="spot-item">
+                        <img class="restaurant-photo" loading="lazy" src="img/food/fengfu.webp" alt="丰富大排档海鲜参考图">
                         <div class="spot-info">
                             <span class="spot-name"><span data-lang="丰富大排档(海鲜)" data-lang-en="Fengfu Food Stall (Seafood)">丰富大排档(海鲜)</span></span>
+                            <p class="spot-price" data-lang="参考人均：¥50–80" data-lang-en="Reference spend: CNY 50–80/person">参考人均：¥50–80</p>
                             <a href="https://uri.amap.com/marker?position=115.352591,22.776596&name=丰富大排档" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
                         </div>
                     </div>
