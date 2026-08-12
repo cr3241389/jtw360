@@ -131,8 +131,6 @@
     .horizontal-scroll::-webkit-scrollbar { height: 6px; }
     .horizontal-scroll::-webkit-scrollbar-track { background: var(--line); border-radius: 999px; }
     .horizontal-scroll::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 999px; }
-    .scroll-indicator { height: 4px; margin-top: 8px; overflow: hidden; border-radius: 999px; background: var(--line); }
-    .scroll-indicator span { display: block; width: 28%; height: 100%; border-radius: inherit; background: var(--blue); transform: translateX(0); transition: transform .12s linear; }
     .place-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--small-shadow); scroll-snap-align: start; min-width: 0; }
     .place-card.clickable { cursor: pointer; }
     .place-card.clickable:active, .food-card:active, .resource-card:active { transform: scale(.99); }
@@ -300,8 +298,7 @@
             <p class="eyebrow" data-lang="JTW360 · LOCAL / REAL / USEFUL" data-lang-en="JTW360 · LOCAL / REAL / USEFUL">JTW360 · LOCAL / REAL / USEFUL</p>
             <h1 data-lang="来金町湾 · 吃住玩不踩坑" data-lang-en="Jinting Bay, made easy">来金町湾 · 吃住玩不踩坑</h1>
             <p data-lang="更实用 · 更省心 · 本地人推荐" data-lang-en="Practical, local, and easy to use">更实用 · 更省心 · 本地人推荐</p>
-            <form class="search" id="searchForm"><svg class="icon"><use href="#i-search"></use></svg><label class="sr-only" for="searchInput">搜索</label><input id="searchInput" autocomplete="off" data-lang-placeholder="搜索美食、景点、停车场、洗手间……" data-lang-placeholder-en="Search food, spots, parking…" placeholder="搜索美食、景点、停车场、洗手间……"><button type="submit" data-lang="搜索" data-lang-en="Search">搜索</button></form>
-          </div>
+                      </div>
           <div class="weather"><span class="sun">☼</span><span><strong>26°C</strong><small data-lang="汕尾 · 晴" data-lang-en="Shanwei · Clear">汕尾 · 晴</small></span></div>
         </div>
       </div>
@@ -310,7 +307,7 @@
     <div class="page quick-wrap"><nav class="quick-actions" aria-label="快捷入口" id="quickActions"></nav></div>
     <main class="page">
       <section class="search-results" id="searchResults" aria-live="polite"><div class="section-head"><div><h2 data-lang="搜索结果" data-lang-en="Search results">搜索结果</h2><p id="searchSummary"></p></div><button class="search-close" id="searchClose" type="button" aria-label="关闭搜索结果">×</button></div><div class="result-grid" id="resultGrid"></div></section>
-      <section id="nearby" aria-labelledby="nearbyTitle"><div class="section-head"><div><h2 id="nearbyTitle" data-lang="附近热门 · 距你最近" data-lang-en="Nearby · Closest to you">附近热门 · 距你最近</h2><p data-lang="当前位置：金町湾" data-lang-en="Location: Jinting Bay">当前位置：金町湾</p></div></div><div class="chips" id="nearbyChips"><button class="chip active" data-filter="all" data-lang="全部" data-lang-en="All">全部</button><button class="chip" data-filter="sea" data-lang="海滩" data-lang-en="Beach">海滩</button><button class="chip" data-filter="park" data-lang="公园" data-lang-en="Park">公园</button><button class="chip" data-filter="history" data-lang="打卡点" data-lang-en="Landmark">打卡点</button><button class="chip" data-filter="local" data-lang="人文景观" data-lang-en="Culture">人文景观</button></div><div class="horizontal-scroll" id="nearbyList"></div><div class="scroll-indicator" aria-hidden="true"><span id="nearbyScrollThumb"></span></div></section>
+      <section id="nearby" aria-labelledby="nearbyTitle"><div class="section-head"><div><h2 id="nearbyTitle" data-lang="附近热门 · 距你最近" data-lang-en="Nearby · Closest to you">附近热门 · 距你最近</h2><p data-lang="当前位置：金町湾" data-lang-en="Location: Jinting Bay">当前位置：金町湾</p></div></div><div class="chips" id="nearbyChips"><button class="chip active" data-filter="all" data-lang="全部" data-lang-en="All">全部</button><button class="chip" data-filter="sea" data-lang="海滩" data-lang-en="Beach">海滩</button><button class="chip" data-filter="park" data-lang="公园" data-lang-en="Park">公园</button><button class="chip" data-filter="history" data-lang="打卡点" data-lang-en="Landmark">打卡点</button><button class="chip" data-filter="local" data-lang="人文景观" data-lang-en="Culture">人文景观</button></div><div class="horizontal-scroll" id="nearbyList"></div></section>
 
       <div class="food-section">
         <span id="allFood" class="sr-only" aria-hidden="true"></span>
@@ -369,11 +366,11 @@
       {slug:'hongcao-health-center',name:'红草中心卫生院',en:'Hongcao Central Health Center',category:'hospital',phone:'06603445366',lng:115.303672,lat:22.828743,desc:'电话：06603445366'}
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat)}));
     const parking = [
-      {slug:'tingtao-free-parking',name:'听涛路免费停车场',en:'Tingtao Rd Free Parking',category:'parking',lng:115.29211,lat:22.79516,desc:'靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。'},
-      {slug:'wushuangshu-west-parking',name:'无双墅西停车场',en:'Wushuangshu West Parking',category:'parking',lng:115.295833,lat:22.793737,desc:'靠近无双墅、亲海寓，步行可达海滩。'},
-      {slug:'wushuangshu-east-parking',name:'无双墅东停车场',en:'Wushuangshu East Parking',category:'parking',lng:115.29718,lat:22.793647,desc:'靠近无双墅、亲海寓，步行可达海滩。'},
-      {slug:'xinli-building',name:'信利大厦',en:'Xinli Building',category:'parking',lng:115.359926,lat:22.773533,desc:'二马路美食街停车指南：定位信利大厦停车场，步行可达美食街。'},
-      {slug:'xinli-city-plaza',name:'信利城市广场',en:'Xinli City Plaza',category:'parking',lng:115.359926,lat:22.773533,desc:'商户消费可在信利大厦凭票免费停车2–3小时。'}
+      {slug:'tingtao-free-parking',name:'听涛路免费停车场',en:'Tingtao Rd Free Parking',category:'parking',lng:115.29211,lat:22.79516,image:'img/generated/parking-tingtao.webp',desc:'靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。'},
+      {slug:'wushuangshu-west-parking',name:'无双墅西停车场',en:'Wushuangshu West Parking',category:'parking',lng:115.295833,lat:22.793737,image:'img/generated/parking-wushuangshu.webp',desc:'靠近无双墅、亲海寓，步行可达海滩。'},
+      {slug:'wushuangshu-east-parking',name:'无双墅东停车场',en:'Wushuangshu East Parking',category:'parking',lng:115.29718,lat:22.793647,image:'img/generated/parking-wushuangshu.webp',desc:'靠近无双墅、亲海寓，步行可达海滩。'},
+      {slug:'xinli-building',name:'信利大厦',en:'Xinli Building',category:'parking',lng:115.359926,lat:22.773533,image:'img/generated/parking-xinli-building.webp',desc:'二马路美食街停车指南：定位信利大厦停车场，步行可达美食街。'},
+      {slug:'xinli-city-plaza',name:'信利城市广场',en:'Xinli City Plaza',category:'parking',lng:115.359926,lat:22.773533,image:'img/generated/parking-xinli-plaza.webp',desc:'商户消费可在信利大厦凭票免费停车2–3小时。'}
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat),type:'service'}));
     const luggage = [
       ['yuehai-locker','玥海北门1号存包柜','Yuehai North Gate No.1 Locker','位于玥海小区北门，提供自助存包服务。',115.29294,22.792649],
@@ -406,22 +403,17 @@
     ];
     document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,color,target])=>`<a class="quick-action" href="${target}"><span class="quick-icon ${color}"><svg class="icon"><use href="#${icon}"></use></svg></span><span>${text(cn,en)}</span></a>`).join('');
     document.getElementById('nearbyList').innerHTML = places.map(card).join('');
-    const nearbyList=document.getElementById('nearbyList'); const nearbyScrollThumb=document.getElementById('nearbyScrollThumb');
-    function updateNearbyScroll(){const max=nearbyList.scrollWidth-nearbyList.clientWidth;const progress=max>0?nearbyList.scrollLeft/max:0;nearbyScrollThumb.style.transform=`translateX(${progress*257}%)`;}
-    nearbyList.addEventListener('scroll',updateNearbyScroll,{passive:true});
+    const nearbyList=document.getElementById('nearbyList');
     document.getElementById('foodList').innerHTML = regularFoods.map(foodCard).join('');
     document.getElementById('trafficFoodList').innerHTML = trafficFoods.map(foodCard).join('');
     const resourceData = [
       ['hospitalResource','i-hospital','医院医疗','Nearby hospitals','2个医院 / 卫生院','green',hospitals],['parkingResource','i-car','免费停车场','Free parking','3个免费停车点','blue',freeParking],['ermaluParkingResource','i-car','二马路停车指南','Ermalu parking guide','凭票免费停车2–3小时','blue',ermaluParking],['luggageResource','i-bag','行李寄存','Luggage storage','4个寄存柜','orange',luggage],['chargingResource','i-bolt','充电桩','EV charging','4个免停车费充电点','green',charging],['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]],['fireworksResource','i-camera','烟花燃放点','Fireworks area','西沙滩公园烟花点','purple',utilityPlaces.filter(item=>item.category==='fireworks')]
     ];
     document.getElementById('resourceGrid').innerHTML = resourceData.map(([id,icon,cn,en,desc,color,items])=>`<article class="resource-card ${color}" id="${id}" tabindex="0" onclick="showResource('${id}')"><span class="icon-wrap"><svg class="icon"><use href="#${icon}"></use></svg></span><div><h3>${text(cn,en)}</h3><p>${text(desc,desc)}</p></div><span class="sr-only">${items.map(item=>item.name).join('、')}</span></article>`).join('');
-    document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===btn));nearbyList.innerHTML=places.filter(p=>btn.dataset.filter==='all'||p.type===btn.dataset.filter).map(card).join('');nearbyList.scrollLeft=0;updateNearbyScroll();}));
-    const searchInput=document.getElementById('searchInput'); const searchResults=document.getElementById('searchResults'); let searchTimer;
+    document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===btn));nearbyList.innerHTML=places.filter(p=>btn.dataset.filter==='all'||p.type===btn.dataset.filter).map(card).join('');nearbyList.scrollLeft=0;}));
+    const searchResults=document.getElementById('searchResults');
     function closeSearch(){searchResults.classList.remove('show');document.getElementById('resultGrid').innerHTML='';document.getElementById('searchSummary').textContent='';}
-    function search(query,scroll=true) { const q=query.trim().toLowerCase();if(!q){closeSearch();return;}const aliases={厕所:'restroom',洗手间:'restroom',医院:'hospital',医疗:'hospital',停车:'parking',充电:'charging',景点:'spot',打卡:'spot',海滩:'sea',美食:'food',餐厅:'food'};const result=allItems.filter(item=>{const haystack=`${item.name} ${item.en||''} ${item.desc||''} ${item.category||''} ${item.type||''}`.toLowerCase();return haystack.includes(q)||Object.entries(aliases).some(([word,value])=>q.includes(word)&&(item.category===value||item.type===value));});searchResults.classList.add('show');document.getElementById('searchSummary').textContent=`“${query.trim()}” · ${result.length} 个结果`;document.getElementById('resultGrid').innerHTML=result.length?result.slice(0,12).map(card).join(''):`<div class="empty">没有找到相关地点，试试“美食”“停车”“医院”或“海滩”。</div>`;if(scroll)searchResults.scrollIntoView({behavior:'smooth',block:'start'}); }
-    document.getElementById('searchForm').addEventListener('submit',event=>{event.preventDefault();search(searchInput.value,true);});
-    searchInput.addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>search(searchInput.value,false),180);});
-    document.getElementById('searchClose').addEventListener('click',()=>{searchInput.value='';closeSearch();searchInput.focus();});
+    document.getElementById('searchClose').addEventListener('click',closeSearch);
     const favoriteKey='jtw360-favorites'; const favorites=()=>JSON.parse(localStorage.getItem(favoriteKey)||'[]');
     function toggleFavorite(slug) { const list=favorites();const next=list.includes(slug)?list.filter(id=>id!==slug):[...list,slug];localStorage.setItem(favoriteKey,JSON.stringify(next));renderFavorites();document.querySelectorAll('[data-favorite-button]').forEach(btn=>btn.textContent=next.includes(slug)?'♥ 已收藏':'♡ 收藏'); }
     function renderFavorites() { const list=favorites().map(slug=>allItems.find(item=>item.slug===slug)).filter(Boolean);document.getElementById('favoriteGrid').innerHTML=list.length?list.map(card).join(''):`<div class="empty">还没有收藏地点。</div>`; }
