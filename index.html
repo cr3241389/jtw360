@@ -54,6 +54,23 @@
     body.dark-mode .search { color: #f2f6fb; background: rgba(23,34,45,.96); border: 1px solid rgba(255,255,255,.10); }
     body.dark-mode .search input { color: #f2f6fb; }
     body.dark-mode .search input::placeholder { color: #9eacbc; }
+    body.dark-mode .chip { background: #1e2d3d; border-color: #2d4055; color: #b0bec5; }
+    body.dark-mode .chip.active, body.dark-mode .chip:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+    body.dark-mode .place-card { background: #17222d; border-color: #293744; }
+    body.dark-mode .food-card { background: #17222d; border-color: #293744; }
+    body.dark-mode .resource-card { background: #17222d; border-color: #293744; }
+    body.dark-mode .route-note { background: #17222d; border-color: #293744; }
+    body.dark-mode .bottom-nav { background: rgba(13,21,29,.96); border-color: rgba(255,255,255,.08); }
+    body.dark-mode .bottom-nav a { color: #9eacbc; }
+    body.dark-mode .bottom-nav a.active { color: var(--blue); }
+    body.dark-mode .weather { background: rgba(3,20,40,.5); border-color: rgba(255,255,255,.15); }
+    body.dark-mode .icon-button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.15); }
+    body.dark-mode .search-results { background: #17222d; border-color: #293744; }
+    body.dark-mode .empty { color: #9eacbc; border-color: #293744; }
+    body.dark-mode .tip-card { background: #142b42; border-color: #254c70; }
+    body.dark-mode .detail-card { background: #17222d; border-color: #293744; }
+    body.dark-mode .stat { background: #0d151d; }
+    body.dark-mode .back-button { color: #5fa3f0; }
     button, input { font: inherit; }
     button, a { touch-action: manipulation; }
     a { color: inherit; }
@@ -90,7 +107,7 @@
     .weather strong { display: block; font-size: 22px; line-height: 1; }
     .weather small { display: block; opacity: .8; margin-top: 5px; }
     .weather .sun { font-size: 28px; }
-    .quick-wrap { margin-top: -46px; position: relative; z-index: 3; }
+    .quick-wrap { margin-top: 24px; position: relative; z-index: 3; }
     .quick-actions { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; padding: 12px; background: rgba(255,255,255,.96); border: 1px solid rgba(255,255,255,.85); border-radius: 24px; box-shadow: var(--shadow); }
     .quick-action { min-height: 92px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; border-radius: 16px; text-decoration: none; color: var(--ink); transition: background .2s, transform .2s; }
     .quick-action:hover { background: var(--blue-soft); transform: translateY(-2px); }
@@ -110,8 +127,12 @@
     .chips::-webkit-scrollbar { display: none; }
     .chip { border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 20px; padding: 9px 15px; min-height: 40px; white-space: nowrap; cursor: pointer; }
     .chip.active, .chip:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
-    .horizontal-scroll { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 1fr); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 5px; }
-    .horizontal-scroll::-webkit-scrollbar { display: none; }
+    .horizontal-scroll { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 1fr); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--blue) var(--line); padding: 0 0 14px; }
+    .horizontal-scroll::-webkit-scrollbar { height: 6px; }
+    .horizontal-scroll::-webkit-scrollbar-track { background: var(--line); border-radius: 999px; }
+    .horizontal-scroll::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 999px; }
+    .scroll-indicator { height: 4px; margin-top: 8px; overflow: hidden; border-radius: 999px; background: var(--line); }
+    .scroll-indicator span { display: block; width: 28%; height: 100%; border-radius: inherit; background: var(--blue); transform: translateX(0); transition: transform .12s linear; }
     .place-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--small-shadow); scroll-snap-align: start; min-width: 0; }
     .place-card.clickable { cursor: pointer; }
     .place-card.clickable:active, .food-card:active, .resource-card:active { transform: scale(.99); }
@@ -145,20 +166,6 @@
     .tag.douyin { background: rgba(254,44,85,.12); color: #d7214c; }
     .route-food-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .route-note { margin: 0 0 14px; padding: 14px 16px; border-radius: var(--radius-md); color: var(--muted); background: var(--surface); border: 1px solid var(--line); font-size: 13px; line-height: 1.6; box-shadow: var(--small-shadow); }
-    .map-panel { position: relative; min-height: 350px; background: #e4f0ea; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--small-shadow); }
-    .map-panel::before { content: ""; position: absolute; inset: 0; opacity: .6; background: linear-gradient(26deg, transparent 39%, rgba(255,255,255,.9) 40%, transparent 41%), linear-gradient(118deg, transparent 54%, rgba(255,255,255,.88) 55%, transparent 56%), repeating-linear-gradient(90deg, transparent 0 40px, rgba(173,196,184,.26) 41px 42px), repeating-linear-gradient(0deg, transparent 0 35px, rgba(173,196,184,.23) 36px 37px); }
-    .map-water { position: absolute; right: -18%; bottom: -22%; width: 70%; height: 66%; border-radius: 54% 0 0 0; background: #b8def2; opacity: .85; transform: rotate(-9deg); }
-    .map-label { position: absolute; color: #708a7e; font-size: 11px; z-index: 1; }
-    .marker { position: absolute; z-index: 2; border: 0; width: 38px; height: 38px; border-radius: 50% 50% 50% 5px; transform: rotate(-45deg); background: var(--blue); color: #fff; box-shadow: 0 5px 12px rgba(20,120,232,.28); cursor: pointer; display: grid; place-items: center; }
-    .marker span { transform: rotate(45deg); font-size: 14px; }
-    .marker.food { background: var(--orange); box-shadow: 0 5px 12px rgba(238,140,37,.3); }
-    .marker.service { background: var(--green); box-shadow: 0 5px 12px rgba(39,168,102,.3); }
-    .map-controls { position: absolute; z-index: 3; inset: 14px 14px auto; display: flex; justify-content: space-between; align-items: start; gap: 8px; }
-    .map-controls .chips { max-width: calc(100% - 48px); }
-    .map-chip { border: 0; background: rgba(255,255,255,.92); color: var(--muted); border-radius: 17px; padding: 8px 12px; font-size: 11px; white-space: nowrap; cursor: pointer; }
-    .map-chip.active { background: var(--blue); color: #fff; }
-    .map-center { width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(255,255,255,.94); color: var(--blue); box-shadow: var(--small-shadow); display: grid; place-items: center; cursor: pointer; flex: 0 0 auto; }
-    .map-caption { position: absolute; z-index: 3; bottom: 14px; left: 14px; right: 14px; display: flex; align-items: center; justify-content: space-between; padding: 11px 13px; background: rgba(255,255,255,.9); border-radius: 14px; font-size: 12px; }
     .resource-section { margin-top: 58px; }
     .resource-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
     .resource-card { min-height: 136px; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--surface); box-shadow: var(--small-shadow); text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: transform .2s; }
@@ -168,12 +175,6 @@
     .resource-card.purple .icon-wrap { color: var(--purple); background: #f0edff; }
     .resource-card h3 { margin: 11px 0 4px; font-size: 14px; }
     .resource-card p { margin: 0; color: var(--muted); font-size: 11px; }
-    .guide-section { margin-top: 58px; }
-    .guide-feature { min-height: 220px; border-radius: var(--radius-xl); overflow: hidden; background: linear-gradient(90deg, rgba(4,36,71,.82), rgba(4,36,71,.05)), url('img/gubao.jpeg') center/cover; color: #fff; padding: 28px; display: flex; align-items: end; justify-content: space-between; gap: 20px; box-shadow: var(--shadow); }
-    .guide-feature h2 { margin: 0 0 8px; font-size: 27px; letter-spacing: -.04em; }
-    .guide-feature p { margin: 0; opacity: .82; font-size: 13px; }
-    .guide-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
-    .guide-pill { display: inline-flex; align-items: center; min-height: 40px; padding: 0 15px; border-radius: 20px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); font-size: 12px; }
     .footer { color: var(--muted); text-align: center; font-size: 12px; padding: 48px 0 24px; }
     .bottom-nav { display: none; }
     .search-results { display: none; margin: 34px 0 46px; padding: 20px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--small-shadow); }
@@ -207,7 +208,7 @@
     .empty { padding: 26px; border: 1px dashed var(--line); border-radius: var(--radius-md); color: var(--muted); text-align: center; }
     @media (max-width: 900px) {
       .desktop-nav { display: none; }
-      .quick-actions { grid-template-columns: repeat(4, 1fr); }
+      .quick-actions { grid-template-columns: repeat(3, 1fr); }
       .resource-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 640px) {
@@ -225,7 +226,7 @@
       .search { height: 54px; padding-left: 15px; }
       .search button { padding: 0 15px; }
       .weather { right: 0; top: 72px; bottom: auto; padding: 9px 12px; border-radius: 15px; transform: scale(.88); transform-origin: right top; }
-      .quick-wrap { margin-top: -30px; }
+      .quick-wrap { margin-top: 18px; }
       .quick-actions { padding: 10px 7px; gap: 3px; border-radius: 21px; }
       .quick-action { min-height: 86px; gap: 7px; }
       .quick-icon { width: 39px; height: 39px; border-radius: 13px; }
@@ -242,17 +243,15 @@
       .food-image { width: 62px; height: 62px; }
       .food-card .nav-button { padding: 0 10px; }
       .route-food-list { grid-template-columns: 1fr; }
-      .resource-section, .guide-section { margin-top: 44px; }
+      .resource-section { margin-top: 44px; }
       .resource-grid { grid-template-columns: repeat(2, 1fr); gap: 9px; }
       .resource-card { min-height: 118px; padding: 13px; }
-      .guide-feature { min-height: 250px; padding: 21px; display: block; }
-      .guide-feature .primary-button { margin-top: 20px; }
       .result-grid { grid-template-columns: 1fr; }
       .detail-page { padding-top: 11px; }
       .detail-hero { height: 64vw; min-height: 260px; border-radius: 22px; }
       .detail-content { display: block; }
       .detail-card + .detail-card { margin-top: 12px; }
-      .bottom-nav { position: fixed; z-index: 50; display: grid; grid-template-columns: repeat(4, 1fr); bottom: 0; left: 0; right: 0; padding: 7px 10px calc(7px + var(--safe-bottom)); background: rgba(255,255,255,.94); border-top: 1px solid var(--line); backdrop-filter: blur(18px); }
+      .bottom-nav { position: fixed; z-index: 50; display: grid; grid-template-columns: repeat(3, 1fr); bottom: 0; left: 0; right: 0; padding: 7px 10px calc(7px + var(--safe-bottom)); background: rgba(255,255,255,.94); border-top: 1px solid var(--line); backdrop-filter: blur(18px); }
       body.dark-mode .bottom-nav { background: rgba(23,34,45,.94); }
       .bottom-nav a { color: var(--muted); text-decoration: none; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 10px; }
       .bottom-nav a.active { color: var(--blue); }
@@ -293,7 +292,7 @@
           <div class="topbar">
             <a class="brand" href="/" aria-label="JTW360 首页"><strong>JTW360</strong><small data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</small></a>
             <nav class="desktop-nav" aria-label="主导航">
-              <a href="#home" data-lang="首页" data-lang-en="Home">首页</a><a href="#food" data-lang="吃什么" data-lang-en="Eat">吃什么</a><a href="#nearby" data-lang="去哪里" data-lang-en="Go">去哪里</a><a href="#tools" data-lang="实用工具" data-lang-en="Tools">实用工具</a><a href="#guides" data-lang="攻略" data-lang-en="Guides">攻略</a><a href="#favorites" data-lang="收藏夹" data-lang-en="Saved">收藏夹</a>
+              <a href="#home" data-lang="首页" data-lang-en="Home">首页</a><a href="#food" data-lang="吃什么" data-lang-en="Eat">吃什么</a><a href="#nearby" data-lang="去哪里" data-lang-en="Go">去哪里</a><a href="#tools" data-lang="实用工具" data-lang-en="Tools">实用工具</a><a href="#favorites" data-lang="收藏夹" data-lang-en="Saved">收藏夹</a>
             </nav>
             <div class="top-actions"><button class="icon-button" id="themeButton" aria-label="切换深色模式"><svg class="icon"><use href="#i-moon"></use></svg></button><button class="icon-button lang-button" id="langButton">EN</button></div>
           </div>
@@ -311,24 +310,23 @@
     <div class="page quick-wrap"><nav class="quick-actions" aria-label="快捷入口" id="quickActions"></nav></div>
     <main class="page">
       <section class="search-results" id="searchResults" aria-live="polite"><div class="section-head"><div><h2 data-lang="搜索结果" data-lang-en="Search results">搜索结果</h2><p id="searchSummary"></p></div><button class="search-close" id="searchClose" type="button" aria-label="关闭搜索结果">×</button></div><div class="result-grid" id="resultGrid"></div></section>
-      <section id="nearby" aria-labelledby="nearbyTitle"><div class="section-head"><div><h2 id="nearbyTitle" data-lang="附近热门 · 距你最近" data-lang-en="Nearby · Closest to you">附近热门 · 距你最近</h2><p data-lang="当前位置：金町湾" data-lang-en="Location: Jinting Bay">当前位置：金町湾</p></div></div><div class="chips" id="nearbyChips"><button class="chip active" data-filter="all" data-lang="全部" data-lang-en="All">全部</button><button class="chip" data-filter="sea" data-lang="海滩" data-lang-en="Beach">海滩</button><button class="chip" data-filter="park" data-lang="公园" data-lang-en="Park">公园</button><button class="chip" data-filter="history" data-lang="打卡点" data-lang-en="Landmark">打卡点</button><button class="chip" data-filter="local" data-lang="人文景观" data-lang-en="Culture">人文景观</button></div><div class="horizontal-scroll" id="nearbyList"></div></section>
+      <section id="nearby" aria-labelledby="nearbyTitle"><div class="section-head"><div><h2 id="nearbyTitle" data-lang="附近热门 · 距你最近" data-lang-en="Nearby · Closest to you">附近热门 · 距你最近</h2><p data-lang="当前位置：金町湾" data-lang-en="Location: Jinting Bay">当前位置：金町湾</p></div></div><div class="chips" id="nearbyChips"><button class="chip active" data-filter="all" data-lang="全部" data-lang-en="All">全部</button><button class="chip" data-filter="sea" data-lang="海滩" data-lang-en="Beach">海滩</button><button class="chip" data-filter="park" data-lang="公园" data-lang-en="Park">公园</button><button class="chip" data-filter="history" data-lang="打卡点" data-lang-en="Landmark">打卡点</button><button class="chip" data-filter="local" data-lang="人文景观" data-lang-en="Culture">人文景观</button></div><div class="horizontal-scroll" id="nearbyList"></div><div class="scroll-indicator" aria-hidden="true"><span id="nearbyScrollThumb"></span></div></section>
 
       <div class="food-section">
         <span id="allFood" class="sr-only" aria-hidden="true"></span>
-        <section class="panel" id="food" aria-labelledby="foodTitle"><div class="section-head"><div><h2 id="foodTitle" data-lang="本地人推荐美食" data-lang-en="Local food picks">本地人推荐美食</h2><p><span class="tag orange" data-lang="不踩坑" data-lang-en="Local pick">不踩坑</span></p></div><a class="section-link" href="#allFood" data-lang="查看全部" data-lang-en="View all">查看全部 <svg class="icon"><use href="#i-arrow"></use></svg></a></div><div class="chips" id="foodChips"><button class="chip active" data-food-filter="all" data-lang="全部" data-lang-en="All">全部</button><button class="chip" data-food-filter="seafood" data-lang="海鲜" data-lang-en="Seafood">海鲜</button><button class="chip" data-food-filter="snack" data-lang="小吃" data-lang-en="Snacks">小吃</button><button class="chip" data-food-filter="beef" data-lang="牛肉" data-lang-en="Beef">牛肉</button><button class="chip" data-food-filter="fast" data-lang="快餐" data-lang-en="Fast food">快餐</button></div><div class="food-list" id="foodList"></div></section>
+        <section class="panel" id="food" aria-labelledby="foodTitle"><div class="section-head"><div><h2 id="foodTitle" data-lang="景区平价餐厅" data-lang-en="Affordable restaurants near the resort">景区平价餐厅</h2><p><span class="tag orange" data-lang="无景区溢价" data-lang-en="No resort markup">无景区溢价</span></p></div></div><div class="food-list" id="foodList"></div></section>
       </div>
 
       <section class="resource-section" id="trafficFood" aria-labelledby="trafficFoodTitle"><div class="section-head"><div><h2 id="trafficFoodTitle" data-lang="避堵美食路线" data-lang-en="Less-crowded food route">避堵美食路线</h2><p data-lang="节假日避开城区排队和停车难" data-lang-en="Avoid downtown queues and parking pressure on holidays">节假日避开城区排队和停车难</p></div></div><p class="route-note" data-lang="房东日常消费店铺。节假日城区人流量大、停车困难、吃饭排队严重，可以来这里，地库停车免费。" data-lang-en="Everyday local picks. On holidays, avoid downtown crowds, parking pressure, and long restaurant queues; basement parking is free here.">房东日常消费店铺。节假日城区人流量大、停车困难、吃饭排队严重，可以来这里，地库停车免费。</p><div class="route-food-list" id="trafficFoodList"></div></section>
 
       <section class="resource-section" id="tools" aria-labelledby="toolsTitle"><div class="section-head"><div><h2 id="toolsTitle" data-lang="实用工具 · 旅行必备" data-lang-en="Travel essentials">实用工具 · 旅行必备</h2><p data-lang="先解决游客最常遇到的小事" data-lang-en="The practical things travelers need first">先解决游客最常遇到的小事</p></div></div><div class="resource-grid" id="resourceGrid"></div></section>
-      <section class="guide-section" id="guides" aria-labelledby="guideTitle"><div class="section-head"><div><h2 id="guideTitle" data-lang="本地人整理的路线" data-lang-en="Routes from a local">本地人整理的路线</h2><p data-lang="少走弯路，把时间留给海风和美食" data-lang-en="Spend less time planning, more time outside">少走弯路，把时间留给海风和美食</p></div></div><div class="guide-feature"><div><h2 data-lang="不知道怎么玩？" data-lang-en="Not sure where to start?">不知道怎么玩？</h2><p data-lang="金町湾半日游 · 汕尾1日游 · 亲子 / 情侣 / 赶海路线" data-lang-en="Half-day, one-day, family, couple, and beachcombing routes">金町湾半日游 · 汕尾1日游 · 亲子 / 情侣 / 赶海路线</p><div class="guide-list"><span class="guide-pill" data-lang="金町湾半日游" data-lang-en="Half-day in Jinting Bay">金町湾半日游</span><span class="guide-pill" data-lang="赶海路线" data-lang-en="Beachcombing route">赶海路线</span><span class="guide-pill" data-lang="雨天路线" data-lang-en="Rainy-day route">雨天路线</span></div></div><button class="primary-button" id="guideButton" data-lang="查看攻略" data-lang-en="View guides">查看攻略</button></div></section>
       <section id="favorites" class="search-results" aria-live="polite"><div class="section-head"><div><h2 data-lang="我的收藏" data-lang-en="Saved places">我的收藏</h2><p data-lang="把想去的地方留在这里" data-lang-en="Keep the places you want to visit here">把想去的地方留在这里</p></div></div><div class="result-grid" id="favoriteGrid"></div></section>
       <footer class="footer">© 2026 JTW360 · <span data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</span></footer>
     </main>
   </div>
 
   <main class="page detail-page" id="detailView" aria-live="polite"></main>
-  <nav class="bottom-nav" aria-label="底部导航"><a href="#home" class="active"><svg class="icon"><use href="#i-map"></use></svg><span data-lang="首页" data-lang-en="Home">首页</span></a><a href="#nearby"><svg class="icon"><use href="#i-pin"></use></svg><span data-lang="景点" data-lang-en="Spots">景点</span></a><a href="#guides"><svg class="icon"><use href="#i-book"></use></svg><span data-lang="攻略" data-lang-en="Guides">攻略</span></a><a href="#favorites"><svg class="icon"><use href="#i-heart"></use></svg><span data-lang="我的" data-lang-en="Me">我的</span></a></nav>
+  <nav class="bottom-nav" aria-label="底部导航"><a href="#home" class="active"><svg class="icon"><use href="#i-map"></use></svg><span data-lang="首页" data-lang-en="Home">首页</span></a><a href="#nearby"><svg class="icon"><use href="#i-pin"></use></svg><span data-lang="景点" data-lang-en="Spots">景点</span></a><a href="#favorites"><svg class="icon"><use href="#i-heart"></use></svg><span data-lang="我的" data-lang-en="Me">我的</span></a></nav>
 
   <div id="lightbox" role="dialog" aria-modal="true" aria-label="图片预览" hidden><button id="lightboxClose" aria-label="关闭">×</button><img id="lightboxImg" alt=""></div>
   <div id="wechatModal" role="dialog" aria-modal="true" hidden><div class="detail-card"><button id="wechatClose" class="back-button">× <span data-lang="关闭" data-lang-en="Close">关闭</span></button><h2 data-lang="添加房东微信" data-lang-en="Add landlord on WeChat">添加房东微信</h2><p data-lang="点击微信号复制，然后打开微信添加" data-lang-en="Tap the ID to copy, then add it in WeChat">点击微信号复制，然后打开微信添加</p><button id="wechatId" class="primary-button">feel607</button><p id="copyStatus"></p></div></div>
@@ -364,7 +362,7 @@
       {slug:'daxi-teahouse',name:'大喜茶楼',en:'Daxi Tea House',category:'snack',image:'img/food/daxi-thumb.webp',menuImage:'img/food/daxi-teahouse.webp',distance:'约10km',price:'图片参考菜单：¥33起',desc:'茶楼点心，适合错峰用餐和喝茶聊天。',lng:115.379406,lat:22.788853},
       {slug:'xiaba-flavor',name:'呷霸风味堂',en:'Xiaba Flavor House',category:'snack',image:'img/food/xiaba-thumb.webp',menuImage:'img/food/xiaba-flavor.webp',distance:'约10km',price:'图片参考菜单：¥15起',desc:'台湾风味小吃，适合快速解决一餐。',lng:115.379788,lat:22.78886},
       {slug:'niujang-yakiniku',name:'牛将烧肉',en:'Niujang Yakiniku',category:'beef',image:'img/food/niujang-thumb.webp',menuImage:'img/food/niujang-yakiniku.webp',distance:'约10km',price:'图片参考菜单：¥42起',desc:'烧肉聚餐选择，适合避开景区海鲜高峰。',lng:115.37962,lat:22.788858},
-      {slug:'yuxin-bookstore',name:'愈欣书店',en:'Yuxin Bookstore',category:'snack',image:'img/food/yuxin-thumb.webp',menuImage:'img/food/yuxin-bookstore.webp',distance:'约10km',price:'店内消费以现场为准',desc:'用餐后可顺路逛逛的书店，适合拍照、阅读和休息。',lng:115.379708,lat:22.78854}
+      {slug:'yuxin-bookstore',name:'愈欣书店',en:'Yuxin Bookstore',category:'tea',image:'img/food/yuxin-thumb.webp',menuImage:'img/food/yuxin-bookstore.webp',distance:'约10km',price:'店内茶饮消费以现场为准',desc:'以喝茶休闲为主，适合聊天、阅读和短暂休息。',lng:115.379708,lat:22.78854}
     ].map((item,index)=>({...item,type:'food',url:AMap(item.name,item.lng,item.lat),rating:['4.6','4.7','4.8','4.5'][index%4],desc:item.desc || item.address || '本地日常消费，点击店名查看菜单与信息。'}));
     const hospitals = [
       {slug:'shenshan-tcm-hospital',name:'深汕中医医院',en:'Shenshan TCM Hospital',category:'hospital',phone:'06606162398',lng:115.305937,lat:22.796466,desc:'电话：06606162398'},
@@ -402,20 +400,22 @@
     const text = (cn,en) => `<span data-lang="${cn}" data-lang-en="${en || cn}">${cn}</span>`;
     const navButton = item => `<a class="nav-button" href="${item.url}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()"><svg class="icon"><use href="#i-pin"></use></svg>${text('导航','Navigate')}</a>`;
     const card = item => `<article class="place-card clickable" data-slug="${item.slug}" onclick="openDetail('${item.slug}')"><div class="place-image"><img loading="lazy" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}"><span class="distance">${item.distance || '附近'}</span></div><div class="place-body"><h3 class="place-name">${text(item.name,item.en)}</h3><div class="place-meta"><span class="rating">★ ${item.rating || '实用'}</span><span>${text(item.type === 'food' ? '本地筛选' : '本地推荐',item.type === 'food' ? 'Local pick' : 'Local pick')}</span></div><p class="place-desc">${text(item.desc || '靠近金町湾，适合直接导航。', item.enDesc || 'Close to Jinting Bay, ready to navigate.')}</p>${navButton(item)}</div></article>`;
-    const foodCard = item => `<article class="food-card" data-food-category="${item.category}" data-slug="${item.slug}" onclick="openDetail('${item.slug}')"><img class="food-image" loading="lazy" src="${item.image}" alt="${item.name}美食缩略图"><div><h3>${text(item.name,item.en)}</h3><div class="food-sub"><span class="rating">★ ${item.rating}</span> <span>${item.category === 'seafood' ? text('海鲜','Seafood') : item.category === 'beef' ? text('牛肉','Beef') : item.category === 'snack' ? text('小吃','Snacks') : text('快餐','Fast food')}</span> · ${item.distance}</div><div class="tag-row">${item.tags?.map(tag=>`<span class="tag ${tag}">${tag === 'meituan' ? '美团' : '抖音'}</span>`).join('') || `<span class="tag">${item.price}</span>`}</div></div><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></article>`;
+    const foodCard = item => `<article class="food-card" data-food-category="${item.category}" data-slug="${item.slug}" onclick="openDetail('${item.slug}')"><img class="food-image" loading="lazy" src="${item.image}" alt="${item.name}美食缩略图"><div><h3>${text(item.name,item.en)}</h3><div class="food-sub"><span class="rating">★ ${item.rating}</span> <span>${item.category === 'seafood' ? text('海鲜','Seafood') : item.category === 'beef' ? text('牛肉','Beef') : item.category === 'snack' ? text('小吃','Snacks') : item.category === 'tea' ? text('茶饮','Tea') : text('快餐','Fast food')}</span> · ${item.distance}</div><div class="tag-row">${item.tags?.map(tag=>`<span class="tag ${tag}">${tag === 'meituan' ? '美团' : '抖音'}</span>`).join('') || `<span class="tag">${item.price}</span>`}</div></div><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></article>`;
     const quickActions = [
       ['i-pin','洗手间','Restroom','service', '#restroomResource'],['i-hospital','医院','Hospital','green','#hospitalResource'],['i-food','平价餐厅','Affordable food','orange','#food'],['i-map','避堵美食','Less-crowded food','orange','#trafficFood'],['i-car','免费停车','Free parking','blue','#parkingResource'],['i-bag','行李寄存','Luggage','orange','#luggageResource'],['i-bolt','充电桩','EV charging','green','#chargingResource'],['i-camera','热门打卡点','Popular spots','purple','#nearby']
     ];
     document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,color,target])=>`<a class="quick-action" href="${target}"><span class="quick-icon ${color}"><svg class="icon"><use href="#${icon}"></use></svg></span><span>${text(cn,en)}</span></a>`).join('');
     document.getElementById('nearbyList').innerHTML = places.map(card).join('');
+    const nearbyList=document.getElementById('nearbyList'); const nearbyScrollThumb=document.getElementById('nearbyScrollThumb');
+    function updateNearbyScroll(){const max=nearbyList.scrollWidth-nearbyList.clientWidth;const progress=max>0?nearbyList.scrollLeft/max:0;nearbyScrollThumb.style.transform=`translateX(${progress*257}%)`;}
+    nearbyList.addEventListener('scroll',updateNearbyScroll,{passive:true});
     document.getElementById('foodList').innerHTML = regularFoods.map(foodCard).join('');
     document.getElementById('trafficFoodList').innerHTML = trafficFoods.map(foodCard).join('');
     const resourceData = [
       ['hospitalResource','i-hospital','医院医疗','Nearby hospitals','2个医院 / 卫生院','green',hospitals],['parkingResource','i-car','免费停车场','Free parking','3个免费停车点','blue',freeParking],['ermaluParkingResource','i-car','二马路停车指南','Ermalu parking guide','凭票免费停车2–3小时','blue',ermaluParking],['luggageResource','i-bag','行李寄存','Luggage storage','4个寄存柜','orange',luggage],['chargingResource','i-bolt','充电桩','EV charging','4个免停车费充电点','green',charging],['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]],['fireworksResource','i-camera','烟花燃放点','Fireworks area','西沙滩公园烟花点','purple',utilityPlaces.filter(item=>item.category==='fireworks')]
     ];
     document.getElementById('resourceGrid').innerHTML = resourceData.map(([id,icon,cn,en,desc,color,items])=>`<article class="resource-card ${color}" id="${id}" tabindex="0" onclick="showResource('${id}')"><span class="icon-wrap"><svg class="icon"><use href="#${icon}"></use></svg></span><div><h3>${text(cn,en)}</h3><p>${text(desc,desc)}</p></div><span class="sr-only">${items.map(item=>item.name).join('、')}</span></article>`).join('');
-    document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===btn));document.getElementById('nearbyList').innerHTML=places.filter(p=>btn.dataset.filter==='all'||p.type===btn.dataset.filter).map(card).join('');}));
-    document.querySelectorAll('[data-food-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-food-filter]').forEach(b=>b.classList.toggle('active',b===btn));const filter=btn.dataset.foodFilter;document.querySelectorAll('#foodList .food-card').forEach(el=>el.style.display=filter==='all'||el.dataset.foodCategory===filter?'grid':'none');}));
+    document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===btn));nearbyList.innerHTML=places.filter(p=>btn.dataset.filter==='all'||p.type===btn.dataset.filter).map(card).join('');nearbyList.scrollLeft=0;updateNearbyScroll();}));
     const searchInput=document.getElementById('searchInput'); const searchResults=document.getElementById('searchResults'); let searchTimer;
     function closeSearch(){searchResults.classList.remove('show');document.getElementById('resultGrid').innerHTML='';document.getElementById('searchSummary').textContent='';}
     function search(query,scroll=true) { const q=query.trim().toLowerCase();if(!q){closeSearch();return;}const aliases={厕所:'restroom',洗手间:'restroom',医院:'hospital',医疗:'hospital',停车:'parking',充电:'charging',景点:'spot',打卡:'spot',海滩:'sea',美食:'food',餐厅:'food'};const result=allItems.filter(item=>{const haystack=`${item.name} ${item.en||''} ${item.desc||''} ${item.category||''} ${item.type||''}`.toLowerCase();return haystack.includes(q)||Object.entries(aliases).some(([word,value])=>q.includes(word)&&(item.category===value||item.type===value));});searchResults.classList.add('show');document.getElementById('searchSummary').textContent=`“${query.trim()}” · ${result.length} 个结果`;document.getElementById('resultGrid').innerHTML=result.length?result.slice(0,12).map(card).join(''):`<div class="empty">没有找到相关地点，试试“美食”“停车”“医院”或“海滩”。</div>`;if(scroll)searchResults.scrollIntoView({behavior:'smooth',block:'start'}); }
