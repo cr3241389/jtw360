@@ -124,9 +124,9 @@
     .section-head p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
     .section-link { color: var(--blue); text-decoration: none; font-size: 13px; white-space: nowrap; display: inline-flex; gap: 4px; align-items: center; min-height: 44px; }
     .section-link .icon { width: 16px; height: 16px; }
-    .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; -webkit-overflow-scrolling: touch; }
     .chips::-webkit-scrollbar { display: none; }
-    .chip { border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 20px; padding: 9px 15px; min-height: 40px; white-space: nowrap; cursor: pointer; }
+    .chip { border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 20px; padding: 9px 15px; min-height: 42px; white-space: nowrap; cursor: pointer; }
     .chip.active, .chip:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
     .horizontal-scroll { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 1fr); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--blue) var(--line); padding: 0 0 14px; }
     .horizontal-scroll::-webkit-scrollbar { height: 6px; }
@@ -144,7 +144,7 @@
     .place-meta { display: flex; gap: 10px; align-items: center; margin: 8px 0; font-size: 12px; color: var(--muted); }
     .rating { color: var(--orange); font-weight: 700; }
     .place-desc { color: var(--muted); font-size: 12px; line-height: 1.5; margin: 0 0 12px; min-height: 36px; }
-    .outline-button, .nav-button { min-height: 40px; border-radius: 20px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 700; text-decoration: none; cursor: pointer; }
+    .outline-button, .nav-button { min-height: 44px; border-radius: 20px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 700; text-decoration: none; cursor: pointer; }
     .outline-button { color: var(--blue); background: var(--surface); border: 1px solid #bcdcff; }
     .nav-button { color: #fff; background: var(--blue); border: 1px solid var(--blue); }
     .outline-button .icon, .nav-button .icon { width: 16px; height: 16px; }
@@ -210,8 +210,8 @@
     @keyframes search-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
     .detail-page { display: none; padding: 20px 0 50px; }
     .detail-page.show { display: block; }
-    .detail-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-    .back-button { border: 0; background: transparent; color: var(--blue); display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding: 0; cursor: pointer; }
+    .detail-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; } .detail-top .icon-button { font-size: 0; } .detail-top .icon-button .icon { width: 20px; height: 20px; } .detail-top .icon-button[aria-label]::after { content: attr(aria-label); font-size: 11px; display: none; } @media (max-width: 640px) { .detail-top .icon-button .icon { width: 22px; height: 22px; } } .detail-top .icon-button .icon { width: 18px; height: 18px; }
+    .back-button { border: 0; background: transparent; color: var(--blue); display: inline-flex; align-items: center; gap: 5px; min-height: 48px; padding: 0 6px; cursor: pointer; }
     .detail-hero { position: relative; height: min(52vw, 500px); min-height: 280px; border-radius: var(--radius-xl); overflow: hidden; }
     .detail-hero img { width: 100%; height: 100%; object-fit: cover; }
     .detail-hero::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(0,0,0,.72)); }
@@ -286,11 +286,40 @@
       .bottom-nav a { color: var(--muted); text-decoration: none; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 10px; }
       .bottom-nav a.active { color: var(--blue); }
       .bottom-nav .icon { width: 20px; height: 20px; }
+
+      /* 移动端优化:搜索栏、常驻操作栏、滑动提示 */
+      .mobile-search-bar { position: fixed; z-index: 60; top: 0; left: 0; right: 0; display: flex; gap: 8px; padding: max(10px, env(safe-area-inset-top)) 12px; background: rgba(246,249,252,.97); border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
+      .mobile-search-bar .search { height: 48px; border-radius: 24px; box-shadow: none; padding-left: 14px; }
+      .mobile-search-bar .search button { min-height: 36px; padding: 0 14px; font-size: 13px; border-radius: 19px; }
+      .mobile-search-bar .icon-button { width: 48px; height: 48px; flex: 0 0 auto; }
+      .detail-action-bar { position: fixed; z-index: 55; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 1fr 48px 48px; gap: 8px; padding: 8px 12px calc(8px + var(--safe-bottom)); background: rgba(255,255,255,.96); border-top: 1px solid var(--line); backdrop-filter: blur(18px); }
+      .detail-action-bar .nav-button { min-height: 48px; border-radius: 24px; font-size: 14px; width: 100%; }
+      .detail-action-bar .icon-button { width: 48px; height: 48px; border-radius: 50%; background: var(--surface); border-color: var(--line); color: var(--blue); }
+      .detail-action-bar .icon-button.is-favorite { color: #e8434f; }
+      body.detail-open { padding-bottom: calc(76px + var(--safe-bottom) + 68px); }
+      body.detail-open.dark-open-detail { padding-bottom: calc(76px + var(--safe-bottom) + 68px); }
+      .horizontal-scroll::after { display: block; }
+
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  
+    /* ===== 移动端体验优化 (mobile UX) ===== */
+    /* 分类标签可完整滑动 */
+    .chips { padding-right: 12px; -webkit-overflow-scrolling: touch; }
+    .chips .chip { min-height: 42px; }
+    /* 导航按钮触摸热区 44px */
+    .nav-button { min-height: 44px; }
+    /* 横滑列表右侧滑动提示 */
+    .horizontal-scroll { position: relative; }
+    .horizontal-scroll::after { content: ""; position: sticky; right: 0; top: 0; width: 34px; height: 100%; align-self: stretch; background: linear-gradient(to right, transparent, rgba(246,249,252,.9)); pointer-events: none; }
+    .horizontal-scroll::-webkit-scrollbar { display: none; }
+    /* 详情页返回按钮热区 */
+    .back-button { min-height: 48px; padding: 0 6px; }
+
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"TouristInformationCenter","name":"JTW360","description":"金町湾本地生活指南","url":"https://www.jtw360.com/","areaServed":"汕尾市城区金町湾"}
+  
   </script>
 </head>
 <body>
@@ -315,6 +344,13 @@
     <symbol id="i-crosshair" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4"></path></symbol>
   </svg>
 
+    <div class="mobile-search-bar" id="mobileSearchBar" style="display:none">
+    <div class="search" style="flex:1">
+      <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+      <input id="mobileSearchInput" type="search" inputmode="search" placeholder="搜地点、餐厅、攻略…" data-lang-placeholder="搜地点、餐厅、攻略…" data-lang-en-placeholder="Search places, food, guides…">
+    </div>
+    <button class="icon-button" id="mobileSearchClose" type="button" aria-label="关闭搜索"><svg class="icon"><use href="#i-back"></use></svg></button>
+  </div>
   <div id="homeView">
     <header class="hero-wrap">
       <div class="hero">
@@ -324,7 +360,7 @@
             <nav class="desktop-nav" aria-label="主导航">
               <a href="#home" data-lang="首页" data-lang-en="Home">首页</a><a href="#food" data-lang="吃什么" data-lang-en="Eat">吃什么</a><a href="#nearby" data-lang="去哪里" data-lang-en="Go">去哪里</a><a href="#guides" data-lang="攻略" data-lang-en="Guides">攻略</a><a href="#tools" data-lang="实用工具" data-lang-en="Tools">实用工具</a><a href="#favorites" data-lang="收藏夹" data-lang-en="Saved">收藏夹</a>
             </nav>
-            <div class="top-actions"><button class="icon-button" id="themeButton" aria-label="切换深色模式"><svg class="icon"><use href="#i-moon"></use></svg></button><button class="icon-button lang-button" id="langButton">EN</button></div>
+            <div class="top-actions"><button class="icon-button" id="themeButton" aria-label="切换深色模式"><svg class="icon"><use href="#i-moon"></use></svg></button><button class="icon-button lang-button" id="langButton">EN</button><button class="icon-button" id="mobileSearchOpen" aria-label="搜索地点"><svg class="icon"><use href="#i-search"></use></svg></button></div>
           </div>
           <div class="hero-copy" id="home">
             <p class="eyebrow" data-lang="JTW360 · LOCAL / REAL / USEFUL" data-lang-en="JTW360 · LOCAL / REAL / USEFUL">JTW360 · LOCAL / REAL / USEFUL</p>
@@ -495,9 +531,9 @@
     function showFavorites(event) { event?.preventDefault(); const section=document.getElementById('favorites'); section.classList.add('show'); renderFavorites(); section.scrollIntoView({behavior:'smooth',block:'start'}); }
     document.querySelectorAll('a[href="#favorites"]').forEach(link=>link.addEventListener('click',showFavorites));
     function showResource(id) { const data=resourceData.find(item=>item[0]===id);if(data?.[6]?.length){document.getElementById('resultGrid').innerHTML=data[6].map(card).join('');document.getElementById('searchSummary').textContent=`${data[6].length} 个${data[2]}`;document.getElementById('searchResults').classList.add('show');document.getElementById('searchResults').scrollIntoView({behavior:'smooth'});}else if(id==='restroomResource'){window.open(AMap('公共厕所',115.292562,22.795063),'_blank');} }
-    function openDetail(slug, push=true) { const item=allItems.find(entry=>entry.slug===slug);if(!item)return; if(push)history.pushState({slug},'',`/places/${slug}`);document.getElementById('homeView').style.display='none';const detail=document.getElementById('detailView');detail.classList.add('show');const favorite=favorites().includes(slug);const image=item.menuImage||item.image||'img/gubao.jpeg';const tips=item.tips||['本地人筛选的实用地点，出发前可先电话或地图确认','直接点击导航，使用高德地图打开路线','如果是海鲜餐厅，建议下午6点前到达'];detail.innerHTML=`<div class="detail-top"><button class="back-button" onclick="goHome()"><svg class="icon"><use href="#i-back"></use></svg>${text('返回','Back')}</button><div class="top-actions"><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" data-favorite-button onclick="toggleFavorite('${slug}')">${favorite?'♥ 已收藏':'♡ 收藏'}</button><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${item.name}',url:location.href})" aria-label="分享"><svg class="icon"><use href="#i-share"></use></svg></button></div></div><div class="detail-hero"><img src="${image}" alt="${item.name}${item.menuImage?'菜单':''}"><div class="detail-title"><h1>${text(item.name,item.en)}</h1><div class="place-meta"><span class="rating">★ ${item.rating||'本地推荐'}</span><span>${item.distance||'金町湾附近'}</span></div></div></div><div class="detail-content"><div><div class="detail-card"><div class="tag-row"><span class="tag green">${text(item.type==='food'?'本地筛选':'本地推荐',item.type==='food'?'Local pick':'Local pick')}</span><span class="tag">${text(item.type==='food'?'美食':item.category==='spot'?'景点':item.category==='hospital'?'医院':'实用服务',item.type==='food'?'Food':item.category)}</span></div><p class="place-desc" style="font-size:14px;margin:15px 0 0;min-height:0">${text(item.desc||'靠近金町湾，适合直接导航。',item.enDesc||'Close to Jinting Bay, ready to navigate.')}</p>${item.price?`<p class="place-desc" style="margin-top:10px;min-height:0"><strong>${item.price}</strong></p>`:''}${item.address?`<p class="place-desc" style="margin-top:10px;min-height:0">地址：${item.address}</p>`:''}${item.phone?`<p class="place-desc" style="margin-top:10px;min-height:0">${text('电话：','Tel: ')}<a href="tel:${item.phone.replace(/\s*\/\s*.*/, '')}">${item.phone}</a></p>`:''}<div class="detail-stats"><div class="stat"><strong>${item.type==='food'?'本地价':'2–3小时'}</strong><span>${text(item.type==='food'?'消费参考':'建议停留',item.type==='food'?'Daily pick':'Suggested stay')}</span></div><div class="stat"><strong>${item.category==='hospital'?'电话':item.distance||'附近'}</strong><span>${text(item.category==='hospital'?'快速联系':'距离金町湾','Contact or distance')}</span></div><div class="stat"><strong>高德</strong><span>${text('直接导航','Navigate')}</span></div></div><div class="detail-actions">${navButton(item)}</div></div><div class="detail-card tip-card"><h2>${text('本地人建议','Local advice')}</h2><ul class="tips">${tips.map(t=>`<li>${text(t,t)}</li>`).join('')}</ul></div></div><aside class="detail-card"><h2>${text('附近推荐','Nearby')}</h2><div class="food-list">${(item.category==='spot'?foods.slice(0,2):places.slice(0,3)).map(item.category==='spot'?foodCard:card).join('')}</div></aside></div>`;window.scrollTo(0,0);document.title=`${item.name} · JTW360`; }
-    function openGuide(slug, push=true) { const guide=guides.find(entry=>entry.slug===slug);if(!guide)return;if(push)history.pushState({guide:slug},'',`/guides/${slug}`);document.getElementById('homeView').style.display='none';const detail=document.getElementById('detailView');detail.classList.add('show');const related=guide.related.map(id=>allItems.find(item=>item.slug===id)).filter(Boolean);detail.innerHTML=`<div class="detail-top"><button class="back-button" onclick="goHome()"><svg class="icon"><use href="#i-back"></use></svg>${text('返回攻略','Back')}</button><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${guide.title}',url:location.href})" aria-label="分享"><svg class="icon"><use href="#i-share"></use></svg></button></div><div class="detail-hero"><img src="${guide.image}" alt="${guide.title}"><div class="detail-title"><h1>${text(guide.title,guide.en)}</h1><div class="place-meta"><span>${guide.audience}</span><span>${guide.duration}</span></div></div></div><div class="detail-content"><div><div class="detail-card"><div class="tag-row"><span class="tag green">本地实用路线</span><span class="tag">${guide.duration}</span></div><p class="guide-detail-intro" style="margin-top:15px">${guide.intro}</p><div class="itinerary-list">${guide.days.map(day=>`<article class="itinerary-day"><strong>${day.title}</strong><h3>${day.route}</h3><p>${day.note}</p></article>`).join('')}</div></div><div class="detail-card tip-card"><h2>出发前提醒</h2><ul class="tips">${guide.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div></div><aside class="detail-card"><h2>路线相关地点</h2><div class="guide-places">${related.map(guidePlaceCard).join('')}</div></aside></div>`;window.scrollTo(0,0);document.title=`${guide.title} · JTW360`; }
-    function goHome(push=true){if(push)history.pushState({},'', '/');const detail=document.getElementById('detailView');detail.classList.remove('show');detail.innerHTML='';document.getElementById('homeView').style.display='block';document.title='JTW360 · 金町湾本地生活指南';window.scrollTo(0,0);}
+    function openDetail(slug, push=true) { const item=allItems.find(entry=>entry.slug===slug);if(!item)return; if(push)history.pushState({slug},'',`/places/${slug}`);document.getElementById('homeView').style.display='none';const detail=document.getElementById('detailView');detail.classList.add('show');const favorite=favorites().includes(slug);const image=item.menuImage||item.image||'img/gubao.jpeg';const tips=item.tips||['本地人筛选的实用地点，出发前可先电话或地图确认','直接点击导航，使用高德地图打开路线','如果是海鲜餐厅，建议下午6点前到达'];detail.innerHTML=`<div class="detail-top"><button class="back-button" onclick="goHome()"><svg class="icon"><use href="#i-back"></use></svg>${text('返回','Back')}</button><div class="top-actions"><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" data-favorite-button onclick="toggleFavorite('${slug}')" aria-label="收藏"><svg class="icon"><use href="#i-heart"></use></svg><span style="font-size:11px;margin-left:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:56px">${favorite?'已收藏':'收藏'}</span></button><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${item.name}',url:location.href})" aria-label="分享"><svg class="icon"><use href="#i-share"></use></svg></button></div></div><div class="detail-hero"><img src="${image}" alt="${item.name}${item.menuImage?'菜单':''}"><div class="detail-title"><h1>${text(item.name,item.en)}</h1><div class="place-meta"><span class="rating">★ ${item.rating||'本地推荐'}</span><span>${item.distance||'金町湾附近'}</span></div></div></div><div class="detail-content"><div><div class="detail-card"><div class="tag-row"><span class="tag green">${text(item.type==='food'?'本地筛选':'本地推荐',item.type==='food'?'Local pick':'Local pick')}</span><span class="tag">${text(item.type==='food'?'美食':item.category==='spot'?'景点':item.category==='hospital'?'医院':'实用服务',item.type==='food'?'Food':item.category)}</span></div><p class="place-desc" style="font-size:14px;margin:15px 0 0;min-height:0">${text(item.desc||'靠近金町湾，适合直接导航。',item.enDesc||'Close to Jinting Bay, ready to navigate.')}</p>${item.price?`<p class="place-desc" style="margin-top:10px;min-height:0"><strong>${item.price}</strong></p>`:''}${item.address?`<p class="place-desc" style="margin-top:10px;min-height:0">地址：${item.address}</p>`:''}${item.phone?`<p class="place-desc" style="margin-top:10px;min-height:0">${text('电话：','Tel: ')}<a href="tel:${item.phone.replace(/\s*\/\s*.*/, '')}">${item.phone}</a></p>`:''}<div class="detail-stats"><div class="stat"><strong>${item.type==='food'?'本地价':'2–3小时'}</strong><span>${text(item.type==='food'?'消费参考':'建议停留',item.type==='food'?'Daily pick':'Suggested stay')}</span></div><div class="stat"><strong>${item.category==='hospital'?'电话':item.distance||'附近'}</strong><span>${text(item.category==='hospital'?'快速联系':'距离金町湾','Contact or distance')}</span></div><div class="stat"><strong>高德</strong><span>${text('直接导航','Navigate')}</span></div></div><div class="detail-actions">${navButton(item)}</div></div><div class="detail-card tip-card"><h2>${text('本地人建议','Local advice')}</h2><ul class="tips">${tips.map(t=>`<li>${text(t,t)}</li>`).join('')}</ul></div></div><aside class="detail-card"><h2>${text('附近推荐','Nearby')}</h2><div class="food-list">${(item.category==='spot'?foods.slice(0,2):places.slice(0,3)).map(item.category==='spot'?foodCard:card).join('')}</div></aside></div>`;removeDetailBar();document.body.classList.add('detail-open');if(item.phone){const raw=item.phone.replace(/\s*\/\s*.*/,'').replace(/\D/g,'');const bars=`<div class="detail-action-bar" id="detailActionBar"><a class="nav-button" href="${item.url}" target="_blank" rel="noreferrer"><svg class="icon"><use href="#i-pin"></use></svg>${text('高德导航','Navigate')}</a><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" data-favorite-button onclick="toggleFavorite('${item.slug}')">${favorite?'♥':'♡'}</button><a class="icon-button" href="tel:${raw}" aria-label="打电话"><svg class="icon"><use href="#i-hospital"></use></svg></a></div>`;document.body.insertAdjacentHTML('beforeend',bars);}else{const bars=`<div class="detail-action-bar" id="detailActionBar"><a class="nav-button" href="${item.url}" target="_blank" rel="noreferrer"><svg class="icon"><use href="#i-pin"></use></svg>${text('高德导航','Navigate')}</a><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" data-favorite-button onclick="toggleFavorite('${item.slug}')">${favorite?'♥':'♡'}</button><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${item.name}',url:location.href})" aria-label="分享"><svg class="icon"><use href="#i-share"></use></svg></button></div>`;document.body.insertAdjacentHTML('beforeend',bars);}window.scrollTo(0,0);document.title=`${item.name} · JTW360`; }
+    function openGuide(slug, push=true) { removeDetailBar();const guide=guides.find(entry=>entry.slug===slug);if(!guide)return;if(push)history.pushState({guide:slug},'',`/guides/${slug}`);document.getElementById('homeView').style.display='none';const detail=document.getElementById('detailView');detail.classList.add('show');const related=guide.related.map(id=>allItems.find(item=>item.slug===id)).filter(Boolean);detail.innerHTML=`<div class="detail-top"><button class="back-button" onclick="goHome()"><svg class="icon"><use href="#i-back"></use></svg>${text('返回攻略','Back')}</button><button class="icon-button" style="color:var(--blue);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${guide.title}',url:location.href})" aria-label="分享"><svg class="icon"><use href="#i-share"></use></svg></button></div><div class="detail-hero"><img src="${guide.image}" alt="${guide.title}"><div class="detail-title"><h1>${text(guide.title,guide.en)}</h1><div class="place-meta"><span>${guide.audience}</span><span>${guide.duration}</span></div></div></div><div class="detail-content"><div><div class="detail-card"><div class="tag-row"><span class="tag green">本地实用路线</span><span class="tag">${guide.duration}</span></div><p class="guide-detail-intro" style="margin-top:15px">${guide.intro}</p><div class="itinerary-list">${guide.days.map(day=>`<article class="itinerary-day"><strong>${day.title}</strong><h3>${day.route}</h3><p>${day.note}</p></article>`).join('')}</div></div><div class="detail-card tip-card"><h2>出发前提醒</h2><ul class="tips">${guide.tips.map(t=>`<li>${t}</li>`).join('')}</ul></div></div><aside class="detail-card"><h2>路线相关地点</h2><div class="guide-places">${related.map(guidePlaceCard).join('')}</div></aside></div>`;window.scrollTo(0,0);document.title=`${guide.title} · JTW360`; }
+    function goHome(push=true){if(push)history.pushState({},'', '/');removeDetailBar();const detail=document.getElementById('detailView');detail.classList.remove('show');detail.innerHTML='';document.getElementById('homeView').style.display='block';document.title='JTW360 · 金町湾本地生活指南';window.scrollTo(0,0);}
     function routeFromUrl(){const params=new URLSearchParams(location.search);const placeMatch=location.pathname.match(/\/places\/([^/]+)/);const guideMatch=location.pathname.match(/\/guides\/([^/]+)/);const slug=params.get('place')||placeMatch?.[1];const guideSlug=params.get('guide')||guideMatch?.[1];if(slug)openDetail(slug,false);else if(guideSlug)openGuide(guideSlug,false);else goHome(false);}
     document.querySelectorAll('.desktop-nav a[href^="#"], .bottom-nav a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{const target=link.getAttribute('href');if(document.getElementById('detailView').classList.contains('show')){event.preventDefault();goHome();requestAnimationFrame(()=>document.querySelector(target)?.scrollIntoView({behavior:'smooth',block:'start'}));}}));
     window.addEventListener('popstate',routeFromUrl);
@@ -506,6 +542,18 @@
     document.getElementById('themeButton').addEventListener('click',()=>{document.body.classList.toggle('dark-mode');localStorage.setItem('jtw360-theme',document.body.classList.contains('dark-mode')?'dark':'light');});
     if(localStorage.getItem('jtw360-theme')==='dark')document.body.classList.add('dark-mode');if(localStorage.getItem('jtw360-language')==='en')setLanguage(true);
     routeFromUrl();
+  
+    function removeDetailBar(){document.body.classList.remove('detail-open');document.getElementById('detailActionBar')?.remove();}
+    const mobileSearchBar=document.getElementById('mobileSearchBar');
+    const mobileSearchInput=document.getElementById('mobileSearchInput');
+    function openMobileSearch(){mobileSearchBar.style.display='flex';closeSearch();requestAnimationFrame(()=>mobileSearchInput?.focus());}
+    function closeMobileSearch(){mobileSearchBar.style.display='none';if(mobileSearchInput)mobileSearchInput.value='';closeSearch();}
+    document.getElementById('mobileSearchOpen').addEventListener('click',openMobileSearch);
+    document.getElementById('mobileSearchClose').addEventListener('click',closeMobileSearch);
+    mobileSearchInput.addEventListener('input',event=>{const q=event.target.value.trim().toLowerCase();if(!q){closeSearch();return;}const matches=allItems.filter(item=>(item.name+item.en+item.desc+item.category).toLowerCase().includes(q));if(matches.length){document.getElementById('resultGrid').innerHTML=matches.map(card).join('');document.getElementById('searchSummary').textContent=`找到 ${matches.length} 个结果`;}else{document.getElementById('resultGrid').innerHTML='<div class="empty">没有找到相关地点，试试其他关键词。</div>';document.getElementById('searchSummary').textContent='';}document.getElementById('searchResults').classList.add('show');});
   </script>
-</body>
+
+
+
+  </body>
 </html>
