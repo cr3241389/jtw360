@@ -1881,8 +1881,8 @@
     ].map((item,index)=>({...item,type:'food',url:AMap(item.name,item.lng,item.lat),rating:['4.6','4.7','4.8','4.5'][index%4],desc:item.desc || item.address || '本地日常消费，点击店名查看菜单与信息。'}));
 
     const hospitals = [
-      {slug:'shenshan-tcm-hospital',name:'深汕中医医院',en:'Shenshan TCM Hospital',category:'hospital',phone:'06606162398',lng:115.305937,lat:22.796466,desc:'电话：06606162398'},
-      {slug:'hongcao-health-center',name:'红草中心卫生院',en:'Hongcao Central Health Center',category:'hospital',phone:'06603445366',lng:115.303672,lat:22.828743,desc:'电话：06603445366'}
+      {slug:'shenshan-tcm-hospital',name:'深汕中医医院',en:'Shenshan TCM Hospital',category:'hospital',image:'img/shenshan-tcm-hospital.jpg',phone:'06606162398',lng:115.305937,lat:22.796466,desc:'电话：06606162398'},
+      {slug:'hongcao-health-center',name:'红草中心卫生院',en:'Hongcao Central Health Center',category:'hospital',image:'img/hongcao-health-center.jpg',phone:'06603445366',lng:115.303672,lat:22.828743,desc:'电话：06603445366'}
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat)}));
 
     const parking = [
