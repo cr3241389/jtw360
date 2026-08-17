@@ -1895,8 +1895,8 @@
       {slug:'tingtao-free-parking',name:'听涛路免费停车场',en:'Tingtao Rd Free Parking',category:'parking',lng:115.29211,lat:22.79516,image:'img/generated/parking-tingtao.webp',desc:'靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。'},
       {slug:'wushuangshu-west-parking',name:'无双墅西停车场',en:'Wushuangshu West Parking',category:'parking',lng:115.295833,lat:22.793737,image:'img/generated/parking-wushuangshu.webp',desc:'靠近无双墅、亲海寓，步行可达海滩。'},
       {slug:'wushuangshu-east-parking',name:'无双墅东停车场',en:'Wushuangshu East Parking',category:'parking',lng:115.29718,lat:22.793647,image:'img/generated/parking-wushuangshu.webp',desc:'靠近无双墅、亲海寓，步行可达海滩。'},
-      {slug:'xinli-building',name:'信利大厦',en:'Xinli Building',category:'parking',lng:115.359926,lat:22.773533,image:'img/generated/parking-xinli-building.webp',desc:'二马路美食街停车指南：定位信利大厦停车场，步行可达美食街。'},
-      {slug:'xinli-city-plaza',name:'信利城市广场',en:'Xinli City Plaza',category:'parking',lng:115.359926,lat:22.773533,image:'img/generated/parking-xinli-plaza.webp',desc:'商户消费可在信利大厦凭票免费停车2–3小时。'}
+      {slug:'xinli-building',name:'信利大厦',en:'Xinli Building',category:'parking',lng:115.359926,lat:22.773533,image:'img/xinli-building.jpg',desc:'二马路美食街停车指南：定位信利大厦停车场，步行即达美食街。车位紧张时可继续往下开到最里面，停靠近电梯口的位置，从维也纳酒店侧进出。在信利城市广场或信利超市消费后，凭小票到信利大厦1楼超市柜台可领免费停车2–3小时。'},
+      {slug:'xinli-city-plaza',name:'信利城市广场',en:'Xinli City Plaza',category:'parking',lng:115.359926,lat:22.773533,image:'img/xinli-city-plaza.jpg',desc:'信利超市就在广场内，逛街购物一站搞定。广场车位紧张时可改停信利大厦；在广场或信利超市消费后，凭小票到信利大厦1楼超市柜台领免费停车2–3小时。'}
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat),type:'service'}));
 
     const luggage = [
@@ -2071,7 +2071,7 @@
     const resourceData = [
       ['hospitalResource','i-hospital','医院医疗','Nearby hospitals','2个医院 / 卫生院','green',hospitals],
       ['parkingResource','i-car','免费停车场','Free parking','3个免费停车点','blue',freeParking],
-      ['ermaluParkingResource','i-car','二马路停车指南','Ermalu parking guide','凭票免费停车2–3小时','blue',ermaluParking],
+      ['ermaluParkingResource','i-car','二马路停车指南','Ermalu parking guide','信利广场/超市消费小票可换免费停车2–3小时','blue',ermaluParking],
       ['luggageResource','i-bag','行李寄存','Luggage storage','4个寄存柜','orange',luggage],
       ['chargingResource','i-bolt','充电桩','EV charging','3个免停车费充电点','green',charging],
       ['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]]
