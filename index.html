@@ -736,6 +736,7 @@
     .tag.orange { background: var(--accent-coral-soft); color: var(--accent-coral); border-color: transparent; }
     .tag.meituan { background: #fff8e1; color: #b45309; border-color: transparent; }
     .tag.douyin { background: #ffe4e6; color: #e11d48; border-color: transparent; }
+    .tag.meal { background: var(--accent-sky-soft); color: var(--accent-sky); border-color: transparent; }
     
     .food-action {
       display: flex;
@@ -1865,18 +1866,18 @@
     ];
 
     const foods = [
-      {slug:'kfc-jinting',name:'肯德基',en:'KFC',category:'fast',image:'img/food/kfc-thumb.webp',menuImage:'img/food/kfc.webp',distance:'0.4km',price:'参考人均：¥20–45',tags:['meituan','douyin'],lng:115.292374,lat:22.795705},
-      {slug:'mcdonalds-jinting',name:'麦当劳',en:"McDonald's",category:'fast',image:'img/food/mcdonalds-thumb.webp',menuImage:'img/food/mcdonalds.webp',distance:'0.8km',price:'参考人均：¥20–45',tags:['meituan','douyin'],lng:115.298594,lat:22.797381},
-      {slug:'chizizhi-beef-offal',name:'吃自知牛杂世家(保利金町湾店)',en:'Chizhizhi Beef Offal',category:'beef',image:'img/food/chizizhi-thumb.webp',menuImage:'img/food/chizizhi.webp',distance:'0.5km',price:'参考人均：¥20–40',tags:['meituan','douyin'],lng:115.29314,lat:22.795955},
-      {slug:'nanfeng-fast-food',name:'南沣烧腊快餐',en:'Nanfeng Roast Meat Fast Food',category:'fast',image:'img/food/nanfeng-thumb.webp',menuImage:'img/food/nanfeng.webp',distance:'0.6km',price:'参考人均：¥15–25',lng:115.293398,lat:22.796174},
-      {slug:'pinqingyuan-beef',name:'品清园味牛腩店',en:'Pinqingyuan Beef Brisket',category:'beef',image:'img/food/pinqingyuan-thumb.webp',menuImage:'img/food/pinqingyuan.webp',distance:'0.6km',price:'参考人均：¥15–30',lng:115.293505,lat:22.796238},
-      {slug:'yingdong-restaurant',name:'迎东大酒楼',en:'Yingdong Grand Restaurant',category:'seafood',image:'img/food/yingdong-thumb.webp',menuImage:'img/food/yingdong.webp',distance:'3.5km',price:'参考团购：¥68起（2人餐）',tags:['meituan'],phone:'0660-8333888 / 15918554894',address:'城区通航路碧桂园华附凤凰城',lng:115.323069,lat:22.792713},
-      {slug:'aguo-pancake',name:'阿国薄饼',en:'Aguo Thin Pancake',category:'snack',image:'img/food/aguo-thumb.webp',menuImage:'img/food/aguo.webp',distance:'6.4km',price:'参考人均：¥10–20',tags:['douyin'],lng:115.349618,lat:22.781474},
+      {slug:'kfc-jinting',name:'肯德基',en:'KFC',category:'fast',image:'img/food/kfc-thumb.webp',menuImage:'img/food/kfc.webp',distance:'0.4km',price:'参考人均：¥20–45',meal:['早餐'],tags:['meituan','douyin'],lng:115.292374,lat:22.795705},
+      {slug:'mcdonalds-jinting',name:'麦当劳',en:"McDonald's",category:'fast',image:'img/food/mcdonalds-thumb.webp',menuImage:'img/food/mcdonalds.webp',distance:'0.8km',price:'参考人均：¥20–45',meal:['早餐'],tags:['meituan','douyin'],lng:115.298594,lat:22.797381},
+      {slug:'chizizhi-beef-offal',name:'吃自知牛杂世家(保利金町湾店)',en:'Chizhizhi Beef Offal',category:'beef',image:'img/food/chizizhi-thumb.webp',menuImage:'img/food/chizizhi.webp',distance:'0.5km',price:'参考人均：¥20–40',meal:['中晚餐'],tags:['meituan','douyin'],lng:115.29314,lat:22.795955},
+      {slug:'nanfeng-fast-food',name:'南沣烧腊快餐',en:'Nanfeng Roast Meat Fast Food',category:'fast',image:'img/food/nanfeng-thumb.webp',menuImage:'img/food/nanfeng.webp',distance:'0.6km',price:'参考人均：¥15–25',meal:['中晚餐'],lng:115.293398,lat:22.796174},
+      {slug:'pinqingyuan-beef',name:'品清园味牛腩店',en:'Pinqingyuan Beef Brisket',category:'beef',image:'img/food/pinqingyuan-thumb.webp',menuImage:'img/food/pinqingyuan.webp',distance:'0.6km',price:'参考人均：¥15–30',meal:['中晚餐'],lng:115.293505,lat:22.796238},
+      {slug:'yingdong-restaurant',name:'迎东大酒楼',en:'Yingdong Grand Restaurant',category:'seafood',image:'img/food/yingdong-thumb.webp',menuImage:'img/food/yingdong.webp',distance:'3.5km',price:'参考团购：¥68起（2人餐）',meal:['早餐','中晚餐'],tags:['meituan'],phone:'0660-8333888 / 15918554894',address:'城区通航路碧桂园华附凤凰城',lng:115.323069,lat:22.792713},
+      {slug:'aguo-pancake',name:'阿国薄饼',en:'Aguo Thin Pancake',category:'snack',image:'img/food/aguo-thumb.webp',menuImage:'img/food/aguo.webp',distance:'6.4km',price:'参考人均：¥10–20',meal:['小吃'],tags:['douyin'],lng:115.349618,lat:22.781474},
       {slug:'xinmingyuan-seafood',name:'新明园餐厅(海鲜)',en:'Xinmingyuan Restaurant (Seafood)',category:'seafood',image:'img/food/xinmingyuan-thumb.webp',menuImage:'img/food/xinmingyuan.webp',distance:'8.4km',price:'参考人均：¥60–100',lng:115.359453,lat:22.785996},
       {slug:'fengfu-seafood',name:'丰富大排档(海鲜)',en:'Fengfu Food Stall (Seafood)',category:'seafood',image:'img/food/fengfu-thumb.webp',menuImage:'img/food/fengfu.webp',distance:'7.6km',price:'参考人均：¥50–80',lng:115.352591,lat:22.776596},
-      {slug:'daxi-teahouse',name:'大喜茶楼',en:'Daxi Tea House',category:'snack',image:'img/food/daxi-thumb.webp',menuImage:'img/food/daxi-teahouse.webp',distance:'约10km',price:'图片参考菜单：¥33起',desc:'茶楼点心，适合错峰用餐和喝茶聊天。',lng:115.379406,lat:22.788853},
-      {slug:'xiaba-flavor',name:'呷霸风味堂',en:'Xiaba Flavor House',category:'snack',image:'img/food/xiaba-thumb.webp',menuImage:'img/food/xiaba-flavor.webp',distance:'约10km',price:'图片参考菜单：¥15起',desc:'台湾风味小吃，适合快速解决一餐。',lng:115.379788,lat:22.78886},
-      {slug:'niujang-yakiniku',name:'牛将烧肉',en:'Niujang Yakiniku',category:'beef',image:'img/food/niujang-thumb.webp',menuImage:'img/food/niujang-yakiniku.webp',distance:'约10km',price:'图片参考菜单：¥42起',desc:'烧肉聚餐选择，适合避开景区海鲜高峰。',lng:115.37962,lat:22.788858},
+      {slug:'daxi-teahouse',name:'大喜茶楼',en:'Daxi Tea House',category:'snack',image:'img/food/daxi-thumb.webp',menuImage:'img/food/daxi-teahouse.webp',distance:'约10km',price:'图片参考菜单：¥33起',meal:['早餐','中晚餐'],desc:'茶楼点心，适合错峰用餐和喝茶聊天。',lng:115.379406,lat:22.788853},
+      {slug:'xiaba-flavor',name:'呷霸风味堂',en:'Xiaba Flavor House',category:'snack',image:'img/food/xiaba-thumb.webp',menuImage:'img/food/xiaba-flavor.webp',distance:'约10km',price:'图片参考菜单：¥15起',meal:['中晚餐'],desc:'台湾风味小吃，适合快速解决一餐。',lng:115.379788,lat:22.78886},
+      {slug:'niujang-yakiniku',name:'牛将烧肉',en:'Niujang Yakiniku',category:'beef',image:'img/food/niujang-thumb.webp',menuImage:'img/food/niujang-yakiniku.webp',distance:'约10km',price:'图片参考菜单：¥42起',meal:['中晚餐'],desc:'烧肉聚餐选择，适合避开景区海鲜高峰。',lng:115.37962,lat:22.788858},
       {slug:'yuxin-bookstore',name:'愈欣书店',en:'Yuxin Bookstore',category:'tea',image:'img/food/yuxin-thumb.webp',menuImage:'img/food/yuxin-bookstore.webp',distance:'约10km',price:'店内茶饮消费以现场为准',desc:'以喝茶休闲为主，适合聊天、阅读和短暂休息。',lng:115.379708,lat:22.78854}
     ].map((item,index)=>({...item,type:'food',url:AMap(item.name,item.lng,item.lat),rating:['4.6','4.7','4.8','4.5'][index%4],desc:item.desc || item.address || '本地日常消费，点击店名查看菜单与信息。'}));
 
@@ -1908,7 +1909,7 @@
 
     const utilityPlaces = [
       {slug:'public-restroom',name:'公共厕所',en:'Public Restroom',category:'restroom',type:'service',lng:115.292562,lat:22.795063,desc:'金町湾公共厕所，点击导航直达。'},
-      {slug:'west-beach-fireworks',name:'西沙滩公园烟花燃放点',en:'West Beach Fireworks Area',category:'fireworks',type:'service',lng:115.340372,lat:22.783278,desc:'原有烟花点导航入口。出发前请以现场管理要求为准。'}
+      {slug:'west-beach-park',name:'西沙滩公园',en:'Xishatan Park',category:'spot',type:'service',image:'img/west-beach-park.jpg',rating:'5.0',lng:115.340372,lat:22.783278,desc:'五星好评的热门打卡点，导航直达。',enDesc:'A top-rated popular spot, ready to navigate.'}
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat)}));
 
     const regularFoods = foods.slice(0, 9);
@@ -1991,6 +1992,7 @@
             <span>${item.distance}</span>
           </div>
           <div class="tag-row">
+            ${(item.meal || []).map(m => `<span class="tag meal">${text(m, m === '早餐' ? 'Breakfast' : m === '中晚餐' ? 'Lunch & Dinner' : 'Snack')}</span>`).join('')}
             ${item.tags?.map(tag=>`<span class="tag ${tag}">${tag === 'meituan' ? '美团' : '抖音'}</span>`).join('') || `<span class="tag">${item.price}</span>`}
           </div>
         </div>
@@ -2067,7 +2069,7 @@
       ['luggageResource','i-bag','行李寄存','Luggage storage','4个寄存柜','orange',luggage],
       ['chargingResource','i-bolt','充电桩','EV charging','3个免停车费充电点','green',charging],
       ['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]],
-      ['fireworksResource','i-camera','烟花燃放点','Fireworks area','西沙滩公园烟花点','purple',utilityPlaces.filter(item=>item.category==='fireworks')]
+      ['hotspotResource','i-camera','热门打卡点','Popular spot','西沙滩公园 · 五星好评','purple',utilityPlaces.filter(item=>item.category==='spot')]
     ];
 
     document.getElementById('resourceGrid').innerHTML = resourceData.map(([id,icon,cn,en,desc,color,items])=>`
