@@ -1,1331 +1,2488 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#007AFF">
-    <title>JTW 360 | 金町湾全能向导</title>
-    <link rel="preload" as="image" href="img/gubao.jpeg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { 
-            --primary: #007AFF; /* Apple Blue */
-            --primary-light: #E5F1FF;
-            --bg: #F2F2F7;      /* iOS background gray */
-            --card: #FFFFFF; 
-            --text-main: #1C1C1E;
-            --text-sub: #8E8E93;
-            --shadow: rgba(0, 0, 0, 0.06); 
-            --border: rgba(0, 0, 0, 0.05);  
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            --radius-sm: 10px;
-            --nav-bg: rgba(255, 255, 255, 0.85);
-            --nav-border: rgba(0, 0, 0, 0.08);
-            color-scheme: light;
-        }
-        
-        body.dark-mode {
-            --primary: #0A84FF;
-            --primary-light: rgba(10, 132, 255, 0.15);
-            --bg: #000000;
-            --card: #1C1C1E;
-            --text-main: #FFFFFF;
-            --text-sub: #8E8E93;
-            --shadow: rgba(0, 0, 0, 0.4);
-            --border: rgba(255, 255, 255, 0.1);
-            --nav-bg: rgba(28, 28, 30, 0.85);
-            --nav-border: rgba(255, 255, 255, 0.12);
-            color-scheme: dark;
-        }
-        
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="description" content="JTW360 金町湾本地生活指南：景点、美食、免费停车、洗手间、医院、充电桩、行李寄存与高德地图导航。">
+  <meta property="og:title" content="JTW360 · 金町湾本地生活指南">
+  <meta property="og:description" content="本地人帮你筛选真正实用的吃、住、玩与出行信息。">
+  <meta property="og:image" content="img/generated/jinting-bay-hero.webp">
+  <base href="/">
+  <title>JTW360 · 金町湾本地生活指南</title>
+  <link rel="preload" as="image" href="img/generated/jinting-bay-hero.webp">
+  <link rel="icon" type="image/png" href="img/jtw360logo-sm.png">
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-hover: #0052cc;
+      --primary-light: #eef4ff;
+      --primary-soft: rgba(0, 102, 255, 0.08);
+      --ink: #0f172a;
+      --ink-secondary: #334155;
+      --muted: #64748b;
+      --muted-light: #94a3b8;
+      --line: #e2e8f0;
+      --line-subtle: #f1f5f9;
+      --surface: #ffffff;
+      --surface-elevated: #ffffff;
+      --canvas: #f8fafc;
+      
+      --accent-coral: #ff5a36;
+      --accent-coral-soft: #fff1ee;
+      --accent-amber: #f59e0b;
+      --accent-amber-soft: #fef3c7;
+      --accent-green: #10b981;
+      --accent-green-soft: #ecfdf5;
+      --accent-purple: #8b5cf6;
+      --accent-purple-soft: #f5f3ff;
+      --accent-sky: #0ea5e9;
+      --accent-sky-soft: #e0f2fe;
+      
+      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 2px 8px -1px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
+      --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.07), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      --shadow-lg: 0 16px 40px -8px rgba(15, 23, 42, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      --shadow-glow: 0 8px 24px rgba(0, 102, 255, 0.22);
+      
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --radius-full: 9999px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-top: env(safe-area-inset-top, 0px);
+    }
 
-        html {
-            scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-        }
-        html, body { overflow-x: hidden; overflow-x: clip; }
-        
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background: var(--bg); 
-            margin: 0; 
-            color: var(--text-main); 
-            padding-bottom: calc(90px + env(safe-area-inset-bottom));
-            transition: background 0.3s ease, color 0.3s ease;
-            -webkit-font-smoothing: antialiased;
-        }
-        a, button { touch-action: manipulation; }
-        
-        /* Hero Header */
-        .hero {
-            position: relative;
-            background: url('img/gubao.jpeg') center/cover no-repeat;
-            height: clamp(200px, 26vh, 260px);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding-top: calc(35px + env(safe-area-inset-top));
-            padding-right: 25px;
-            padding-bottom: 35px;
-            padding-left: 25px;
-            border-bottom-left-radius: 35px;
-            border-bottom-right-radius: 35px;
-            box-shadow: 0 10px 30px var(--shadow);
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.75));
-            z-index: 1;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: #FFF;
-        }
-        .hero h1 { margin: 0 0 8px 0; font-size: clamp(28px, 9vw, 34px); font-weight: 800; letter-spacing: 0.5px; }
-        .hero p { margin: 0; font-size: 16px; opacity: 0.9; font-weight: 400; }
-        
-        .header-controls {
-            position: absolute;
-            top: calc(25px + env(safe-area-inset-top));
-            right: 20px;
-            z-index: 3;
-            display: flex;
-            gap: 12px;
-        }
-        .btn-icon {
-            background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            width: 42px; height: 42px;
-            display: flex; align-items: center; justify-content: center;
-            color: #FFF;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-icon:active { transform: scale(0.9); }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: calc(84px + var(--safe-bottom));
+      line-height: 1.5;
+    }
 
-        /* Container */
-        .container {
-            max-width: 600px;
-            margin: -30px auto 0;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
+    body.dark-mode {
+      --ink: #f8fafc;
+      --ink-secondary: #cbd5e1;
+      --muted: #94a3b8;
+      --muted-light: #64748b;
+      --line: #243247;
+      --line-subtle: #1a2536;
+      --surface: #131b28;
+      --surface-elevated: #192436;
+      --canvas: #090e17;
+      --primary-light: rgba(0, 102, 255, 0.16);
+      --primary-soft: rgba(0, 102, 255, 0.14);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 16px 44px rgba(0, 0, 0, 0.55);
+      --accent-coral-soft: rgba(255, 90, 54, 0.15);
+      --accent-amber-soft: rgba(245, 158, 11, 0.15);
+      --accent-green-soft: rgba(16, 185, 129, 0.15);
+      --accent-purple-soft: rgba(139, 92, 246, 0.15);
+      --accent-sky-soft: rgba(14, 165, 233, 0.15);
+    }
 
-        /* Quick Navigation */
-        .quick-nav {
-            position: sticky;
-            top: calc(10px + env(safe-area-inset-top));
-            z-index: 50;
-            display: flex;
-            gap: 6px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 8px;
-            margin: 0 0 18px;
-            scrollbar-width: none;
-            background: var(--nav-bg);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid var(--nav-border);
-            border-radius: 22px;
-            box-shadow: 0 8px 24px var(--shadow);
-        }
-        .quick-nav::-webkit-scrollbar { display: none; }
-        .quick-nav-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            flex-shrink: 0;
-            padding: 9px 12px;
-            border-radius: 16px;
-            color: var(--text-main);
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            touch-action: manipulation;
-            transition: background 0.2s;
-        }
-        .quick-nav-item:active { background: rgba(120, 120, 128, 0.12); }
-        .quick-nav-item i { font-size: 14px; }
+    button, input { font: inherit; }
+    button, a { touch-action: manipulation; }
+    a { color: inherit; text-decoration: none; }
+    
+    .icon {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
 
-        /* Accordion Cards */
-        .accordion-card {
-            background: var(--card);
-            border-radius: var(--radius-lg);
-            margin-bottom: 20px;
-            box-shadow: 0 6px 20px var(--shadow);
-            border: 1px solid var(--border);
-            overflow: hidden;
-            scroll-margin-top: calc(64px + env(safe-area-inset-top));
-        }
-        .accordion-header {
-            padding: 20px 22px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 17px;
-            color: var(--text-main);
-            transition: background 0.2s;
-        }
-        .accordion-header:active { background: rgba(0,0,0,0.02); }
-        .accordion-header i.fa-chevron-down {
-            color: var(--text-sub);
-            transition: transform 0.3s ease;
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: var(--card);
-        }
-        .accordion-content.open {
-            max-height: 6000px;
-        }
+    .page {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+    }
 
-        /* Spot List */
-        .spot-list {
-            padding: 0 20px 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-        .spot-item {
-            display: flex;
-            gap: 16px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid var(--border);
-        }
-        .spot-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .spot-img-wrap {
-            width: 100px; height: 100px;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            cursor: zoom-in;
-            background: #eee;
-        }
-        .spot-img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-        .spot-img-wrap:active .spot-img { transform: scale(1.05); }
-        .spot-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .spot-name {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .restaurant-name {
-            border: 0;
-            padding: 0;
-            background: transparent;
-            color: inherit;
-            font: inherit;
-            font-weight: inherit;
-            text-align: left;
-            cursor: pointer;
-        }
-        .restaurant-name:hover,
-        .restaurant-name:focus-visible { color: var(--primary); }
-        .spot-desc {
-            font-size: 13px;
-            color: var(--text-sub);
-            line-height: 1.5;
-            margin: 0 0 12px 0;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .spot-price {
-            margin: -4px 0 12px;
-            color: var(--text-main);
-            font-size: 13px;
-            font-weight: 700;
-        }
-        .restaurant-photo {
-            width: 100px;
-            height: 100px;
-            border-radius: var(--radius-md);
-            object-fit: cover;
-            object-position: left top;
-            flex-shrink: 0;
-            background: #eef2f5;
-            cursor: default;
-        }
-        .restaurant-note {
-            margin: -4px 0 14px;
-            padding: 9px 12px;
-            border-radius: var(--radius-sm);
-            color: var(--text-sub);
-            background: var(--bg);
-            font-size: 12px;
-            line-height: 1.5;
-        }
-        .spot-action {
-            align-self: flex-start;
-            background: var(--primary);
-            color: #FFF;
-            padding: 7px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: background 0.2s;
-        }
-        .spot-action:active { background: #005bb5; }
-        #restaurantContent > .spot-list .spot-action,
-        #trafficFoodContent > .spot-list .spot-action { display: none; }
+    /* ==========================================================================
+       HERO & TOP NAVIGATION (Modern Coastal & Breathable)
+       ========================================================================== */
+    .hero-wrap {
+      position: relative;
+      background: #0b1d3a;
+    }
+    .hero {
+      min-height: 480px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(8, 25, 48, 0.72) 0%, rgba(8, 25, 48, 0.25) 45%, rgba(8, 25, 48, 0.88) 100%),
+                  url('img/generated/jinting-bay-hero.webp') center 40%/cover no-repeat;
+      border-radius: 0 0 32px 32px;
+      box-shadow: 0 16px 40px rgba(8, 25, 48, 0.15);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: max(20px, var(--safe-top)) 0 44px;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        /* Tags */
-        .tag {
-            font-size: 11px;
-            padding: 4px 8px;
-            border-radius: 8px;
-            font-weight: 600;
-            background: var(--bg);
-            color: var(--text-sub);
-            white-space: nowrap;
-        }
-        .tag-free { background: rgba(52, 199, 89, 0.12); color: #34C759; }
-        .tag-star { color: #FF9500; font-size: 13px; letter-spacing: 1px; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-logo-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 2px 12px rgba(8, 25, 48, 0.25);
+    }
+    .brand-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-text strong {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .brand-text small {
+      font-size: 11px;
+      opacity: 0.82;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+    }
 
-        /* Floating Wechat Button */
-        .fab-wechat {
-            position: fixed;
-            bottom: calc(30px + env(safe-area-inset-bottom));
-            right: 20px;
-            background: #07C160;
-            color: #FFF;
-            width: 56px; height: 56px;
-            border-radius: 28px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 10px 25px rgba(7, 193, 96, 0.4);
-            cursor: pointer;
-            z-index: 100;
-            transition: transform 0.2s;
-            border: none;
-            padding: 0;
-            text-decoration: none;
-        }
-        .fab-wechat:active { transform: scale(0.9); }
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-left: auto;
+      margin-right: 20px;
+    }
+    .desktop-nav a {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 0;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .desktop-nav a:hover {
+      color: #ffffff;
+    }
+    .desktop-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #ffffff;
+      transform: scaleX(0);
+      transition: transform 0.2s ease;
+      border-radius: 2px;
+    }
+    .desktop-nav a:hover::after {
+      transform: scaleX(1);
+    }
 
-        /* Modals */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .modal.show { opacity: 1; display: flex; }
-        .modal-content {
-            background: var(--card);
-            border-radius: var(--radius-lg);
-            padding: 35px 25px;
-            text-align: center;
-            max-width: 340px;
-            width: 100%;
-            max-height: 90vh;
-            max-height: 90dvh;
-            overflow-y: auto;
-            transform: translateY(20px);
-            transition: transform 0.3s;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        .restaurant-detail-modal {
-            max-width: 520px;
-            text-align: left;
-            padding: 24px;
-        }
-        .restaurant-detail-modal h3 {
-            margin: 0 0 8px;
-            font-size: 22px;
-            color: var(--text-main);
-        }
-        .restaurant-detail-modal .detail-meta {
-            color: var(--text-sub);
-            font-size: 13px;
-            line-height: 1.6;
-            margin: 0 0 14px;
-        }
-        .restaurant-detail-image {
-            display: block;
-            width: 100%;
-            max-height: 48vh;
-            max-height: 48dvh;
-            object-fit: contain;
-            background: var(--bg);
-            border-radius: var(--radius-md);
-            margin: 14px 0;
-        }
-        .restaurant-detail-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .restaurant-detail-actions .spot-action { margin: 0; }
-        .restaurant-detail-close {
-            border: 0;
-            background: var(--bg);
-            color: var(--text-sub);
-            border-radius: 18px;
-            min-height: 36px;
-            padding: 0 14px;
-            cursor: pointer;
-        }
-        .modal.show .modal-content { transform: translateY(0); }
-        .modal-close {
-            position: absolute;
-            top: 15px; right: 15px;
-            font-size: 24px; color: var(--text-sub);
-            background: none; border: none; padding: 5px;
-            cursor: pointer;
-            line-height: 1;
-        }
-        .modal-img {
-            width: 200px; height: 200px;
-            border-radius: var(--radius-md);
-            margin: 20px auto;
-            display: block;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .modal h3 { margin: 0 0 10px 0; color: var(--text-main); font-size: 20px; }
-        .modal p { margin: 0; color: var(--text-sub); font-size: 14px; line-height: 1.5; }
-        .wechat-id {
-            display: block;
-            width: 100%;
-            margin: 18px 0 10px;
-            padding: 14px;
-            border: 1px dashed #07C160;
-            border-radius: var(--radius-md);
-            background: rgba(7, 193, 96, 0.08);
-            color: #07C160;
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
-        .wechat-open {
-            width: 100%;
-            margin-top: 14px;
-            padding: 13px 18px;
-            border: none;
-            border-radius: var(--radius-md);
-            background: #07C160;
-            color: #FFF;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .icon-button {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background 0.2s, transform 0.15s, border-color 0.2s;
+    }
+    .icon-button:hover {
+      background: rgba(255, 255, 255, 0.24);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+    .icon-button:active {
+      transform: scale(0.94);
+    }
+    .lang-button {
+      width: auto;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
 
-        /* Lightbox Image */
-        #lightbox {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        #lightbox.show { opacity: 1; display: flex; }
-        #lightbox img {
-            max-width: 90%; max-height: 80%;
-            border-radius: var(--radius-md);
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
-            transform: scale(0.95);
-            transition: transform 0.3s;
-        }
-        #lightbox.show img { transform: scale(1); }
-        
-        .footer-text {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-sub);
-            margin: 30px 0;
-            opacity: 0.6;
-        }
+    .hero-body {
+      margin-top: 36px;
+      max-width: 760px;
+    }
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+    .eyebrow-pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px #22c55e;
+    }
+    h1 {
+      font-size: clamp(30px, 5.2vw, 54px);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
+    }
+    .hero-sub {
+      font-size: clamp(14px, 2.2vw, 17px);
+      opacity: 0.92;
+      margin: 12px 0 24px;
+      font-weight: 400;
+      line-height: 1.5;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+    }
 
-        /* Small Screen Polish */
-        @media (max-width: 380px) {
-            .container { padding: 0 14px; }
-            .accordion-header { padding: 16px 16px; font-size: 16px; }
-            .spot-list { padding: 0 16px 12px; }
-            .spot-img-wrap { width: 84px; height: 84px; }
-            .restaurant-photo { width: 84px; height: 84px; }
-            .spot-name { font-size: 15px; }
-            .modal { padding: 14px; }
-            .modal-content { padding: 28px 18px; }
-            .modal-img { width: 160px; height: 160px; }
-            .hero p { font-size: 15px; }
-            .quick-nav { margin: 0 0 16px; padding: 8px; }
-        }
+    /* Hero Floating Search */
+    .hero-search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .search-capsule {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: min(520px, 100%);
+      height: 52px;
+      padding: 4px 5px 4px 18px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.98);
+      color: var(--ink);
+      box-shadow: 0 12px 32px rgba(8, 25, 48, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .search-capsule:focus-within {
+      box-shadow: 0 16px 40px rgba(0, 102, 255, 0.25);
+      transform: translateY(-1px);
+    }
+    .search-capsule .icon {
+      color: var(--muted);
+      width: 18px;
+      height: 18px;
+    }
+    .search-capsule input {
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      width: 100%;
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .search-capsule input::placeholder {
+      color: var(--muted);
+    }
+    .search-btn, .primary-button {
+      min-height: 42px;
+      border: 0;
+      padding: 0 20px;
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: var(--shadow-glow);
+      white-space: nowrap;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .search-btn:hover, .primary-button:hover {
+      background: var(--primary-hover);
+    }
+    .search-btn:active, .primary-button:active {
+      transform: scale(0.97);
+    }
 
-        /* Very Small Screens (320px) */
-        @media (max-width: 340px) {
-            .hero { height: clamp(220px, 28vh, 260px); }
-            .fab-wechat { width: 52px; height: 52px; font-size: 25px; }
-            .btn-icon { width: 38px; height: 38px; font-size: 16px; }
-        }
+    /* ==========================================================================
+       QUICK ACTIONS (金刚区 - 8大核心功能)
+       ========================================================================== */
+    .quick-wrap {
+      margin-top: -30px;
+      position: relative;
+      z-index: 10;
+    }
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 10px;
+      padding: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+    }
+    .quick-action {
+      min-height: 88px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: var(--radius-md);
+      color: var(--ink);
+      transition: background 0.2s, transform 0.15s;
+      padding: 8px 4px;
+      text-align: center;
+    }
+    .quick-action:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    .quick-action:active {
+      transform: scale(0.95);
+    }
+    .quick-action span.label {
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+    }
+    .quick-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      transition: transform 0.2s ease;
+    }
+    .quick-action:hover .quick-icon-wrap {
+      transform: scale(1.06);
+    }
 
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            *, *::before, *::after {
-                transition-duration: 0.01ms !important;
-                animation-duration: 0.01ms !important;
-            }
-        }
-    </style>
+    .quick-icon-wrap.blue { background: var(--accent-sky-soft); color: var(--accent-sky); }
+    .quick-icon-wrap.orange { background: var(--accent-coral-soft); color: var(--accent-coral); }
+    .quick-icon-wrap.amber { background: var(--accent-amber-soft); color: var(--accent-amber); }
+    .quick-icon-wrap.green { background: var(--accent-green-soft); color: var(--accent-green); }
+    .quick-icon-wrap.purple { background: var(--accent-purple-soft); color: var(--accent-purple); }
+    .quick-icon-wrap.service { background: var(--primary-light); color: var(--primary); }
+
+    /* ==========================================================================
+       SECTION HEADERS & FILTER CHIPS
+       ========================================================================== */
+    main {
+      padding: 40px 0 20px;
+    }
+    section {
+      scroll-margin-top: 24px;
+      margin-bottom: 48px;
+    }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .section-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(20px, 3.5vw, 26px);
+      letter-spacing: -0.035em;
+      font-weight: 800;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-head h2::before {
+      content: '';
+      width: 4px;
+      height: 18px;
+      background: var(--primary);
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 400;
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--accent-coral-soft);
+      color: var(--accent-coral);
+    }
+
+    /* Filter Chips */
+    .chips-wrap {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 4px 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      min-height: 38px;
+      white-space: nowrap;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chip:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.25);
+    }
+
+    /* ==========================================================================
+       NEARBY CARDS (Horizontal Scroll Snap Carousel)
+       ========================================================================== */
+    .horizontal-scroll {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(260px, 290px);
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding: 4px 2px 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+    .place-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .place-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 102, 255, 0.3);
+    }
+    .place-card:active {
+      transform: scale(0.985);
+    }
+    .place-image {
+      position: relative;
+      height: 168px;
+      overflow: hidden;
+      background: var(--line-subtle);
+    }
+    .place-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .place-card:hover .place-image img {
+      transform: scale(1.05);
+    }
+    .distance-badge {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .place-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .place-name {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .place-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .rating-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      color: var(--accent-amber);
+      font-weight: 700;
+    }
+    .place-desc {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 0 0 14px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .nav-btn {
+      min-height: 40px;
+      border-radius: var(--radius-full);
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--primary);
+      border: 0;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 102, 255, 0.2);
+      transition: background 0.2s, transform 0.15s;
+      width: 100%;
+    }
+    .nav-btn:hover {
+      background: var(--primary-hover);
+    }
+    .nav-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* ==========================================================================
+       FOOD & DINING SECTION
+       ========================================================================== */
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 12px;
+    }
+    .food-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .food-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 102, 255, 0.25);
+    }
+    .food-card:active {
+      transform: scale(0.985);
+    }
+    .food-image {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      background: var(--line-subtle);
+    }
+    .food-info h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    .food-sub {
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 6px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--canvas);
+      border: 1px solid var(--line-subtle);
+    }
+    .tag.green { background: var(--accent-green-soft); color: var(--accent-green); border-color: transparent; }
+    .tag.orange { background: var(--accent-coral-soft); color: var(--accent-coral); border-color: transparent; }
+    .tag.meituan { background: #fff8e1; color: #b45309; border-color: transparent; }
+    .tag.douyin { background: #ffe4e6; color: #e11d48; border-color: transparent; }
+    .tag.meal { background: var(--accent-sky-soft); color: var(--accent-sky); border-color: transparent; }
+    
+    .food-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted-light);
+    }
+    .food-card:hover .food-action {
+      color: var(--primary);
+    }
+
+    /* Traffic Avoidance Route Note */
+    .route-note {
+      margin: 0 0 16px;
+      padding: 14px 18px;
+      border-radius: var(--radius-lg);
+      color: #92400e;
+      background: var(--accent-amber-soft);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      font-size: 13px;
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    body.dark-mode .route-note {
+      color: #fef3c7;
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.25);
+    }
+
+    /* ==========================================================================
+       GUIDES & ITINERARIES (按玩法选攻略)
+       ========================================================================== */
+    .guide-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(290px, 340px);
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 14px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .guide-grid::-webkit-scrollbar { display: none; }
+
+    .guide-card {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      cursor: pointer;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .guide-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 102, 255, 0.3);
+    }
+    .guide-card:active {
+      transform: scale(0.985);
+    }
+    .guide-image-wrap {
+      position: relative;
+      height: 170px;
+      overflow: hidden;
+      background: var(--line-subtle);
+    }
+    .guide-image {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .guide-card:hover .guide-image {
+      transform: scale(1.04);
+    }
+    .guide-kicker {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .guide-badge {
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .guide-duration {
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(0, 102, 255, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .guide-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .guide-body h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+    .guide-body p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .guide-route-pill {
+      margin-top: 14px;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      background: var(--canvas);
+      border: 1px solid var(--line);
+      color: var(--ink-secondary);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ==========================================================================
+       PRACTICAL TOOLS (实用工具)
+       ========================================================================== */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .resource-card {
+      min-height: 120px;
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .resource-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 102, 255, 0.25);
+    }
+    .resource-card:active {
+      transform: scale(0.98);
+    }
+    .resource-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .resource-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+    .resource-card.green .resource-icon-wrap { background: var(--accent-green-soft); color: var(--accent-green); }
+    .resource-card.orange .resource-icon-wrap { background: var(--accent-coral-soft); color: var(--accent-coral); }
+    .resource-card.purple .resource-icon-wrap { background: var(--accent-purple-soft); color: var(--accent-purple); }
+    .resource-card.blue .resource-icon-wrap { background: var(--accent-sky-soft); color: var(--accent-sky); }
+
+    .resource-card h3 {
+      margin: 10px 0 4px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .resource-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ==========================================================================
+       SEARCH RESULTS & FAVORITES
+       ========================================================================== */
+    .search-results {
+      display: none;
+      margin: 24px 0 36px;
+      padding: 20px;
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-md);
+    }
+    .search-results.show {
+      display: block;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .search-close {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-full);
+      color: var(--muted);
+      background: var(--canvas);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      line-height: 1;
+      transition: background 0.15s, color 0.15s;
+    }
+    .search-close:hover {
+      background: var(--line);
+      color: var(--ink);
+    }
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 14px;
+    }
+    .empty {
+      padding: 36px 20px;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius-lg);
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+      grid-column: 1 / -1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       DETAIL VIEW (Page Modal / Immersive Experience)
+       ========================================================================== */
+    .detail-page {
+      display: none;
+      padding: 16px 0 60px;
+    }
+    .detail-page.show {
+      display: block;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .detail-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .back-button {
+      border: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: var(--shadow-xs);
+      transition: background 0.15s, transform 0.15s;
+    }
+    .back-button:hover {
+      background: var(--primary-light);
+    }
+    .back-button:active {
+      transform: scale(0.96);
+    }
+
+    .detail-hero {
+      position: relative;
+      height: min(46vw, 440px);
+      min-height: 260px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .detail-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .detail-hero::after {
+      content: "";
+      position: absolute;
+      inset: 35% 0 0;
+      background: linear-gradient(transparent, rgba(15, 23, 42, 0.85));
+    }
+    .detail-title {
+      position: absolute;
+      z-index: 2;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      color: #ffffff;
+    }
+    .detail-title h1 {
+      font-size: clamp(24px, 4.5vw, 40px);
+      margin: 0 0 6px;
+      letter-spacing: -0.04em;
+    }
+
+    .detail-content {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .detail-card {
+      padding: 22px;
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 16px;
+    }
+    .detail-card h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+    .detail-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 18px 0;
+    }
+    .stat-box {
+      padding: 14px 8px;
+      background: var(--canvas);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+    .stat-box strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .stat-box span {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .tip-card {
+      background: var(--primary-light);
+      border-color: rgba(0, 102, 255, 0.2);
+    }
+    body.dark-mode .tip-card {
+      background: rgba(0, 102, 255, 0.12);
+      border-color: rgba(0, 102, 255, 0.25);
+    }
+    .tips {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .tips li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--ink-secondary);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .tips li::before {
+      content: "✓";
+      color: var(--accent-green);
+      font-weight: 900;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .itinerary-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .itinerary-day {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      background: var(--canvas);
+      border: 1px solid var(--line);
+    }
+    .itinerary-day strong {
+      display: inline-block;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .itinerary-day h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .itinerary-day p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .guide-places {
+      display: grid;
+      gap: 10px;
+    }
+    .guide-place {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--canvas);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .guide-place:hover {
+      background: var(--surface);
+    }
+    .guide-place img {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+    }
+    .guide-place h3 {
+      margin: 0 0 4px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .guide-place p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .guide-place .icon {
+      color: var(--primary);
+    }
+
+    /* ==========================================================================
+       BOTTOM NAVIGATION & MOBILE SEARCH BAR
+       ========================================================================== */
+    .bottom-nav {
+      display: none;
+    }
+    .mobile-search-bar {
+      display: none;
+    }
+    .detail-action-bar {
+      display: none;
+    }
+
+    .footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      padding: 40px 0 20px;
+    }
+
+    /* Lightbox & Wechat Modal */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.9);
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+    #lightbox[hidden] { display: none; }
+    #lightbox img { max-width: 90%; max-height: 85vh; border-radius: 12px; }
+    #lightboxClose {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 0;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    #wechatModal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.6);
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    #wechatModal[hidden] { display: none; }
+    #wechatModal .detail-card { max-width: 360px; width: 100%; text-align: center; }
+
+    /* ==========================================================================
+       RESPONSIVE DESIGN (Mobile First Optimizations)
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .desktop-nav { display: none; }
+      .quick-actions { grid-template-columns: repeat(4, 1fr); }
+      .detail-content { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding-bottom: calc(76px + var(--safe-bottom));
+      }
+      .page, .hero-inner {
+        width: min(100% - 24px, 540px);
+      }
+      .hero {
+        min-height: 420px;
+        border-radius: 0 0 24px 24px;
+      }
+      .hero-inner {
+        min-height: 420px;
+        padding-top: max(14px, var(--safe-top));
+        padding-bottom: 40px;
+      }
+      .brand-text strong {
+        font-size: 18px;
+      }
+      .brand-logo-wrap {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+      }
+      .top-actions {
+        gap: 6px;
+      }
+      .icon-button {
+        width: 38px;
+        height: 38px;
+      }
+      .hero-body {
+        margin-top: auto;
+      }
+      .eyebrow-pill {
+        font-size: 11px;
+        padding: 4px 12px;
+        margin-bottom: 10px;
+      }
+      h1 {
+        font-size: 30px;
+        line-height: 1.15;
+      }
+      .hero-sub {
+        font-size: 13px;
+        margin: 10px 0 18px;
+      }
+      .hero-search-wrap {
+        gap: 8px;
+      }
+      .search-capsule {
+        height: 48px;
+        padding: 3px 4px 3px 14px;
+      }
+      .search-btn {
+        min-height: 38px;
+        padding: 0 16px;
+        font-size: 12px;
+      }
+
+      .quick-wrap {
+        margin-top: -24px;
+      }
+      .quick-actions {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        padding: 10px 6px;
+        border-radius: var(--radius-lg);
+      }
+      .quick-action {
+        min-height: 76px;
+        gap: 6px;
+        padding: 6px 2px;
+      }
+      .quick-icon-wrap {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+      }
+      .quick-icon-wrap .icon {
+        width: 18px;
+        height: 18px;
+      }
+      .quick-action span.label {
+        font-size: 11px;
+      }
+
+      main {
+        padding-top: 32px;
+      }
+      section {
+        margin-bottom: 38px;
+      }
+      .section-head {
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .section-head h2 {
+        font-size: 19px;
+      }
+      .section-head p {
+        font-size: 12px;
+      }
+      .horizontal-scroll {
+        grid-auto-columns: minmax(210px, 72vw);
+        gap: 12px;
+      }
+      .place-card {
+        border-radius: var(--radius-md);
+      }
+      .place-image {
+        height: 145px;
+      }
+      .place-body {
+        padding: 12px;
+      }
+
+      .food-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .food-card {
+        grid-template-columns: 70px 1fr auto;
+        gap: 10px;
+        padding: 10px;
+        border-radius: var(--radius-md);
+      }
+      .food-image {
+        width: 70px;
+        height: 70px;
+        border-radius: var(--radius-sm);
+      }
+      .food-info h3 {
+        font-size: 14px;
+      }
+
+      .guide-grid {
+        grid-auto-columns: minmax(260px, 80vw);
+        gap: 12px;
+      }
+      .guide-card {
+        border-radius: var(--radius-lg);
+      }
+      .guide-image-wrap {
+        height: 150px;
+      }
+
+      .resource-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .resource-card {
+        min-height: 108px;
+        padding: 12px;
+        border-radius: var(--radius-md);
+      }
+      .resource-icon-wrap {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+      }
+
+      /* Mobile Sticky Search Bar (slides in once user scrolls past the hero, or on demand) */
+      .mobile-search-bar {
+        position: fixed;
+        z-index: 60;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: none;
+        gap: 8px;
+        padding: max(10px, var(--safe-top)) 14px 10px;
+        background: rgba(248, 250, 252, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--line);
+        animation: barSlideDown 0.22s ease-out;
+      }
+      body.show-mobile-search .mobile-search-bar {
+        display: flex;
+      }
+      /* Detail pages have their own header chrome — never float the search bar over them */
+      body.detail-open .mobile-search-bar {
+        display: none;
+      }
+      body.dark-mode .mobile-search-bar {
+        background: rgba(9, 14, 23, 0.96);
+      }
+      .mobile-search-bar .search-capsule {
+        height: 44px;
+        box-shadow: none;
+      }
+      @keyframes barSlideDown {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(0); }
+      }
+
+      /* Mobile Bottom Navigation Bar */
+      .bottom-nav {
+        position: fixed;
+        z-index: 50;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 6px 8px calc(6px + var(--safe-bottom));
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--line);
+      }
+      body.dark-mode .bottom-nav {
+        background: rgba(19, 27, 40, 0.94);
+      }
+      .bottom-nav a {
+        color: var(--muted);
+        min-height: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        font-size: 10px;
+        font-weight: 600;
+        transition: color 0.15s ease;
+      }
+      .bottom-nav a.active {
+        color: var(--primary);
+      }
+      .bottom-nav .icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Detail Page Mobile Action Bar */
+      .detail-action-bar {
+        position: fixed;
+        z-index: 55;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: 1fr 46px 46px;
+        gap: 8px;
+        padding: 8px 14px calc(8px + var(--safe-bottom));
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--line);
+      }
+      body.dark-mode .detail-action-bar {
+        background: rgba(19, 27, 40, 0.96);
+      }
+      .detail-action-bar .nav-btn {
+        min-height: 44px;
+        font-size: 14px;
+      }
+      .detail-action-bar .icon-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: var(--radius-full);
+        background: var(--canvas);
+        border: 1px solid var(--line);
+        color: var(--primary);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+      }
+      .detail-action-bar .icon-btn.is-favorite {
+        color: var(--accent-coral);
+      }
+
+      body.detail-open {
+        padding-bottom: calc(76px + var(--safe-bottom) + 60px);
+      }
+
+      /* --- Mobile UX polish --- */
+      /* Anchored navigation must land below the fixed search bar */
+      section {
+        scroll-margin-top: calc(78px + var(--safe-top));
+      }
+      /* iOS Safari auto-zooms the page when focusing inputs smaller than 16px */
+      .search-capsule input {
+        font-size: 16px;
+      }
+      /* Keep horizontal swipe inside the rail, don't chain into vertical page scroll */
+      .chips, .horizontal-scroll, .guide-grid {
+        overscroll-behavior-x: contain;
+      }
+      /* Cards with click handlers: no double-tap zoom delay */
+      .place-card, .food-card, .guide-card, .resource-card, .guide-place, .chips-wrap {
+        touch-action: manipulation;
+      }
+      /* Scroll-spy indicator on the bottom nav */
+      .bottom-nav a {
+        position: relative;
+      }
+      .bottom-nav a.active::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 3px;
+        border-radius: 3px;
+        background: var(--primary);
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristInformationCenter",
+    "name": "JTW360",
+    "description": "金町湾本地生活指南",
+    "url": "https://www.jtw360.com/",
+    "areaServed": "汕尾市城区金町湾"
+  }
+  </script>
 </head>
 <body>
+  <!-- SVG Symbols -->
+  <svg class="sr-only" aria-hidden="true">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></symbol>
+    <symbol id="i-food" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H7.5a1 1 0 0 0-.8.4L4 11l-5.16.86a1 1 0 0 0-.84.99V16h3"></path><circle cx="6.5" cy="16.5" r="2.5"></circle><circle cx="16.5" cy="16.5" r="2.5"></circle></symbol>
+    <symbol id="i-hospital" viewBox="0 0 24 24"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path><path d="M12 7v6M9 10h6"></path></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></symbol>
+  </svg>
 
-    <div class="hero">
-        <div class="header-controls">
-            <button class="btn-icon mode-toggle" onclick="toggleMode()" title="切换模式"><i class="fas fa-moon"></i></button>
-            <button class="btn-icon lang-toggle" onclick="toggleLanguage()" title="Language">EN</button>
-        </div>
-        <div class="hero-content">
-            <h1>JTW 360</h1>
-            <p data-lang="金町湾 · 本地生活导览助手" data-lang-en="JTW360 · Local Life Guide">金町湾 · 本地生活导览助手</p>
-        </div>
+  <!-- Mobile Sticky Search Header -->
+  <div class="mobile-search-bar" id="mobileSearchBar">
+    <div class="search-capsule" style="flex:1">
+      <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+      <input id="mobileSearchInput" type="search" inputmode="search" placeholder="搜景点、平价海鲜、停车场…" data-lang-placeholder="搜景点、平价海鲜、停车场…" data-lang-en-placeholder="Search places, food, guides…">
     </div>
+    <button class="icon-button" id="mobileSearchClose" type="button" aria-label="关闭搜索" style="color:var(--ink);background:var(--surface);border-color:var(--line)"><svg class="icon"><use href="#i-back"></use></svg></button>
+  </div>
 
-    <div class="container">
-        <!-- 快捷导航 -->
-        <nav class="quick-nav" aria-label="快捷导航">
-            <a class="quick-nav-item" href="https://uri.amap.com/marker?position=115.292562,22.795063&name=公共厕所"><i class="fas fa-restroom" style="color:#007AFF;"></i> <span data-lang="洗手间" data-lang-en="Restroom">洗手间</span></a>
-            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('hospitalContent', 'hospital-arrow')"><i class="fas fa-hospital" style="color:#FF3B30;"></i> <span data-lang="医院" data-lang-en="Hospital">医院</span></a>
-            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('restaurantContent', 'restaurant-arrow')"><i class="fas fa-utensils" style="color:#34C759;"></i> <span data-lang="平价餐厅" data-lang-en="Dining">平价餐厅</span></a>
-            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('trafficFoodContent', 'traffic-food-arrow')"><i class="fas fa-route" style="color:#FF9500;"></i> <span data-lang="避堵美食路线" data-lang-en="Less-Crowded Food Route">避堵美食路线</span></a>
-            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('parkingContent', 'parking-arrow')"><i class="fas fa-square-parking" style="color:#007AFF;"></i> <span data-lang="停车场" data-lang-en="Parking">停车场</span></a>
-            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('luggageContent', 'luggage-arrow')"><i class="fas fa-suitcase-rolling" style="color:#FF9500;"></i> <span data-lang="行李寄存" data-lang-en="Luggage">行李寄存</span></a>
-            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('chargingContent', 'charging-arrow')"><i class="fas fa-bolt" style="color:#FFD60A;"></i> <span data-lang="充电桩" data-lang-en="Charging">充电桩</span></a>
-            <a class="quick-nav-item" href="https://uri.amap.com/marker?position=115.340372,22.783278&name=西沙滩公园烟花燃放点"><i class="fas fa-fire" style="color:#AF52DE;"></i> <span data-lang="烟花点" data-lang-en="Fireworks">烟花点</span></a>
-            <a class="quick-nav-item" href="javascript:void(0)" onclick="openAccordion('spotContent', 'spot-arrow')"><i class="fas fa-camera-retro" style="color:#AF52DE;"></i> <span data-lang="打卡点" data-lang-en="Spots">打卡点</span></a>
-        </nav>
-
-        <!-- 医院 -->
-        <div class="accordion-card" id="hospital-section">
-            <div class="accordion-header" onclick="toggleAccordion('hospitalContent', 'hospital-arrow')">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <i class="fas fa-hospital" style="color: #FF3B30; font-size: 20px;"></i>
-                    <span data-lang="医院" data-lang-en="Hospitals">医院</span>
-                </div>
-                <i id="hospital-arrow" class="fas fa-chevron-down"></i>
+  <!-- Main View -->
+  <div id="homeView">
+    <header class="hero-wrap">
+      <div class="hero">
+        <div class="hero-inner">
+          <div class="topbar">
+            <a class="brand" href="/" aria-label="JTW360 首页">
+              <div class="brand-logo-wrap"><img src="img/jtw360logo-sm.png" alt="JTW360 logo"></div>
+              <div class="brand-text">
+                <strong>JTW360</strong>
+                <small data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</small>
+              </div>
+            </a>
+            <nav class="desktop-nav" aria-label="主导航">
+              <a href="#home" data-lang="首页" data-lang-en="Home">首页</a>
+              <a href="#nearby" data-lang="去哪里" data-lang-en="Places">去哪里</a>
+              <a href="#food" data-lang="吃什么" data-lang-en="Eat">吃什么</a>
+              <a href="#guides" data-lang="攻略" data-lang-en="Guides">攻略</a>
+              <a href="#tools" data-lang="实用工具" data-lang-en="Tools">实用工具</a>
+              <a href="#favorites" data-lang="收藏夹" data-lang-en="Saved">收藏夹</a>
+            </nav>
+            <div class="top-actions">
+              <button class="icon-button" id="themeButton" aria-label="切换深色模式"><svg class="icon"><use href="#i-moon"></use></svg></button>
+              <button class="icon-button lang-button" id="langButton">EN</button>
+              <button class="icon-button" id="mobileSearchOpen" aria-label="搜索地点"><svg class="icon"><use href="#i-search"></use></svg></button>
             </div>
-            <div id="hospitalContent" class="accordion-content">
-                <div class="spot-list">
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name"><span data-lang="深汕中医医院" data-lang-en="Shenshan TCM Hospital">深汕中医医院</span></span>
-                            <p class="spot-desc" data-lang="电话：06606162398" data-lang-en="Tel: 06606162398">电话：<a href="tel:06606162398">06606162398</a></p>
-                            <a href="https://uri.amap.com/marker?position=115.305937,22.796466&name=深汕中医医院" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name"><span data-lang="红草中心卫生院" data-lang-en="Hongcao Central Health Center">红草中心卫生院</span></span>
-                            <p class="spot-desc" data-lang="电话：06603445366" data-lang-en="Tel: 06603445366">电话：<a href="tel:06603445366">06603445366</a></p>
-                            <a href="https://uri.amap.com/marker?position=115.303672,22.828743&name=红草中心卫生院" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                </div>
+          </div>
+
+          <div class="hero-body" id="home">
+            <div class="eyebrow-pill">
+              <span class="dot"></span>
+              <span data-lang="LOCAL & TRUSTED · 本地人推荐" data-lang-en="LOCAL & TRUSTED · LOCAL PICKS">LOCAL & TRUSTED · 本地人推荐</span>
             </div>
-        </div>
-
-        <!-- 平价餐厅（无溢价） -->
-        <div class="accordion-card" id="restaurant-section">
-            <div class="accordion-header" onclick="toggleAccordion('restaurantContent', 'restaurant-arrow')">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <i class="fas fa-utensils" style="color: #34C759; font-size: 20px;"></i>
-                    <span data-lang="平价餐厅（无溢价）" data-lang-en="Affordable Restaurants (No Markup)">平价餐厅（无溢价）</span>
-                </div>
-                <i id="restaurant-arrow" class="fas fa-chevron-down"></i>
-            </div>
-            <div id="restaurantContent" class="accordion-content">
-                <div style="background: rgba(255,149,0,0.10); border: 1px solid rgba(255,149,0,0.25); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #B25E00; line-height: 1.6; margin-bottom: 14px;">
-                    <i class="fas fa-circle-info"></i> <span data-lang="景区海鲜有大幅溢价，推荐餐厅均为房东日常消费店铺。吃海鲜请下午6点前到，否则会排队。" data-lang-en="Seafood in the scenic area is heavily marked up. These are the landlord's daily local picks. For seafood, arrive before 6 PM or expect to queue.">景区海鲜有大幅溢价，推荐餐厅均为房东日常消费店铺。吃海鲜请下午6点前到，否则会排队。</span>
-                </div>
-                <div class="restaurant-note"><i class="fas fa-tag"></i> <span data-lang="价格为参考人均或团购起价，来自当前图片信息，实际以美团、抖音或现场菜单为准。" data-lang-en="Prices are reference per-person or group-deal starting prices. Check Meituan, Douyin, or the on-site menu for current prices.">价格为参考人均或团购起价，来自当前图片信息，实际以美团、抖音或现场菜单为准。</span></div>
-                <div class="spot-list">
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/kfc-thumb.webp" alt="肯德基美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('kfc')"><span data-lang="肯德基" data-lang-en="KFC">肯德基</span></button>
-                                <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
-                                <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
-                            </span>
-                            <p class="spot-price" data-lang="参考人均：¥20–45" data-lang-en="Reference spend: CNY 20–45/person">参考人均：¥20–45</p>
-                            <a href="https://uri.amap.com/marker?position=115.292374,22.795705&name=肯德基" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/mcdonalds-thumb.webp" alt="麦当劳美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('mcdonalds')"><span data-lang="麦当劳" data-lang-en="McDonald's">麦当劳</span></button>
-                                <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
-                                <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
-                            </span>
-                            <p class="spot-price" data-lang="参考人均：¥20–45" data-lang-en="Reference spend: CNY 20–45/person">参考人均：¥20–45</p>
-                            <a href="https://uri.amap.com/marker?position=115.298594,22.797381&name=麦当劳" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/chizizhi-thumb.webp" alt="吃自知牛杂世家美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('chizizhi')"><span data-lang="吃自知牛杂世家(保利金町湾店)" data-lang-en="Chizhizhi Beef Offal (Baoli Jintingwan)">吃自知牛杂世家(保利金町湾店)</span></button>
-                                <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
-                                <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
-                            </span>
-                            <p class="spot-price" data-lang="参考人均：¥20–40" data-lang-en="Reference spend: CNY 20–40/person">参考人均：¥20–40</p>
-                            <a href="https://uri.amap.com/marker?position=115.29314,22.795955&name=吃自知牛杂世家" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/nanfeng-thumb.webp" alt="南沣烧腊快餐美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('nanfeng')"><span data-lang="南沣烧腊快餐" data-lang-en="Nanfeng Roast Meat Fast Food">南沣烧腊快餐</span></button></span>
-                            <p class="spot-price" data-lang="参考人均：¥15–25" data-lang-en="Reference spend: CNY 15–25/person">参考人均：¥15–25</p>
-                            <a href="https://uri.amap.com/marker?position=115.293398,22.796174&name=南沣烧腊快餐" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/pinqingyuan-thumb.webp" alt="品清园味牛腩店美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('pinqingyuan')"><span data-lang="品清园味牛腩店" data-lang-en="Pinqingyuan Beef Brisket">品清园味牛腩店</span></button></span>
-                            <p class="spot-price" data-lang="参考人均：¥15–30" data-lang-en="Reference spend: CNY 15–30/person">参考人均：¥15–30</p>
-                            <a href="https://uri.amap.com/marker?position=115.293505,22.796238&name=品清园味牛腩店" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/yingdong-thumb.webp" alt="迎东大酒楼美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('yingdong')"><span data-lang="迎东大酒楼" data-lang-en="Yingdong Grand Restaurant">迎东大酒楼</span></button>
-                                <span class="tag" style="background: rgba(255,193,7,0.20); color: #B8860B;">美团</span>
-                            </span>
-                            <p class="spot-price" data-lang="参考团购：¥68起（2人餐）" data-lang-en="Reference group deal: CNY 68+ (2-person set)">参考团购：¥68起（2人餐）</p>
-                            <a href="https://uri.amap.com/marker?position=115.323069,22.792713&name=迎东大酒楼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/aguo-thumb.webp" alt="阿国薄饼美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <button class="restaurant-name" type="button" onclick="openRestaurantDetail('aguo')"><span data-lang="阿国薄饼" data-lang-en="Aguo Thin Pancake">阿国薄饼</span></button>
-                                <span class="tag" style="background: rgba(254,44,85,0.12); color: #FE2C55;">抖音</span>
-                            </span>
-                            <p class="spot-price" data-lang="参考人均：¥10–20" data-lang-en="Reference spend: CNY 10–20/person">参考人均：¥10–20</p>
-                            <a href="https://uri.amap.com/marker?position=115.349618,22.781474&name=阿国薄饼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/xinmingyuan-thumb.webp" alt="新明园餐厅海鲜美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('xinmingyuan')"><span data-lang="新明园餐厅(海鲜)" data-lang-en="Xinmingyuan Restaurant (Seafood)">新明园餐厅(海鲜)</span></button></span>
-                            <p class="spot-price" data-lang="参考人均：¥60–100" data-lang-en="Reference spend: CNY 60–100/person">参考人均：¥60–100</p>
-                            <a href="https://uri.amap.com/marker?position=115.359453,22.785996&name=新明园餐厅" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/fengfu-thumb.webp" alt="丰富大排档海鲜美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('fengfu')"><span data-lang="丰富大排档(海鲜)" data-lang-en="Fengfu Food Stall (Seafood)">丰富大排档(海鲜)</span></button></span>
-                            <p class="spot-price" data-lang="参考人均：¥50–80" data-lang-en="Reference spend: CNY 50–80/person">参考人均：¥50–80</p>
-                            <a href="https://uri.amap.com/marker?position=115.352591,22.776596&name=丰富大排档" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 二马路美食街停车指南 -->
-                <div style="border-top: 1px solid var(--border); padding: 16px 20px 18px;">
-                    <div style="display:flex; align-items:center; gap:8px; font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-main);">
-                        <i class="fas fa-square-parking" style="color:#007AFF; font-size:16px;"></i>
-                        <span data-lang="二马路美食街停车指南" data-lang-en="Ermalu Food Street Parking Guide">二马路美食街停车指南</span>
-                    </div>
-                    <div style="display:flex; flex-direction:column; gap:14px;">
-                        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-                            <span style="font-size:15px; font-weight:600;"><span data-lang="信利大厦" data-lang-en="Xinli Building">信利大厦</span></span>
-                            <a href="https://uri.amap.com/marker?position=115.359926,22.773533&name=信利大厦" class="spot-action" style="align-self:center; flex-shrink:0;"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-                            <span style="font-size:15px; font-weight:600;"><span data-lang="信利城市广场" data-lang-en="Xinli City Plaza">信利城市广场</span></span>
-                            <a href="https://uri.amap.com/marker?position=115.359926,22.773533&name=信利城市广场" class="spot-action" style="align-self:center; flex-shrink:0;"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                        <div style="background: rgba(0,122,255,0.08); border: 1px solid rgba(0,122,255,0.20); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--primary); line-height: 1.6;">
-                            <i class="fas fa-circle-info"></i> <span data-lang="信利城市广场商户消费可在信利大厦凭票免费停车2-3小时" data-lang-en="Spend at Xinli City Plaza merchants and park free at Xinli Building for 2-3 hours with ticket.">信利城市广场商户消费可在信利大厦凭票免费停车2-3小时</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 避堵美食路线 -->
-        <div class="accordion-card" id="traffic-food-section">
-            <div class="accordion-header" onclick="toggleAccordion('trafficFoodContent', 'traffic-food-arrow')">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <i class="fas fa-route" style="color: #FF9500; font-size: 20px;"></i>
-                    <span data-lang="避堵美食路线" data-lang-en="Less-Crowded Food Route">避堵美食路线</span>
-                </div>
-                <i id="traffic-food-arrow" class="fas fa-chevron-down"></i>
-            </div>
-            <div id="trafficFoodContent" class="accordion-content">
-                <div class="restaurant-note" style="margin: 0 20px 14px;"><i class="fas fa-house"></i> <span data-lang="房东日常消费店铺。节假日城区人流量大，城区停车困难，吃饭排队严重，可以来这里，地库停车免费。" data-lang-en="Everyday local picks from the landlord. During holidays, downtown gets crowded, parking is difficult, and restaurants have long queues. Come here instead; basement parking is free.">房东日常消费店铺。节假日城区人流量大，城区停车困难，吃饭排队严重，可以来这里，地库停车免费。</span></div>
-                <div class="spot-list">
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/daxi-thumb.webp" alt="大喜茶楼美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('daxi')"><span data-lang="大喜茶楼" data-lang-en="Daxi Tea House">大喜茶楼</span></button></span>
-                            <p class="spot-desc" data-lang="茶楼点心，适合错峰用餐和喝茶聊天。" data-lang-en="Dim sum and tea, ideal for a relaxed meal away from the crowds.">茶楼点心，适合错峰用餐和喝茶聊天。</p>
-                            <p class="spot-price" data-lang="图片参考菜单：¥33起" data-lang-en="Reference menu in image: CNY 33+">图片参考菜单：¥33起</p>
-                            <a href="https://uri.amap.com/marker?position=115.379406,22.788853&name=大喜茶楼" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/xiaba-thumb.webp" alt="呷霸风味堂美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('xiaba')"><span data-lang="呷霸风味堂" data-lang-en="Xiaba Flavor House">呷霸风味堂</span></button></span>
-                            <p class="spot-desc" data-lang="台湾风味小吃，适合快速解决一餐。" data-lang-en="Taiwan-inspired local food for a quick, easy meal.">台湾风味小吃，适合快速解决一餐。</p>
-                            <p class="spot-price" data-lang="图片参考菜单：¥15起" data-lang-en="Reference menu in image: CNY 15+">图片参考菜单：¥15起</p>
-                            <a href="https://uri.amap.com/marker?position=115.379788,22.78886&name=呷霸风味堂" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/niujang-thumb.webp" alt="牛将烧肉美食缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('niujang')"><span data-lang="牛将烧肉" data-lang-en="Niujang Yakiniku">牛将烧肉</span></button></span>
-                            <p class="spot-desc" data-lang="烧肉聚餐选择，适合避开景区海鲜高峰。" data-lang-en="A yakiniku option for gatherings, away from the scenic-area seafood rush.">烧肉聚餐选择，适合避开景区海鲜高峰。</p>
-                            <p class="spot-price" data-lang="图片参考菜单：¥42起" data-lang-en="Reference menu in image: CNY 42+">图片参考菜单：¥42起</p>
-                            <a href="https://uri.amap.com/marker?position=115.37962,22.788858&name=牛将烧肉" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <img class="restaurant-photo" loading="lazy" src="img/food/yuxin-thumb.webp" alt="愈欣书店图片缩略图">
-                        <div class="spot-info">
-                            <span class="spot-name"><button class="restaurant-name" type="button" onclick="openRestaurantDetail('yuxin')"><span data-lang="愈欣书店" data-lang-en="Yuxin Bookstore">愈欣书店</span></button></span>
-                            <p class="spot-desc" data-lang="用餐后可顺路逛逛的书店，适合拍照、阅读和休息。" data-lang-en="A nearby bookstore for photos, reading, and a quiet break after a meal.">用餐后可顺路逛逛的书店，适合拍照、阅读和休息。</p>
-                            <p class="spot-price" data-lang="店内消费以现场为准" data-lang-en="Check in-store prices">店内消费以现场为准</p>
-                            <a href="https://uri.amap.com/marker?position=115.379708,22.78854&name=愈欣书店" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 免费停车场 -->
-        <div class="accordion-card" id="parking-section">
-            <div class="accordion-header" onclick="toggleAccordion('parkingContent', 'parking-arrow')">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <i class="fas fa-square-parking" style="color: var(--primary); font-size: 20px;"></i>
-                    <span data-lang="免费停车场指南" data-lang-en="Free Parking Guide">免费停车场指南</span>
-                </div>
-                <i id="parking-arrow" class="fas fa-chevron-down"></i>
-            </div>
-            <div id="parkingContent" class="accordion-content">
-                <div class="spot-list">
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="听涛路免费停车场" data-lang-en="Tingtao Rd Free Parking">听涛路免费停车场</span>
-                                <span class="tag tag-free" data-lang="免费" data-lang-en="Free">免费</span>
-                            </span>
-                            <p class="spot-desc" data-lang="靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。" data-lang-en="Near Haiyu, Tianyi, Huaxia Jinshawan, walking distance to beach.">靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。</p>
-                            <a href="https://uri.amap.com/marker?position=115.29211,22.79516&name=听涛路免费停车场" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="无双墅西停车场" data-lang-en="Wushuangshu West Parking">无双墅西停车场</span>
-                                <span class="tag tag-free" data-lang="免费" data-lang-en="Free">免费</span>
-                            </span>
-                            <p class="spot-desc" data-lang="靠近无双墅、亲海寓，步行可达海滩。" data-lang-en="Near Wushuangshu, Qinhaiyu, walking distance to beach.">靠近无双墅、亲海寓，步行可达海滩。</p>
-                            <a href="https://uri.amap.com/marker?position=115.295833,22.793737&name=无双墅西停车场" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="无双墅东停车场" data-lang-en="Wushuangshu East Parking">无双墅东停车场</span>
-                                <span class="tag tag-free" data-lang="免费" data-lang-en="Free">免费</span>
-                            </span>
-                            <p class="spot-desc" data-lang="靠近无双墅、亲海寓，步行可达海滩。" data-lang-en="Near Wushuangshu, Qinhaiyu, walking distance to beach.">靠近无双墅、亲海寓，步行可达海滩。</p>
-                            <a href="https://uri.amap.com/marker?position=115.29718,22.793647&name=无双墅东停车场" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 行李寄存点 -->
-        <div class="accordion-card" id="luggage-section">
-            <div class="accordion-header" onclick="toggleAccordion('luggageContent', 'luggage-arrow')">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <i class="fas fa-suitcase" style="color: #FF9500; font-size: 20px;"></i>
-                    <span data-lang="行李寄存点" data-lang-en="Luggage Storage">行李寄存点</span>
-                </div>
-                <i id="luggage-arrow" class="fas fa-chevron-down"></i>
-            </div>
-            <div id="luggageContent" class="accordion-content">
-                <div class="spot-list">
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name"><span data-lang="玥海北门1号存包柜" data-lang-en="Yuehai North Gate No.1 Locker">玥海北门1号存包柜</span></span>
-                            <p class="spot-desc" data-lang="位于玥海小区北门，提供自助存包服务。" data-lang-en="Located at Yuehai North Gate, self-service lockers available.">位于玥海小区北门，提供自助存包服务。</p>
-                            <a href="https://uri.amap.com/marker?position=115.29294,22.792649&name=玥海北门1号存包柜" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name"><span data-lang="风帆礼堂沙滩入口存包柜" data-lang-en="Sail Auditorium Beach Entrance Locker">风帆礼堂沙滩入口存包柜</span></span>
-                            <p class="spot-desc" data-lang="位于风帆礼堂沙滩入口处，方便游客存放物品。" data-lang-en="Located at Sail Auditorium Beach entrance, convenient for beachgoers.">位于风帆礼堂沙滩入口处，方便游客存放物品。</p>
-                            <a href="https://uri.amap.com/marker?position=115.292332,22.791426&name=风帆礼堂沙滩入口存包柜" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name"><span data-lang="独秀居南门存包柜" data-lang-en="Duxiu Ju South Gate Locker">独秀居南门存包柜</span></span>
-                            <p class="spot-desc" data-lang="位于独秀居小区南门，提供安全的存包服务。" data-lang-en="Located at Duxiu Ju South Gate, secure luggage storage.">位于独秀居小区南门，提供安全的存包服务。</p>
-                            <a href="https://uri.amap.com/marker?position=115.298001,22.795466&name=独秀居南门存包柜" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name"><span data-lang="听海沙滩入口存包柜" data-lang-en="Tinghai Beach Entrance Locker">听海沙滩入口存包柜</span></span>
-                            <p class="spot-desc" data-lang="位于听海沙滩入口处，方便游客就近存放物品。" data-lang-en="Located at Tinghai Beach entrance, convenient for quick storage.">位于听海沙滩入口处，方便游客就近存放物品。</p>
-                            <a href="https://uri.amap.com/marker?position=115.288851,22.791529&name=听海沙滩入口存包柜" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 充电桩 -->
-        <div class="accordion-card" id="charging-section">
-            <div class="accordion-header" onclick="toggleAccordion('chargingContent', 'charging-arrow')">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <i class="fas fa-charging-station" style="color: #34C759; font-size: 20px;"></i>
-                    <span data-lang="免停车费充电桩" data-lang-en="Free Parking EV Chargers">免停车费充电桩</span>
-                </div>
-                <i id="charging-arrow" class="fas fa-chevron-down"></i>
-            </div>
-            <div id="chargingContent" class="accordion-content">
-                <div class="spot-list">
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="金沙湾1号充电站" data-lang-en="Jinshawan No.1 Station">金沙湾1号充电站</span>
-                                <span class="tag tag-free" data-lang="快充11个桩" data-lang-en="11 Fast Chargers">快充11个桩</span>
-                            </span>
-                            <p class="spot-desc" data-lang="位于海遇小区、华夏金沙湾、天奕附近。" data-lang-en="Near Haiyu, Huaxia Jinshawan, Tianyi.">位于海遇小区、华夏金沙湾、天奕附近。</p>
-                            <a href="https://uri.amap.com/marker?position=115.291382,22.796298&name=金沙湾1号充电站" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="金沙湾2号充电站" data-lang-en="Jinshawan No.2 Station">金沙湾2号充电站</span>
-                                <span class="tag tag-free" data-lang="快充11个桩" data-lang-en="11 Fast Chargers">快充11个桩</span>
-                            </span>
-                            <p class="spot-desc" data-lang="位于海遇小区、华夏金沙湾、天奕、天銮附近。" data-lang-en="Near Haiyu, Huaxia Jinshawan, Tianyi, Tianluan.">位于海遇小区、华夏金沙湾、天奕、天銮附近。</p>
-                            <a href="https://uri.amap.com/marker?position=115.29426,22.796553&name=金沙湾2号充电站" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="蔚景云充电站" data-lang-en="Weijingyun Station">蔚景云充电站</span>
-                                <span class="tag tag-free" data-lang="快充12个桩" data-lang-en="12 Fast Chargers">快充12个桩</span>
-                            </span>
-                            <p class="spot-desc" data-lang="位于无双墅、亲海寓、玥海附近。" data-lang-en="Near Wushuangshu, Qinhaiyu, Yuehai.">位于无双墅、亲海寓、玥海附近。</p>
-                            <a href="https://uri.amap.com/marker?position=115.296043,22.79367&name=蔚景云充电站" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                    <div class="spot-item">
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="南网充电站" data-lang-en="Nanwang Station">南网充电站</span>
-                                <span class="tag tag-free" data-lang="快充" data-lang-en="Fast Charging">快充</span>
-                            </span>
-                            <p class="spot-desc" data-lang="位于无双墅、亲海寓、玥海附近。" data-lang-en="Near Wushuangshu, Qinhaiyu, Yuehai.">位于无双墅、亲海寓、玥海附近。</p>
-                            <a href="https://uri.amap.com/marker?position=115.297225,22.793636&name=南网充电站" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航" data-lang-en="Navigate">导航</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 热门打卡点 - 默认展开 -->
-        <div class="accordion-card" id="spot-section">
-            <div class="accordion-header" onclick="toggleAccordion('spotContent', 'spot-arrow')">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <i class="fas fa-camera-retro" style="color: #AF52DE; font-size: 20px;"></i>
-                    <span data-lang="热门打卡点" data-lang-en="Popular Spots">热门打卡点</span>
-                </div>
-                <i id="spot-arrow" class="fas fa-chevron-down" style="transform: rotate(180deg);"></i>
-            </div>
-            <div id="spotContent" class="accordion-content open">
-                <div class="spot-list">
-                    
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/jinxia.jpg')">
-                            <img class="spot-img" loading="lazy" src="img/jinxia.jpg" alt="金霞光">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="金霞光森林公园" data-lang-en="Jinxiaguang Forest Park">金霞光森林公园</span>
-                                <span class="tag tag-star">★★★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="位于金亭村，首座滨海森林公园，山海境特色布局。停车场收费5元1小时，20元封顶。" data-lang-en="First coastal forest park. Parking 5 CNY/h, max 20.">位于金亭村，首座滨海森林公园，山海境特色布局。停车场收费5元1小时，20元封顶。</p>
-                            <a href="https://uri.amap.com/marker?position=115.28309,22.801956&name=金霞光森林公园" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (2km)" data-lang-en="Navigate (2km)">导航 (2km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/baihe.jpg')">
-                            <img class="spot-img" loading="lazy" src="img/baihe.jpg" alt="白鹤寺">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="白鹤寺海滩" data-lang-en="Baihe Temple Beach">白鹤寺海滩</span>
-                                <span class="tag tag-star">★★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="黑礁岩和鹅卵石混合地形，适合赶海观礁。" data-lang-en="Black reef and pebble terrain, great for beachcombing.">黑礁岩和鹅卵石混合地形，适合赶海观礁。</p>
-                            <a href="https://uri.amap.com/marker?position=115.277448,22.790192&name=白鹤寺" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (2km)" data-lang-en="Navigate (2km)">导航 (2km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/paotai.jpeg')">
-                            <img class="spot-img" loading="lazy" src="img/paotai.jpeg" alt="长沙炮台">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="长沙炮台" data-lang-en="Changsha Fort">长沙炮台</span>
-                                <span class="tag tag-star">★★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="古代海防要塞，紧邻长沙湾服务区，历史交融感强。" data-lang-en="Ancient coastal defense fort, rich historical atmosphere.">古代海防要塞，紧邻长沙湾服务区，历史交融感强。</p>
-                            <a href="https://uri.amap.com/marker?position=115.273266,22.82449&name=长沙炮台" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (5km)" data-lang-en="Navigate (5km)">导航 (5km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/ermalu.png')">
-                            <img class="spot-img" loading="lazy" src="img/ermalu.png" alt="二马路">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="二马路美食街" data-lang-en="Ermalu Food Street">二马路美食街</span>
-                                <span class="tag tag-star">★★★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="最具烟火气，地道小吃汇聚，晚间最热闹。定位在信利大厦停车场，步行可达。" data-lang-en="Best local food street, lively evening. Park at Xinli Bldg.">最具烟火气，地道小吃汇聚，晚间最热闹。定位在信利大厦停车场，步行可达。</p>
-                            <a href="https://uri.amap.com/marker?position=115.359916,22.773525&name=二马路" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (8.3km)" data-lang-en="Navigate (8.3km)">导航 (8.3km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/magong.jpg')">
-                            <img class="spot-img" loading="lazy" src="img/magong.jpg" alt="马宫沙滩">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="马宫沙滩" data-lang-en="Magong Beach">马宫沙滩</span>
-                                <span class="tag tag-star">★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="小众无人沙滩，海上吊桥拍照非常出片。" data-lang-en="Hidden gem beach, great for photos with sea bridge.">小众无人沙滩，海上吊桥拍照非常出片。</p>
-                            <a href="https://uri.amap.com/marker?position=115.244504,22.784115&name=马宫沙滩" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (8km)" data-lang-en="Navigate (8km)">导航 (8km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/chenzhou.jpeg')">
-                            <img class="spot-img" loading="lazy" src="img/chenzhou.jpeg" alt="晨洲村">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="晨洲村" data-lang-en="Chenzhou Village">晨洲村</span>
-                                <span class="tag tag-star">★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="中国蚝乡，有蚝博物馆和独特的水上公路。" data-lang-en="Oyster village with museum and water road.">中国蚝乡，有蚝博物馆和独特的水上公路。</p>
-                            <a href="https://uri.amap.com/marker?position=115.299666,22.848598&name=晨洲村" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (9km)" data-lang-en="Navigate (9km)">导航 (9km)</span></a>
-                        </div>
-                    </div>
-                    
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/xiaodao.webp')">
-                            <img class="spot-img" loading="lazy" src="img/xiaodao.webp" alt="小岛渔村">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="小岛渔村" data-lang-en="Xiaodao Fishing Village">小岛渔村</span>
-                                <span class="tag tag-star">★★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="品清湖中央，复古工业风渔船厂，砖红栈道。注意路边停车易被罚款。" data-lang-en="Retro industrial style. Park legally to avoid fines.">品清湖中央，复古工业风渔船厂，砖红栈道。注意路边停车易被罚款。</p>
-                            <a href="https://uri.amap.com/marker?position=115.372939,22.768537&name=小岛渔村" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (11km)" data-lang-en="Navigate (11km)">导航 (11km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/mazu.jpg')">
-                            <img class="spot-img" loading="lazy" src="img/mazu.jpg" alt="凤山妈祖">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="凤山妈祖" data-lang-en="Fengshan Mazu Temple">凤山妈祖</span>
-                                <span class="tag tag-star">★★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="4A景区，汕尾文化信仰中心，地标建筑。" data-lang-en="4A scenic area, cultural landmark of Shanwei.">4A景区，汕尾文化信仰中心，地标建筑。</p>
-                            <a href="https://uri.amap.com/marker?position=115.370029,22.762059&name=凤山祖庙" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (12km)" data-lang-en="Navigate (12km)">导航 (12km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/museum.png')">
-                            <img class="spot-img" loading="lazy" src="img/museum.png" alt="博物馆">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="汕尾博物馆" data-lang-en="Shanwei Museum">汕尾博物馆</span>
-                                <span class="tag tag-star">★★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="深度了解汕尾历史、文化与民俗的窗口。" data-lang-en="Learn about Shanwei history, culture and folk customs.">深度了解汕尾历史、文化与民俗的窗口。</p>
-                            <a href="https://uri.amap.com/marker?position=115.40,22.79&name=汕尾市博物馆地上停车场" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (13km)" data-lang-en="Navigate (13km)">导航 (13km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/tongding.jpg')">
-                            <img class="spot-img" loading="lazy" src="img/tongding.jpg" alt="铜鼎山">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="铜鼎山旅游区" data-lang-en="Tongdingshan Scenic Area">铜鼎山旅游区</span>
-                                <span class="tag tag-star">★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="汕尾后花园，玻璃桥、七彩滑道等娱乐项目。" data-lang-en="Shanwei's backyard garden with glass bridge and slides.">汕尾后花园，玻璃桥、七彩滑道等娱乐项目。</p>
-                            <a href="https://uri.amap.com/marker?position=115.365492,22.82482&name=铜鼎山旅游区" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (18km)" data-lang-en="Navigate (18km)">导航 (18km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/gubao.jpeg')">
-                            <img class="spot-img" loading="lazy" src="img/gubao.jpeg" alt="古堡">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="红海湾古堡" data-lang-en="Honghaiwan Castle">红海湾古堡</span>
-                                <span class="tag tag-star">★★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="网红海上古堡，风格独特，电影感十足。" data-lang-en="Viral seaside castle, cinematic atmosphere.">网红海上古堡，风格独特，电影感十足。</p>
-                            <a href="https://uri.amap.com/marker?position=115.569269,22.662093&name=南海观音古堡" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (39km)" data-lang-en="Navigate (39km)">导航 (39km)</span></a>
-                        </div>
-                    </div>
-
-                    <div class="spot-item">
-                        <div class="spot-img-wrap" onclick="openLightbox('img/fengche.jpeg')">
-                            <img class="spot-img" loading="lazy" src="img/fengche.jpeg" alt="风车岛">
-                        </div>
-                        <div class="spot-info">
-                            <span class="spot-name">
-                                <span data-lang="风车岛" data-lang-en="Windmill Island">风车岛</span>
-                                <span class="tag tag-star">★★★</span>
-                            </span>
-                            <p class="spot-desc" data-lang="唯美风车群，绝美沿海公路，航拍圣地。" data-lang-en="Beautiful windmills, stunning coastal road, drone paradise.">唯美风车群，绝美沿海公路，航拍圣地。</p>
-                            <a href="https://uri.amap.com/marker?position=115.586019,22.736799&name=风车岛" class="spot-action"><i class="fas fa-location-arrow"></i> <span data-lang="导航 (45km)" data-lang-en="Navigate (45km)">导航 (45km)</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <p class="footer-text">© 2026 JTW 360 All rights reserved.</p>
-
-    </div>
-
-    <!-- Floating WeChat Button -->
-    <button class="fab-wechat" type="button" aria-label="添加微信联系人" onclick="showWechatModal()">
-        <i class="fab fa-weixin"></i>
-    </button>
-
-    <!-- WeChat Fallback Modal -->
-    <div id="wechatModal" class="modal" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="document.getElementById('wechatModal').classList.remove('show')">&times;</button>
-            <h3 data-lang="添加房东微信" data-lang-en="Add Landlord on WeChat">添加房东微信</h3>
-            <p data-lang="点击微信号复制，然后打开微信添加：" data-lang-en="Tap the WeChat ID to copy, then open WeChat to add:">点击微信号复制，然后打开微信添加：</p>
-            <button class="wechat-id" type="button" onclick="copyWechatId()">feel607</button>
-            <p id="copyStatus" data-lang="点击微信号即可复制" data-lang-en="Tap the WeChat ID to copy">点击微信号即可复制</p>
-            <button class="wechat-open" type="button" onclick="openWechat()" data-lang="打开微信" data-lang-en="Open WeChat">打开微信</button>
-        </div>
-    </div>
-
-    <!-- Lightbox for Images -->
-    <div id="lightbox" onclick="closeLightbox(event)">
-        <img id="lightbox-img" src="" onclick="event.stopPropagation()">
-    </div>
-
-    <!-- Restaurant detail sheet -->
-    <div id="restaurantDetailModal" class="modal" onclick="closeModal(event)">
-        <div class="modal-content restaurant-detail-modal" onclick="event.stopPropagation()">
-            <button class="modal-close" type="button" onclick="closeRestaurantDetail()">&times;</button>
-            <div id="restaurantDetailContent"></div>
-        </div>
-    </div>
-
-    <script>
-        function toggleAccordion(contentId, arrowId) {
-            const content = document.getElementById(contentId);
-            const arrow = document.getElementById(arrowId);
-            const isOpen = content.classList.contains('open');
+            <h1 data-lang="来金町湾 · 吃住玩不踩坑" data-lang-en="Jinting Bay, made easy">来金町湾 · 吃住玩不踩坑</h1>
+            <p class="hero-sub" data-lang="景点直达导航 · 平价海鲜推荐 · 免费停车指南 · 5条实战攻略" data-lang-en="Practical spots, transparent seafood picks, and curated itineraries.">景点直达导航 · 平价海鲜推荐 · 免费停车指南 · 5条实战攻略</p>
             
-            if (isOpen) {
-                content.classList.remove('open');
-                arrow.style.transform = 'rotate(0deg)';
-            } else {
-                content.classList.add('open');
-                arrow.style.transform = 'rotate(180deg)';
-            }
+            <div class="hero-search-wrap">
+              <div class="search-capsule">
+                <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+                <input id="heroSearchInput" type="search" placeholder="搜景点、美食、免费停车、充电桩…" data-lang-placeholder="搜景点、美食、免费停车、充电桩…" data-lang-en-placeholder="Search places, food, parking…">
+                <button class="search-btn" id="heroSearchBtn" type="button" data-lang="搜索" data-lang-en="Search">搜索</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Quick Actions (金刚区 8大入口) -->
+    <div class="page quick-wrap">
+      <nav class="quick-actions" aria-label="快捷入口" id="quickActions"></nav>
+    </div>
+
+    <!-- Main Content Flow -->
+    <main class="page">
+      <!-- Search Results Area -->
+      <section class="search-results" id="searchResults" aria-live="polite">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 data-lang="搜索结果" data-lang-en="Search results">搜索结果</h2>
+            <p id="searchSummary"></p>
+          </div>
+          <button class="search-close" id="searchClose" type="button" aria-label="关闭搜索结果">×</button>
+        </div>
+        <div class="result-grid" id="resultGrid"></div>
+      </section>
+
+      <!-- Section 1: Nearby Spots -->
+      <section id="nearby" aria-labelledby="nearbyTitle">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 id="nearbyTitle" data-lang="精选景点 · 距你最近" data-lang-en="Must-Visit Spots · Nearby">精选景点 · 距你最近</h2>
+            <p data-lang="当前定位：汕尾金町湾 · 点击卡片查看避坑详情" data-lang-en="Location: Jinting Bay · Tap cards for local tips">当前定位：汕尾金町湾 · 点击卡片查看避坑详情</p>
+          </div>
+        </div>
+        <div class="chips-wrap">
+          <div class="chips" id="nearbyChips">
+            <button class="chip active" data-filter="all" data-lang="全部" data-lang-en="All">全部</button>
+            <button class="chip" data-filter="sea" data-lang="海滩沙滩" data-lang-en="Beaches">海滩沙滩</button>
+            <button class="chip" data-filter="park" data-lang="森林公园" data-lang-en="Parks">森林公园</button>
+            <button class="chip" data-filter="history" data-lang="地标打卡" data-lang-en="Landmarks">地标打卡</button>
+            <button class="chip" data-filter="local" data-lang="渔村人文" data-lang-en="Culture">渔村人文</button>
+          </div>
+        </div>
+        <div class="horizontal-scroll" id="nearbyList"></div>
+      </section>
+
+      <!-- Section 2: Affordable Food -->
+      <section id="food" aria-labelledby="foodTitle">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 id="foodTitle" data-lang="景区平价餐厅" data-lang-en="Affordable Dining">景区平价餐厅</h2>
+            <p data-lang="房东自购实测 · 无景区不合理溢价" data-lang-en="Local tested · No tourist traps or markup">房东自购实测 · 无景区不合理溢价</p>
+          </div>
+          <span class="section-badge" data-lang="明码标价" data-lang-en="Clear Pricing">明码标价</span>
+        </div>
+        <div class="food-grid" id="foodList"></div>
+      </section>
+
+      <!-- Section 3: Traffic Avoidance Food Route -->
+      <section id="trafficFood" aria-labelledby="trafficFoodTitle">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 id="trafficFoodTitle" data-lang="避堵美食路线" data-lang-en="Less-Crowded Food Route">避堵美食路线</h2>
+            <p data-lang="节假日城区拥堵时的备选用餐好去处" data-lang-en="Avoid holiday congestion and parking trouble">节假日城区拥堵时的备选用餐好去处</p>
+          </div>
+        </div>
+        <div class="route-note">
+          <svg class="icon" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><use href="#i-car"></use></svg>
+          <span data-lang="房东日常消费店铺。节假日城区人流量大、停车困难、吃饭排队严重，推荐前往此处，地库停车免费。" data-lang-en="Everyday local picks. On holidays, avoid downtown traffic and long restaurant queues; underground parking is free here.">房东日常消费店铺。节假日城区人流量大、停车困难、吃饭排队严重，推荐前往此处，地库停车免费。</span>
+        </div>
+        <div class="food-grid" id="trafficFoodList"></div>
+      </section>
+
+      <!-- Section 4: Travel Guides / Itineraries -->
+      <section id="guides" aria-labelledby="guidesTitle">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 id="guidesTitle" data-lang="玩法路线攻略" data-lang-en="Curated Itineraries">玩法路线攻略</h2>
+            <p data-lang="5条实测路线 · 包含一日游、亲子游与雨天备选" data-lang-en="5 practical plans for couples, families and rainy days">5条实测路线 · 包含一日游、亲子游与雨天备选</p>
+          </div>
+        </div>
+        <div class="guide-grid" id="guideGrid"></div>
+      </section>
+
+      <!-- Section 5: Practical Tools -->
+      <section id="tools" aria-labelledby="toolsTitle">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 id="toolsTitle" data-lang="实用工具 · 旅行必备" data-lang-en="Travel Essentials">实用工具 · 旅行必备</h2>
+            <p data-lang="免费停车、充电桩、行李寄存与紧急医疗" data-lang-en="Free parking, chargers, luggage & emergency support">免费停车、充电桩、行李寄存与紧急医疗</p>
+          </div>
+        </div>
+        <div class="resource-grid" id="resourceGrid"></div>
+      </section>
+
+      <!-- Section 6: Favorites -->
+      <section id="favorites" class="search-results" aria-live="polite">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 data-lang="我的收藏" data-lang-en="Saved Places">我的收藏</h2>
+            <p data-lang="你保存的地点与餐厅" data-lang-en="Your saved spots and restaurants">你保存的地点与餐厅</p>
+          </div>
+        </div>
+        <div class="result-grid" id="favoriteGrid"></div>
+      </section>
+
+      <footer class="footer">
+        <p>© 2026 JTW360 · <span data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</span></p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Detail Page View -->
+  <main class="page detail-page" id="detailView" aria-live="polite"></main>
+
+  <!-- Mobile Bottom Floating Navigation -->
+  <nav class="bottom-nav" aria-label="底部导航">
+    <a href="#home" class="active">
+      <svg class="icon"><use href="#i-map"></use></svg>
+      <span data-lang="首页" data-lang-en="Home">首页</span>
+    </a>
+    <a href="#nearby">
+      <svg class="icon"><use href="#i-pin"></use></svg>
+      <span data-lang="景点" data-lang-en="Spots">景点</span>
+    </a>
+    <a href="#guides">
+      <svg class="icon"><use href="#i-book"></use></svg>
+      <span data-lang="攻略" data-lang-en="Guides">攻略</span>
+    </a>
+    <a href="#favorites">
+      <svg class="icon"><use href="#i-heart"></use></svg>
+      <span data-lang="我的" data-lang-en="Saved">我的</span>
+    </a>
+  </nav>
+
+  <!-- Modals -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="图片预览" hidden>
+    <button id="lightboxClose" aria-label="关闭">×</button>
+    <img id="lightboxImg" alt="">
+  </div>
+
+  <div id="wechatModal" role="dialog" aria-modal="true" hidden>
+    <div class="detail-card">
+      <button id="wechatClose" class="back-button" style="margin-bottom:12px">× <span data-lang="关闭" data-lang-en="Close">关闭</span></button>
+      <h2 data-lang="添加房东微信" data-lang-en="Add landlord on WeChat">添加房东微信</h2>
+      <p data-lang="点击微信号复制，然后打开微信添加" data-lang-en="Tap the ID to copy, then add it in WeChat" style="color:var(--muted);font-size:13px">点击微信号复制，然后打开微信添加</p>
+      <button id="wechatId" class="primary-button" style="width:100%;margin-top:10px">feel607</button>
+      <p id="copyStatus" style="font-size:12px;color:var(--accent-green);margin-top:8px"></p>
+    </div>
+  </div>
+
+  <script>
+    const AMap = (name, lng, lat) => `https://uri.amap.com/marker?position=${lng},${lat}&name=${encodeURIComponent(name)}`;
+    
+    const places = [
+      {slug:'jinxia-guang-forest', name:'金霞光森林公园', en:'Jinxiaguang Forest Park', image:'img/jinxia.jpg', distance:'2.0km', rating:'4.8', type:'park', category:'spot', desc:'滨海森林公园，日落绝美，山海境特色布局。', enDesc:'Coastal forest park with beautiful sunsets.', url:AMap('金霞光森林公园',115.28309,22.801956)},
+      {slug:'baihesi-beach', name:'白鹤寺海滩', en:'Baihe Temple Beach', image:'img/baihe.jpg', distance:'2.0km', rating:'4.7', type:'sea', category:'spot', desc:'赶海圣地，黑礁石与鹅卵石风景独特。', enDesc:'A beachcombing spot with black reefs and pebbles.', url:AMap('白鹤寺',115.277448,22.790192), tips:['下午4–6点来最美，可以拍到日落','退潮时适合赶海，注意礁石湿滑','建议穿防滑鞋并带好饮用水和防晒用品']},
+      {slug:'changsha-fort', name:'长沙炮台', en:'Changsha Fort', image:'img/paotai.jpeg', distance:'5.0km', rating:'4.6', type:'history', category:'spot', desc:'清代炮台，历史感与海景同框。', enDesc:'A historic coastal fort with sea views.', url:AMap('长沙炮台',115.273266,22.82449)},
+      {slug:'ermalu-food-street', name:'二马路美食街', en:'Ermalu Food Street', image:'img/ermalu.png', distance:'8.3km', rating:'4.8', type:'local', category:'spot', desc:'汕尾美食聚集地，夜间烟火气最足。', enDesc:'Shanwei food street, liveliest at night.', url:AMap('二马路',115.359916,22.773525)},
+      {slug:'magong-beach', name:'马宫沙滩', en:'Magong Beach', image:'img/magong.jpg', distance:'8km', rating:'4.4', type:'sea', category:'spot', desc:'小众无人沙滩，海上吊桥拍照出片。', enDesc:'A quiet beach with a photogenic sea bridge.', url:AMap('马宫沙滩',115.244504,22.784115)},
+      {slug:'chenzhou-village', name:'晨洲村', en:'Chenzhou Village', image:'img/chenzhou.jpeg', distance:'9km', rating:'4.3', type:'local', category:'spot', desc:'中国蚝乡，有蚝博物馆和水上公路。', enDesc:'Oyster village with a museum and water road.', url:AMap('晨洲村',115.299666,22.848598)},
+      {slug:'xiaodao-village', name:'小岛渔村', en:'Xiaodao Fishing Village', image:'img/xiaodao.webp', distance:'11km', rating:'4.5', type:'local', category:'spot', desc:'品清湖中央的复古渔船厂与砖红栈道。', enDesc:'A retro fishing village in the middle of Pinqing Lake.', url:AMap('小岛渔村',115.372939,22.768537)},
+      {slug:'fengshan-mazu', name:'凤山妈祖', en:'Fengshan Mazu Temple', image:'img/mazu.jpg', distance:'12km', rating:'4.5', type:'history', category:'spot', desc:'4A景区，汕尾文化信仰中心与地标建筑。', enDesc:'A cultural landmark and 4A scenic area.', url:AMap('凤山祖庙',115.370029,22.762059)},
+      {slug:'shanwei-museum', name:'汕尾博物馆', en:'Shanwei Museum', image:'img/museum.png', distance:'13km', rating:'4.5', type:'local', category:'spot', desc:'了解汕尾历史、文化与民俗的窗口。', enDesc:'A window into Shanwei history and culture.', url:AMap('汕尾市博物馆地上停车场',115.40,22.79)},
+      {slug:'tongdingshan', name:'铜鼎山旅游区', en:'Tongdingshan Scenic Area', image:'img/tongding.jpg', distance:'18km', rating:'4.2', type:'park', category:'spot', desc:'汕尾后花园，玻璃桥、七彩滑道等项目。', enDesc:'A hill park with a glass bridge and slides.', url:AMap('铜鼎山旅游区',115.365492,22.82482)},
+      {slug:'honghaiwan-castle', name:'红海湾古堡', en:'Honghaiwan Castle', image:'img/gubao.jpeg', distance:'39km', rating:'4.5', type:'history', category:'spot', desc:'网红海上古堡，风格独特，电影感十足。', enDesc:'A cinematic seaside castle.', url:AMap('南海观音古堡',115.569269,22.662093)},
+      {slug:'houao-glass-sea', name:'后澳玻璃海', en:'Houao Glass Sea', image:'img/generated/houao-glass-sea.webp', distance:'约40km', rating:'4.8', type:'sea', category:'spot', desc:'红海湾原生态果冻海，海水清澈见底，适合晴天打卡。', enDesc:'A clear turquoise cove in Shanwei Red Bay.', url:AMap('后澳玻璃海',115.567242,22.680840), tips:['晴天海水颜色和通透度更好','礁石湿滑，建议穿防滑鞋','出发前留意潮汐、天气和现场开放情况']},
+      {slug:'shiqundao', name:'石群岛', en:'Shiqundao Scenic Area', image:'img/generated/shiqundao.webp', distance:'约40km', rating:'4.7', type:'history', category:'spot', desc:'红海湾海蚀奇观，岩石群与海浪同框，适合摄影打卡。', enDesc:'Dramatic sea-eroded rock formations in Shanwei Red Bay.', url:'https://uri.amap.com/search?keyword='+encodeURIComponent('汕尾石群岛奇观景区'), tips:['景区以海蚀岩石和礁岸风景为主','建议穿防滑鞋，不要攀爬湿滑礁石','出发前以高德地图和现场开放信息为准']},
+      {slug:'windmill-island', name:'风车岛', en:'Windmill Island', image:'img/fengche.jpeg', distance:'45km', rating:'4.4', type:'sea', category:'spot', desc:'唯美风车群与沿海公路，适合拍照。', enDesc:'Windmills and a beautiful coastal road.', url:AMap('风车岛',115.586019,22.736799)},
+      {slug:'west-beach-park', name:'西沙滩公园', en:'Xishatan Park', image:'img/west-beach-park.jpg', distance:'附近', rating:'5.0', type:'sea', category:'spot', desc:'五星好评的热门打卡点，导航直达。', enDesc:'A top-rated popular spot, ready to navigate.', url:AMap('西沙滩公园',115.340372,22.783278)}
+    ];
+
+    const foods = [
+      {slug:'kfc-jinting',name:'肯德基',en:'KFC',category:'fast',image:'img/food/kfc-thumb.webp',menuImage:'img/food/kfc.webp',distance:'0.4km',price:'参考人均：¥20–45',meal:['早餐'],tags:['meituan','douyin'],lng:115.292374,lat:22.795705},
+      {slug:'mcdonalds-jinting',name:'麦当劳',en:"McDonald's",category:'fast',image:'img/food/mcdonalds-thumb.webp',menuImage:'img/food/mcdonalds.webp',distance:'0.8km',price:'参考人均：¥20–45',meal:['早餐'],tags:['meituan','douyin'],lng:115.298594,lat:22.797381},
+      {slug:'chizizhi-beef-offal',name:'吃自知牛杂世家(保利金町湾店)',en:'Chizhizhi Beef Offal',category:'beef',image:'img/food/chizizhi-thumb.webp',menuImage:'img/food/chizizhi.webp',distance:'0.5km',price:'参考人均：¥20–40',meal:['中晚餐'],tags:['meituan','douyin'],lng:115.29314,lat:22.795955},
+      {slug:'nanfeng-fast-food',name:'南沣烧腊快餐',en:'Nanfeng Roast Meat Fast Food',category:'fast',image:'img/food/nanfeng-thumb.webp',menuImage:'img/food/nanfeng.webp',distance:'0.6km',price:'参考人均：¥15–25',meal:['中晚餐'],lng:115.293398,lat:22.796174},
+      {slug:'pinqingyuan-beef',name:'品清园味牛腩店',en:'Pinqingyuan Beef Brisket',category:'beef',image:'img/food/pinqingyuan-thumb.webp',menuImage:'img/food/pinqingyuan.webp',distance:'0.6km',price:'参考人均：¥15–30',meal:['中晚餐'],lng:115.293505,lat:22.796238},
+      {slug:'yingdong-restaurant',name:'迎东大酒楼',en:'Yingdong Grand Restaurant',category:'seafood',image:'img/food/yingdong-thumb.webp',menuImage:'img/food/yingdong.webp',distance:'3.5km',price:'参考团购：¥68起（2人餐）',meal:['早餐','中晚餐'],tags:['meituan'],phone:'0660-8333888 / 15918554894',address:'城区通航路碧桂园华附凤凰城',lng:115.323069,lat:22.792713},
+      {slug:'aguo-pancake',name:'阿国薄饼',en:'Aguo Thin Pancake',category:'snack',image:'img/food/aguo-thumb.webp',menuImage:'img/food/aguo.webp',distance:'6.4km',price:'参考人均：¥10–20',meal:['小吃'],tags:['douyin'],lng:115.349618,lat:22.781474},
+      {slug:'xinmingyuan-seafood',name:'新明园餐厅(海鲜)',en:'Xinmingyuan Restaurant (Seafood)',category:'seafood',image:'img/food/xinmingyuan-thumb.webp',menuImage:'img/food/xinmingyuan.webp',distance:'8.4km',price:'参考人均：¥60–100',lng:115.359453,lat:22.785996},
+      {slug:'fengfu-seafood',name:'丰富大排档(海鲜)',en:'Fengfu Food Stall (Seafood)',category:'seafood',image:'img/food/fengfu-thumb.webp',menuImage:'img/food/fengfu.webp',distance:'7.6km',price:'参考人均：¥50–80',lng:115.352591,lat:22.776596},
+      {slug:'daxi-teahouse',name:'大喜茶楼',en:'Daxi Tea House',category:'snack',image:'img/food/daxi-thumb.webp',menuImage:'img/food/daxi-teahouse.webp',distance:'约10km',price:'图片参考菜单：¥33起',meal:['早餐','中晚餐'],desc:'茶楼点心，适合错峰用餐和喝茶聊天。',lng:115.379406,lat:22.788853},
+      {slug:'xiaba-flavor',name:'呷霸风味堂',en:'Xiaba Flavor House',category:'snack',image:'img/food/xiaba-thumb.webp',menuImage:'img/food/xiaba-flavor.webp',distance:'约10km',price:'图片参考菜单：¥15起',meal:['中晚餐'],desc:'台湾风味小吃，适合快速解决一餐。',lng:115.379788,lat:22.78886},
+      {slug:'niujang-yakiniku',name:'牛将烧肉',en:'Niujang Yakiniku',category:'beef',image:'img/food/niujang-thumb.webp',menuImage:'img/food/niujang-yakiniku.webp',distance:'约10km',price:'图片参考菜单：¥42起',meal:['中晚餐'],desc:'烧肉聚餐选择，适合避开景区海鲜高峰。',lng:115.37962,lat:22.788858},
+      {slug:'yuxin-bookstore',name:'愈欣书店',en:'Yuxin Bookstore',category:'tea',image:'img/food/yuxin-thumb.webp',menuImage:'img/food/yuxin-bookstore.webp',distance:'约10km',price:'店内茶饮消费以现场为准',desc:'以喝茶休闲为主，适合聊天、阅读和短暂休息。',lng:115.379708,lat:22.78854}
+    ].map((item,index)=>({...item,type:'food',url:AMap(item.name,item.lng,item.lat),rating:['4.6','4.7','4.8','4.5'][index%4],desc:item.desc || item.address || '本地日常消费，点击店名查看菜单与信息。'}));
+
+    const hospitals = [
+      {slug:'shenshan-tcm-hospital',name:'深汕中医医院',en:'Shenshan TCM Hospital',category:'hospital',image:'img/shenshan-tcm-hospital.jpg',phone:'06606162398',lng:115.305937,lat:22.796466,desc:'电话：06606162398'},
+      {slug:'hongcao-health-center',name:'红草中心卫生院',en:'Hongcao Central Health Center',category:'hospital',image:'img/hongcao-health-center.jpg',phone:'06603445366',lng:115.303672,lat:22.828743,desc:'电话：06603445366'}
+    ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat)}));
+
+    const parking = [
+      {slug:'tingtao-free-parking',name:'听涛路免费停车场',en:'Tingtao Rd Free Parking',category:'parking',lng:115.29211,lat:22.79516,image:'img/generated/parking-tingtao.webp',desc:'靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。'},
+      {slug:'wushuangshu-west-parking',name:'无双墅西停车场',en:'Wushuangshu West Parking',category:'parking',lng:115.295833,lat:22.793737,image:'img/generated/parking-wushuangshu.webp',desc:'靠近无双墅、亲海寓，步行可达海滩。'},
+      {slug:'wushuangshu-east-parking',name:'无双墅东停车场',en:'Wushuangshu East Parking',category:'parking',lng:115.29718,lat:22.793647,image:'img/generated/parking-wushuangshu.webp',desc:'靠近无双墅、亲海寓，步行可达海滩。'},
+      {slug:'xinli-building',name:'信利大厦',en:'Xinli Building',category:'parking',lng:115.359926,lat:22.773533,image:'img/generated/parking-xinli-building.webp',desc:'二马路美食街停车指南：定位信利大厦停车场，步行可达美食街。'},
+      {slug:'xinli-city-plaza',name:'信利城市广场',en:'Xinli City Plaza',category:'parking',lng:115.359926,lat:22.773533,image:'img/generated/parking-xinli-plaza.webp',desc:'商户消费可在信利大厦凭票免费停车2–3小时。'}
+    ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat),type:'service'}));
+
+    const luggage = [
+      ['yuehai-locker','玥海北门1号存包柜','Yuehai North Gate No.1 Locker','位于玥海小区北门，提供自助存包服务。','img/locker.jpg',115.29294,22.792649],
+      ['sail-auditorium-locker','风帆礼堂沙滩入口存包柜','Sail Auditorium Beach Entrance Locker','位于风帆礼堂沙滩入口处，方便游客存放物品。','img/locker.jpg',115.292332,22.791426],
+      ['duxiuju-locker','独秀居南门存包柜','Duxiu Ju South Gate Locker','位于独秀居小区南门，提供安全的存包服务。','img/locker.jpg',115.298001,22.795466],
+      ['tinghai-locker','听海沙滩入口存包柜','Tinghai Beach Entrance Locker','位于听海沙滩入口处，方便游客就近存放物品。','img/locker.jpg',115.288851,22.791529]
+    ].map(([slug,name,en,desc,image,lng,lat])=>({slug,name,en,desc,image,lng,lat,category:'luggage',type:'service',url:AMap(name,lng,lat)}));
+
+    const charging = [
+      ['jinshawan-1-charger','金沙湾1号充电站','Jinshawan No.1 Station','位于海遇小区、华夏金沙湾、天奕附近。','快充11个桩','img/jinshawan-1-charger.jpg',115.291382,22.796298],
+      ['jinshawan-2-charger','金沙湾2号充电站','Jinshawan No.2 Station','位于海遇小区、华夏金沙湾、天奕、天銮附近。','快充11个桩','img/jinshawan-2-charger.jpg',115.29426,22.796553],
+      ['weijingyun-charger','蔚景云充电站','Weijingyun Station','位于无双墅、亲海寓、玥海附近。','快充12个桩','img/weijingyun-charger.jpg',115.296043,22.79367]
+    ].map(([slug,name,en,desc,tag,image,lng,lat])=>({slug,name,en,desc,image,tag,lng,lat,category:'charging',type:'service',url:AMap(name,lng,lat)}));
+
+    const utilityPlaces = [
+      {slug:'public-restroom',name:'公共厕所',en:'Public Restroom',category:'restroom',type:'service',lng:115.292562,lat:22.795063,desc:'金町湾公共厕所，点击导航直达。'}
+    ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat)}));
+
+    const regularFoods = foods.slice(0, 9);
+    const trafficFoods = foods.slice(9);
+    const freeParking = parking.slice(0, 3);
+    const ermaluParking = parking.slice(3);
+
+    const guides = [
+      {
+        slug:'jinting-bay-one-day', title:'金町湾一日游', en:'Jinting Bay in One Day', audience:'第一次来 · 轻松看海', duration:'半天–1天', image:'img/generated/jinting-bay-hero.webp',
+        summary:'从风帆礼堂一路沿海游玩，时间充足再去白鹤寺或马宫沙滩。', route:'风帆礼堂 → 海边礁石 → 鲸湾小镇 → 白鹤寺',
+        intro:'适合刚入住金町湾、第一次来汕尾或不想赶路的游客。核心区域可以步行，前往白鹤寺、马宫沙滩建议骑行或驾车。',
+        days:[{title:'上午｜金町湾核心海岸线',route:'风帆礼堂 → 海边礁石 → 听海椰林 → 鲸湾小镇',note:'核心打卡点较集中，可边走边拍照；中午回住宿附近吃饭和休息。'},{title:'下午｜白鹤寺方向',route:'白鹤寺海滩 → 日落后返回',note:'白鹤寺距核心沙滩较远。礁石湿滑，建议穿包脚防滑鞋；时间充足再考虑马宫沙滩。'}],
+        tips:['白鹤寺、马宫沙滩不在核心步行范围内','海边紫外线强，阴天也要做好防晒','是否下水以当天海况和现场开放区域为准'], related:['baihesi-beach','magong-beach','jinxia-guang-forest']
+      },
+      {
+        slug:'shanwei-classic-two-day', title:'经典全景 2天1夜', en:'Classic Two-Day Trip', audience:'首次来汕尾 · 覆盖最全', duration:'2天1夜', image:'img/generated/houao-glass-sea.webp',
+        summary:'第一天金町湾和城区逛吃，第二天集中游玩红海湾海岸线。', route:'金町湾 → 二马路 → 红海湾',
+        intro:'把相邻景点安排在同一天，减少金町湾、城区和红海湾之间来回折返。自驾最方便，旺季需预留额外路程时间。',
+        days:[{title:'Day 1｜金町湾＋城区',route:'金町湾沙滩 → 风帆礼堂 → 鲸湾小镇 → 二马路美食街',note:'傍晚前结束海边行程，再前往城区吃饭。二马路停车困难，可使用网站内的二马路停车指南。'},{title:'Day 2｜红海湾海岸线',route:'海上公路 → 风车岛／浮日湾 → 后澳玻璃海 → 海上古堡 → 石群岛',note:'红海湾景点集中，但节假日进出道路容易拥堵；住遮浪镇或在镇上租电动车会更灵活。'}],
+        tips:['金町湾到红海湾通常需预留约50分钟，旺季可能更久','金町湾适合看海住宿，城区适合逛吃和赶高铁','打车出行建议提前预约，不要卡着高铁时间返程'], related:['ermalu-food-street','houao-glass-sea','honghaiwan-castle','shiqundao','windmill-island']
+      },
+      {
+        slug:'jinting-family-two-night', title:'亲子松弛 2天2夜', en:'Relaxed Family Trip', audience:'带娃家庭 · 午休友好', duration:'2天2夜', image:'img/baihe.jpg',
+        summary:'把挖沙、午睡和吃饭都留足时间，不用带孩子连续赶景点。', route:'金町湾挖沙 → 风帆礼堂 → 风车岛',
+        intro:'以金町湾为住宿基地，第一天在住宿附近慢玩，第二天再选择风车岛方向。路线重视孩子作息，不安排连续礁石徒步。',
+        days:[{title:'抵达当晚｜入住休息',route:'抵达金町湾 → 入住 → 附近晚餐',note:'不安排夜间赶景点，给孩子留足睡眠。'},{title:'Day 1｜沙滩慢玩',route:'早餐 → 金町湾挖沙 → 午餐午睡 → 风帆礼堂 → 鲸湾小镇',note:'准备换洗衣服、饮用水和简单冲沙用水，鲸湾小镇附近更方便补给。'},{title:'Day 2｜短途看海',route:'风车岛／浮日湾 → 午餐 → 返程',note:'若孩子不适合骑电动车，优先自驾；遇到大风、暴晒或恶劣海况及时缩短行程。'}],
+        tips:['儿童下水和靠近礁石必须由成人全程陪同','准备防晒、饮用水、换洗衣服和挖沙工具','住宿卫生和实际距离需在预订平台再次确认'], related:['baihesi-beach','windmill-island']
+      },
+      {
+        slug:'red-bay-one-day', title:'红海湾一日游', en:'Red Bay in One Day', audience:'情侣拍照 · 海岸公路', duration:'1天', image:'img/gubao.jpeg',
+        summary:'沿红海湾海岸线顺路打卡，早到后澳玻璃海，傍晚在古堡和石群岛看海。', route:'风车岛 → 后澳玻璃海 → 海上古堡 → 石群岛',
+        intro:'适合专门去红海湾看海和拍照的游客。建议早上进入景区，避开后澳玻璃海高峰，并根据天气调整礁石景点。',
+        days:[{title:'上午｜风车岛方向',route:'海上公路 → 风车岛／浮日湾 → 后澳玻璃海',note:'后澳玻璃海的通透度依赖晴天和光线，旺季建议尽早抵达。'},{title:'下午｜古堡方向',route:'海上古堡 → 石群岛 → 南海观音',note:'海上古堡和石群岛可连线游玩。礁石湿滑，不要为了拍照靠近浪区或攀爬湿滑位置。'}],
+        tips:['节假日镇上租实体店电动车通常比频繁开车找车位方便','共享电动车可能存在跨区域断电限制','海边风大，后澳和古堡实际观感受天气影响明显'], related:['windmill-island','houao-glass-sea','honghaiwan-castle','shiqundao']
+      },
+      {
+        slug:'shanwei-rainy-day', title:'雨天备用路线', en:'Rainy-Day Plan', audience:'下雨也能玩 · 城区逛吃', duration:'半天–1天', image:'img/museum.png',
+        summary:'用博物馆、城区餐厅和喝茶替代湿滑海岸，天气转好再临时看海。', route:'汕尾博物馆 → 城区午餐 → 愈欣书店 → 二马路',
+        intro:'雨天优先安排城区室内活动。海上古堡、赶海和湿滑礁石不作为固定行程，雨势减弱后再根据现场情况决定是否去海边。',
+        days:[{title:'上午｜室内了解汕尾',route:'汕尾博物馆 → 城区午餐',note:'博物馆可避雨并了解本地历史文化，开放时间和停车信息请出发前再次确认。'},{title:'下午至晚上｜喝茶逛吃',route:'愈欣书店喝茶 → 城区平价餐厅 → 二马路',note:'二马路停车困难，建议使用信利大厦／信利城市广场停车指南，或直接打车前往。'}],
+        tips:['大雨天不建议去海上古堡、礁石和黄泥停车区域','雨天海边风力变化快，不要按晴天路线强行赶景点','愈欣书店以喝茶休闲为主，店内消费以现场为准'], related:['shanwei-museum','ermalu-food-street','yuxin-bookstore','xinli-building']
+      }
+    ];
+
+    const allItems = [...places,...foods,...hospitals,...parking,...luggage,...charging,...utilityPlaces];
+    const text = (cn,en) => `<span data-lang="${cn}" data-lang-en="${en || cn}">${cn}</span>`;
+    
+    const navButton = item => `<a class="nav-btn" href="${item.url}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()"><svg class="icon"><use href="#i-pin"></use></svg>${text('高德导航','Navigate')}</a>`;
+    
+    const card = item => {
+      const metaLabel = item.type === 'food' ? text('精选餐饮','Food Pick') : (item.category === 'spot' ? text('景点推荐','Must-Visit') : '');
+      return `
+      <article class="place-card" data-slug="${item.slug}" onclick="openDetail('${item.slug}')">
+        <div class="place-image">
+          <img loading="lazy" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
+          <span class="distance-badge">${item.distance || '附近'}</span>
+        </div>
+        <div class="place-body">
+          <h3 class="place-name">${text(item.name,item.en)}</h3>
+          <div class="place-meta">
+            <span class="rating-pill">★ ${item.rating || '4.6'}</span>
+            ${metaLabel ? `<span>·</span><span>${metaLabel}</span>` : ''}
+          </div>
+          <p class="place-desc">${text(item.desc || '靠近金町湾，适合直接导航。', item.enDesc || 'Close to Jinting Bay, ready to navigate.')}</p>
+          ${navButton(item)}
+        </div>
+      </article>
+    `;
+    };
+
+    const foodCard = item => `
+      <article class="food-card" data-food-category="${item.category}" data-slug="${item.slug}" onclick="openDetail('${item.slug}')">
+        <img class="food-image" loading="lazy" src="${item.image}" alt="${item.name}">
+        <div class="food-info">
+          <h3>${text(item.name,item.en)}</h3>
+          <div class="food-sub">
+            <span class="rating-pill">★ ${item.rating}</span>
+            <span>·</span>
+            <span>${item.category === 'seafood' ? text('海鲜','Seafood') : item.category === 'beef' ? text('牛肉','Beef') : item.category === 'snack' ? text('小吃','Snacks') : item.category === 'tea' ? text('茶饮','Tea') : text('快餐','Fast food')}</span>
+            <span>·</span>
+            <span>${item.distance}</span>
+          </div>
+          <div class="tag-row">
+            ${(item.meal || []).map(m => `<span class="tag meal">${text(m, m === '早餐' ? 'Breakfast' : m === '中晚餐' ? 'Lunch & Dinner' : 'Snack')}</span>`).join('')}
+            ${item.tags?.map(tag=>`<span class="tag ${tag}">${tag === 'meituan' ? '美团' : '抖音'}</span>`).join('') || `<span class="tag">${item.price}</span>`}
+          </div>
+        </div>
+        <div class="food-action">
+          <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+        </div>
+      </article>
+    `;
+
+    const guideCard = guide => `
+      <article class="guide-card" onclick="openGuide('${guide.slug}')">
+        <div class="guide-image-wrap">
+          <img class="guide-image" loading="lazy" src="${guide.image}" alt="${guide.title}">
+          <div class="guide-kicker">
+            <span class="guide-badge">${guide.audience}</span>
+            <span class="guide-duration">${guide.duration}</span>
+          </div>
+        </div>
+        <div class="guide-body">
+          <h3>${text(guide.title,guide.en)}</h3>
+          <p>${guide.summary}</p>
+          <div class="guide-route-pill">
+            <svg class="icon" style="width:16px;height:16px;color:var(--primary)" aria-hidden="true"><use href="#i-compass"></use></svg>
+            <span>${guide.route}</span>
+          </div>
+        </div>
+      </article>
+    `;
+
+    const guidePlaceCard = item => `
+      <article class="guide-place" onclick="openDetail('${item.slug}')">
+        <img loading="lazy" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
+        <div>
+          <h3>${item.name}</h3>
+          <p>${item.desc || '点击查看地点信息与高德导航。'}</p>
+        </div>
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+      </article>
+    `;
+
+    const quickActions = [
+      ['i-car','免费停车','Free parking','blue','parkingResource'],
+      ['i-food','平价餐厅','Affordable food','orange','#food'],
+      ['i-map','避堵美食','Less-crowded food','amber','#trafficFood'],
+      ['i-camera','热门打卡点','Popular spots','purple','#nearby'],
+      ['i-bag','行李寄存','Luggage','orange','luggageResource'],
+      ['i-bolt','充电桩','EV charging','green','chargingResource'],
+      ['i-pin','洗手间','Restroom','service','restroomResource'],
+      ['i-hospital','医院医疗','Hospital','green','hospitalResource']
+    ];
+
+    // 板块类入口（#开头）：锚点直达，内容已就绪；资源类入口：一次点击立即展开对应内容，无需二次点击
+    document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,color,target])=>{
+      const isSection = target.startsWith('#');
+      return `
+      <a class="quick-action" href="${isSection ? target : '#' + target}"${isSection ? '' : ` onclick="event.preventDefault(); showResource('${target}')"`}>
+        <span class="quick-icon-wrap ${color}">
+          <svg class="icon"><use href="#${icon}"></use></svg>
+        </span>
+        <span class="label">${text(cn,en)}</span>
+      </a>
+    `}).join('');
+
+    const nearbyList = document.getElementById('nearbyList');
+    nearbyList.innerHTML = places.map(card).join('');
+    document.getElementById('foodList').innerHTML = regularFoods.map(foodCard).join('');
+    document.getElementById('trafficFoodList').innerHTML = trafficFoods.map(foodCard).join('');
+    document.getElementById('guideGrid').innerHTML = guides.map(guideCard).join('');
+
+    const resourceData = [
+      ['hospitalResource','i-hospital','医院医疗','Nearby hospitals','2个医院 / 卫生院','green',hospitals],
+      ['parkingResource','i-car','免费停车场','Free parking','3个免费停车点','blue',freeParking],
+      ['ermaluParkingResource','i-car','二马路停车指南','Ermalu parking guide','凭票免费停车2–3小时','blue',ermaluParking],
+      ['luggageResource','i-bag','行李寄存','Luggage storage','4个寄存柜','orange',luggage],
+      ['chargingResource','i-bolt','充电桩','EV charging','3个免停车费充电点','green',charging],
+      ['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]]
+    ];
+
+    document.getElementById('resourceGrid').innerHTML = resourceData.map(([id,icon,cn,en,desc,color,items])=>`
+      <article class="resource-card ${color}" id="${id}" tabindex="0" onclick="showResource('${id}')">
+        <div class="resource-top">
+          <span class="resource-icon-wrap">
+            <svg class="icon"><use href="#${icon}"></use></svg>
+          </span>
+          <svg class="icon" style="color:var(--muted-light);width:16px;height:16px"><use href="#i-arrow"></use></svg>
+        </div>
+        <div>
+          <h3>${text(cn,en)}</h3>
+          <p>${text(desc,desc)}</p>
+        </div>
+        <span class="sr-only">${items.map(item=>item.name).join('、')}</span>
+      </article>
+    `).join('');
+
+    // Filter Chips Event
+    document.querySelectorAll('[data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b === btn));
+        nearbyList.innerHTML = places.filter(p => btn.dataset.filter === 'all' || p.type === btn.dataset.filter).map(card).join('');
+        nearbyList.scrollLeft = 0;
+      });
+    });
+
+    // Search Results Logic
+    const searchResults = document.getElementById('searchResults');
+    function closeSearch() {
+      searchResults.classList.remove('show');
+      document.getElementById('resultGrid').innerHTML = '';
+      document.getElementById('searchSummary').textContent = '';
+    }
+    document.getElementById('searchClose').addEventListener('click', closeSearch);
+
+    // Favorites Logic
+    const favoriteKey = 'jtw360-favorites';
+    const favorites = () => JSON.parse(localStorage.getItem(favoriteKey) || '[]');
+    function toggleFavorite(slug) {
+      const list = favorites();
+      const next = list.includes(slug) ? list.filter(id => id !== slug) : [...list, slug];
+      localStorage.setItem(favoriteKey, JSON.stringify(next));
+      renderFavorites();
+      document.querySelectorAll('[data-favorite-button]').forEach(btn => {
+        const isFav = next.includes(slug);
+        btn.innerHTML = `<svg class="icon"><use href="#i-heart"></use></svg><span style="margin-left:4px">${isFav ? '已收藏' : '收藏'}</span>`;
+        btn.classList.toggle('is-favorite', isFav);
+      });
+    }
+
+    function renderFavorites() {
+      const list = favorites().map(slug => allItems.find(item => item.slug === slug)).filter(Boolean);
+      document.getElementById('favoriteGrid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">还没有收藏地点，点击地点卡片中的爱心即可保存。</div>`;
+    }
+    renderFavorites();
+
+    function showFavorites(event) {
+      event?.preventDefault();
+      const section = document.getElementById('favorites');
+      section.classList.add('show');
+      renderFavorites();
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelectorAll('a[href="#favorites"]').forEach(link => link.addEventListener('click', showFavorites));
+
+    function showResource(id) {
+      const data = resourceData.find(item => item[0] === id);
+      if (data?.[6]?.length) {
+        document.getElementById('resultGrid').innerHTML = data[6].map(card).join('');
+        document.getElementById('searchSummary').textContent = `${data[6].length} 个${data[2]}`;
+        searchResults.classList.add('show');
+        searchResults.scrollIntoView({ behavior: 'smooth' });
+      } else if (id === 'restroomResource') {
+        window.open(AMap('公共厕所', 115.292562, 22.795063), '_blank');
+      }
+    }
+
+    // Detail View Logic
+    function openDetail(slug, push = true) {
+      const item = allItems.find(entry => entry.slug === slug);
+      if (!item) return;
+      if (push) history.pushState({ slug }, '', `/places/${slug}`);
+      document.getElementById('homeView').style.display = 'none';
+      const detail = document.getElementById('detailView');
+      detail.classList.add('show');
+      const favorite = favorites().includes(slug);
+      const image = item.menuImage || item.image || 'img/gubao.jpeg';
+      const tips = item.tips || ['本地人筛选的实用地点，出发前可先地图确认营业状态','直接点击下方导航按钮，使用高德地图直达','如果是海鲜餐厅，建议傍晚6点前到达避免排队'];
+
+      detail.innerHTML = `
+        <div class="detail-top">
+          <button class="back-button" onclick="goHome()">
+            <svg class="icon"><use href="#i-back"></use></svg>
+            ${text('返回列表','Back')}
+          </button>
+          <div class="top-actions">
+            <button class="icon-button ${favorite ? 'is-favorite' : ''}" style="color:${favorite ? 'var(--accent-coral)' : 'var(--primary)'};background:var(--surface);border-color:var(--line)" data-favorite-button onclick="toggleFavorite('${slug}')" aria-label="收藏">
+              <svg class="icon"><use href="#i-heart"></use></svg>
+            </button>
+            <button class="icon-button" style="color:var(--primary);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${item.name}',url:location.href})" aria-label="分享">
+              <svg class="icon"><use href="#i-share"></use></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="detail-hero">
+          <img src="${image}" alt="${item.name}">
+          <div class="detail-title">
+            <h1>${text(item.name, item.en)}</h1>
+            <div class="place-meta" style="color:rgba(255,255,255,0.9)">
+              <span class="rating-pill" style="color:#fbbf24">★ ${item.rating || '4.8'}</span>
+              <span>·</span>
+              <span>${item.distance || '金町湾核心区'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-content">
+          <div>
+            <div class="detail-card">
+              <div class="tag-row">
+                <span class="tag green">${text(item.type === 'food' ? '本地自费实测' : '本地推荐', item.type === 'food' ? 'Local Verified' : 'Local Pick')}</span>
+                <span class="tag">${text(item.type === 'food' ? '平价美食' : item.category === 'spot' ? '观光景点' : item.category === 'hospital' ? '医疗服务' : '便民服务', item.type === 'food' ? 'Food' : item.category)}</span>
+              </div>
+              <p style="font-size:15px;line-height:1.6;margin:16px 0;color:var(--ink-secondary)">${text(item.desc || '靠近金町湾，适合直接导航。', item.enDesc || 'Close to Jinting Bay, ready to navigate.')}</p>
+              ${item.price ? `<p style="margin:8px 0;font-size:14px;color:var(--ink)"><strong>${item.price}</strong></p>` : ''}
+              ${item.address ? `<p style="margin:8px 0;font-size:13px;color:var(--muted)">地址：${item.address}</p>` : ''}
+              ${item.phone ? `<p style="margin:8px 0;font-size:13px;color:var(--muted)">${text('电话：','Tel: ')}<a href="tel:${item.phone.replace(/\s*\/\s*.*/, '')}" style="color:var(--primary);font-weight:700">${item.phone}</a></p>` : ''}
+              
+              <div class="detail-stats">
+                <div class="stat-box">
+                  <strong>${item.type === 'food' ? '平价/实惠' : '1–2小时'}</strong>
+                  <span>${text(item.type === 'food' ? '消费水准' : '建议游玩', item.type === 'food' ? 'Price Level' : 'Suggested Stay')}</span>
+                </div>
+                <div class="stat-box">
+                  <strong>${item.distance || '附近'}</strong>
+                  <span>${text('距离金町湾','From Jinting Bay')}</span>
+                </div>
+                <div class="stat-box">
+                  <strong>高德地图</strong>
+                  <span>${text('一键导航','Direct Nav')}</span>
+                </div>
+              </div>
+
+              <div style="margin-top:20px">
+                ${navButton(item)}
+              </div>
+            </div>
+
+            <div class="detail-card tip-card">
+              <h2>${text('本地人避坑与游玩提醒','Local Insider Tips')}</h2>
+              <ul class="tips">
+                ${tips.map(t => `<li>${text(t,t)}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <aside>
+            <div class="detail-card">
+              <h2>${text('附近更多推荐','Nearby Recommendations')}</h2>
+              <div class="food-grid" style="grid-template-columns:1fr">
+                ${(item.category === 'spot' ? foods.slice(0, 3) : places.slice(0, 3)).map(item.category === 'spot' ? foodCard : card).join('')}
+              </div>
+            </div>
+          </aside>
+        </div>
+      `;
+
+      removeDetailBar();
+      document.body.classList.add('detail-open');
+      
+      // Floating Bottom Action Bar for Mobile
+      const rawPhone = item.phone ? item.phone.replace(/\s*\/\s*.*/,'').replace(/\D/g,'') : null;
+      const bottomBarHtml = `
+        <div class="detail-action-bar" id="detailActionBar">
+          <a class="nav-btn" href="${item.url}" target="_blank" rel="noreferrer">
+            <svg class="icon"><use href="#i-pin"></use></svg>
+            ${text('高德地图导航','Navigate')}
+          </a>
+          <button class="icon-btn ${favorite ? 'is-favorite' : ''}" data-favorite-button onclick="toggleFavorite('${item.slug}')" aria-label="收藏">
+            <svg class="icon"><use href="#i-heart"></use></svg>
+          </button>
+          ${rawPhone ? `
+            <a class="icon-btn" href="tel:${rawPhone}" aria-label="打电话">
+              <svg class="icon"><use href="#i-hospital"></use></svg>
+            </a>
+          ` : `
+            <button class="icon-btn" onclick="navigator.share?.({title:'${item.name}',url:location.href})" aria-label="分享">
+              <svg class="icon"><use href="#i-share"></use></svg>
+            </button>
+          `}
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', bottomBarHtml);
+      window.scrollTo(0, 0);
+      document.title = `${item.name} · JTW360`;
+    }
+
+    // Guide Detail View
+    function openGuide(slug, push = true) {
+      removeDetailBar();
+      const guide = guides.find(entry => entry.slug === slug);
+      if (!guide) return;
+      if (push) history.pushState({ guide: slug }, '', `/guides/${slug}`);
+      document.getElementById('homeView').style.display = 'none';
+      const detail = document.getElementById('detailView');
+      detail.classList.add('show');
+      const related = guide.related.map(id => allItems.find(item => item.slug === id)).filter(Boolean);
+
+      detail.innerHTML = `
+        <div class="detail-top">
+          <button class="back-button" onclick="goHome()">
+            <svg class="icon"><use href="#i-back"></use></svg>
+            ${text('返回攻略列表','Back')}
+          </button>
+          <button class="icon-button" style="color:var(--primary);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${guide.title}',url:location.href})" aria-label="分享">
+            <svg class="icon"><use href="#i-share"></use></svg>
+          </button>
+        </div>
+
+        <div class="detail-hero">
+          <img src="${guide.image}" alt="${guide.title}">
+          <div class="detail-title">
+            <h1>${text(guide.title, guide.en)}</h1>
+            <div class="place-meta" style="color:rgba(255,255,255,0.9)">
+              <span>${guide.audience}</span>
+              <span>·</span>
+              <span>${guide.duration}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-content">
+          <div>
+            <div class="detail-card">
+              <div class="tag-row">
+                <span class="tag green">本地实测路线</span>
+                <span class="tag">${guide.duration}</span>
+              </div>
+              <p style="font-size:15px;line-height:1.65;margin:16px 0;color:var(--ink-secondary)">${guide.intro}</p>
+              
+              <div class="itinerary-list">
+                ${guide.days.map(day => `
+                  <article class="itinerary-day">
+                    <strong>${day.title}</strong>
+                    <h3>${day.route}</h3>
+                    <p>${day.note}</p>
+                  </article>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="detail-card tip-card">
+              <h2>出发前重点提醒</h2>
+              <ul class="tips">
+                ${guide.tips.map(t => `<li>${t}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <aside>
+            <div class="detail-card">
+              <h2>路线涉及地点 · 一键导航</h2>
+              <div class="guide-places">
+                ${related.map(guidePlaceCard).join('')}
+              </div>
+            </div>
+          </aside>
+        </div>
+      `;
+      window.scrollTo(0, 0);
+      document.title = `${guide.title} · JTW360`;
+    }
+
+    function goHome(push = true) {
+      if (push) history.pushState({}, '', '/');
+      removeDetailBar();
+      const detail = document.getElementById('detailView');
+      detail.classList.remove('show');
+      detail.innerHTML = '';
+      document.getElementById('homeView').style.display = 'block';
+      document.title = 'JTW360 · 金町湾本地生活指南';
+      window.scrollTo(0, 0);
+      updateMobileBar();
+    }
+
+    function removeDetailBar() {
+      document.body.classList.remove('detail-open');
+      document.getElementById('detailActionBar')?.remove();
+      setMobileBarVisible(false);
+    }
+
+    // URL Router
+    function routeFromUrl() {
+      const params = new URLSearchParams(location.search);
+      const placeMatch = location.pathname.match(/\/places\/([^/]+)/);
+      const guideMatch = location.pathname.match(/\/guides\/([^/]+)/);
+      const slug = params.get('place') || placeMatch?.[1];
+      const guideSlug = params.get('guide') || guideMatch?.[1];
+      if (slug) openDetail(slug, false);
+      else if (guideSlug) openGuide(guideSlug, false);
+      else goHome(false);
+    }
+    window.addEventListener('popstate', routeFromUrl);
+
+    // Nav Smooth Scrolling
+    document.querySelectorAll('.desktop-nav a[href^="#"], .bottom-nav a[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        const target = link.getAttribute('href');
+        if (document.getElementById('detailView').classList.contains('show')) {
+          event.preventDefault();
+          goHome();
+          requestAnimationFrame(() => document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
         }
+      });
+    });
 
-        function openAccordion(contentId, arrowId) {
-            const content = document.getElementById(contentId);
-            const arrow = document.getElementById(arrowId);
-            if (!content.classList.contains('open')) {
-                content.classList.add('open');
-                arrow.style.transform = 'rotate(180deg)';
-            }
-            // Scroll to the accordion
-            setTimeout(() => {
-                content.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 300);
-        }
+    // Bottom Nav Scroll Spy (highlights the section currently in view on mobile)
+    const navLinkEls = [...document.querySelectorAll('.bottom-nav a[href^="#"]')];
+    const navTargetEls = navLinkEls.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+    const updateNavSpy = () => {
+      if (document.getElementById('detailView').classList.contains('show')) return;
+      const probe = 160; // just below the fixed search bar
+      let active = navTargetEls[0];
+      for (const sec of navTargetEls) {
+        if (sec.getBoundingClientRect().height === 0) continue; // hidden section (e.g. favorites) is not on screen
+        if (sec.getBoundingClientRect().top <= probe) active = sec;
+      }
+      navLinkEls.forEach((a, i) => a.classList.toggle('active', navTargetEls[i] === active));
+    };
+    window.addEventListener('scroll', updateNavSpy, { passive: true });
+    updateNavSpy();
 
-        const restaurantDetails = {
-            kfc: {
-                name: '肯德基', menu: 'img/food/kfc.webp', price: '参考人均：¥20–45',
-                description: '快餐选择，团购信息以美团、抖音当前页面为准。',
-                url: 'https://uri.amap.com/marker?position=115.292374,22.795705&name=肯德基'
-            },
-            mcdonalds: {
-                name: '麦当劳', menu: 'img/food/mcdonalds.webp', price: '参考人均：¥20–45',
-                description: '快餐选择，团购信息以美团、抖音当前页面为准。',
-                url: 'https://uri.amap.com/marker?position=115.298594,22.797381&name=麦当劳'
-            },
-            chizizhi: {
-                name: '吃自知牛杂世家(保利金町湾店)', menu: 'img/food/chizizhi.webp', price: '参考人均：¥20–40',
-                description: '牛杂和牛肉小吃，适合日常简餐。',
-                url: 'https://uri.amap.com/marker?position=115.29314,22.795955&name=吃自知牛杂世家'
-            },
-            nanfeng: {
-                name: '南沣烧腊快餐', menu: 'img/food/nanfeng.webp', price: '参考人均：¥15–25',
-                description: '烧腊快餐，适合快速解决一餐。',
-                url: 'https://uri.amap.com/marker?position=115.293398,22.796174&name=南沣烧腊快餐'
-            },
-            pinqingyuan: {
-                name: '品清园味牛腩店', menu: 'img/food/pinqingyuan.webp', price: '参考人均：¥15–30',
-                description: '牛腩和牛肉小吃，适合日常消费。',
-                url: 'https://uri.amap.com/marker?position=115.293505,22.796238&name=品清园味牛腩店'
-            },
-            yingdong: {
-                name: '迎东大酒楼', menu: 'img/food/yingdong.webp', price: '参考团购：¥68起（2人餐）',
-                description: '城区通航路碧桂园华附凤凰城。', address: '城区通航路碧桂园华附凤凰城',
-                phone: '0660-8333888 / 15918554894', meituan: 'http://dpurl.cn/UGwcD9Kz',
-                url: 'https://uri.amap.com/marker?position=115.323069,22.792713&name=迎东大酒楼'
-            },
-            aguo: {
-                name: '阿国薄饼', menu: 'img/food/aguo.webp', price: '参考人均：¥10–20',
-                description: '薄饼和汕尾风味小吃，适合轻松用餐。',
-                url: 'https://uri.amap.com/marker?position=115.349618,22.781474&name=阿国薄饼'
-            },
-            xinmingyuan: {
-                name: '新明园餐厅(海鲜)', menu: 'img/food/xinmingyuan.webp', price: '参考人均：¥60–100',
-                description: '海鲜和本地菜，建议提前到店避开排队。',
-                url: 'https://uri.amap.com/marker?position=115.359453,22.785996&name=新明园餐厅'
-            },
-            fengfu: {
-                name: '丰富大排档(海鲜)', menu: 'img/food/fengfu.webp', price: '参考人均：¥50–80',
-                description: '海鲜大排档，价格以现场点单为准。',
-                url: 'https://uri.amap.com/marker?position=115.352591,22.776596&name=丰富大排档'
-            },
-            daxi: {
-                name: '大喜茶楼', menu: 'img/food/daxi-teahouse.webp', price: '图片参考菜单：¥33起',
-                description: '茶楼点心，适合错峰用餐和喝茶聊天。',
-                url: 'https://uri.amap.com/marker?position=115.379406,22.788853&name=大喜茶楼'
-            },
-            xiaba: {
-                name: '呷霸风味堂', menu: 'img/food/xiaba-flavor.webp', price: '图片参考菜单：¥15起',
-                description: '台湾风味小吃，适合快速解决一餐。',
-                url: 'https://uri.amap.com/marker?position=115.379788,22.78886&name=呷霸风味堂'
-            },
-            niujang: {
-                name: '牛将烧肉', menu: 'img/food/niujang-yakiniku.webp', price: '图片参考菜单：¥42起',
-                description: '烧肉聚餐选择，适合避开景区海鲜高峰。',
-                url: 'https://uri.amap.com/marker?position=115.37962,22.788858&name=牛将烧肉'
-            },
-            yuxin: {
-                name: '愈欣书店', menu: 'img/food/yuxin-bookstore.webp', price: '店内消费以现场为准',
-                description: '用餐后可顺路逛逛的书店，适合拍照、阅读和休息。',
-                url: 'https://uri.amap.com/marker?position=115.379708,22.78854&name=愈欣书店'
-            }
-        };
+    // Language & Dark Mode
+    const setLanguage = english => {
+      document.querySelectorAll('[data-lang]').forEach(el => el.textContent = english ? el.dataset.langEn : el.dataset.lang);
+      document.querySelectorAll('[data-lang-placeholder]').forEach(el => el.placeholder = english ? el.dataset.langPlaceholderEn : el.dataset.langPlaceholder);
+      document.getElementById('langButton').textContent = english ? '中文' : 'EN';
+      document.documentElement.lang = english ? 'en' : 'zh-CN';
+      localStorage.setItem('jtw360-language', english ? 'en' : 'zh');
+    };
+    document.getElementById('langButton').addEventListener('click', () => setLanguage(localStorage.getItem('jtw360-language') !== 'en'));
 
-        function openRestaurantDetail(id) {
-            const detail = restaurantDetails[id];
-            if (!detail) return;
-            const contact = detail.phone ? `<p class="detail-meta">电话：<a href="tel:${detail.phone.replace(/[^0-9]/g, '')}">${detail.phone}</a></p>` : '';
-            const meituan = detail.meituan ? `<a class="spot-action" href="${detail.meituan}" target="_blank" rel="noreferrer">打开美团</a>` : '';
-            document.getElementById('restaurantDetailContent').innerHTML = `
-                <h3>${detail.name}</h3>
-                <p class="detail-meta">${detail.description}</p>
-                ${detail.address ? `<p class="detail-meta">地址：${detail.address}</p>` : ''}
-                ${contact}
-                <img class="restaurant-detail-image" src="${detail.menu}" alt="${detail.name}完整菜单">
-                <p class="spot-price">${detail.price}</p>
-                <div class="restaurant-detail-actions">
-                    <a class="spot-action" href="${detail.url}" target="_blank" rel="noreferrer"><i class="fas fa-location-arrow"></i> 导航</a>
-                    ${meituan}
-                    <button class="restaurant-detail-close" type="button" onclick="closeRestaurantDetail()">关闭</button>
-                </div>`;
-            document.getElementById('restaurantDetailModal').classList.add('show');
-        }
+    document.getElementById('themeButton').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('jtw360-theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
 
-        function closeRestaurantDetail() {
-            document.getElementById('restaurantDetailModal').classList.remove('show');
-        }
+    if (localStorage.getItem('jtw360-theme') === 'dark') document.body.classList.add('dark-mode');
+    if (localStorage.getItem('jtw360-language') === 'en') setLanguage(true);
 
-        function openLightbox(src) {
-            if(!src || src.includes('undefined')) return;
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').classList.add('show');
-        }
+    // Mobile Search Bar Handler (fixed top bar slides in once scrolled, or on demand)
+    const mobileSearchInput = document.getElementById('mobileSearchInput');
+    const heroSearchInput = document.getElementById('heroSearchInput');
+    const heroSearchBtn = document.getElementById('heroSearchBtn');
+    let mobileBarClosedManually = false;
 
-        function closeLightbox(event) {
-            document.getElementById('lightbox').classList.remove('show');
-        }
+    function setMobileBarVisible(visible) {
+      document.body.classList.toggle('show-mobile-search', visible);
+    }
+    function updateMobileBar() {
+      if (document.body.classList.contains('detail-open')) return;
+      if (window.scrollY > 90) {
+        if (!mobileBarClosedManually) setMobileBarVisible(true);
+      } else {
+        setMobileBarVisible(false);
+        if (window.scrollY < 10) mobileBarClosedManually = false;
+      }
+    }
+    window.addEventListener('scroll', updateMobileBar, { passive: true });
+    updateMobileBar();
 
-        function showWechatModal() {
-            document.getElementById('wechatModal').classList.add('show');
-        }
+    function openMobileSearch() {
+      mobileBarClosedManually = false;
+      setMobileBarVisible(true);
+      closeSearch();
+      requestAnimationFrame(() => mobileSearchInput?.focus());
+    }
+    function closeMobileSearch() {
+      mobileBarClosedManually = true;
+      setMobileBarVisible(false);
+      if (mobileSearchInput) mobileSearchInput.value = '';
+      closeSearch();
+    }
+    document.getElementById('mobileSearchOpen').addEventListener('click', openMobileSearch);
+    document.getElementById('mobileSearchClose').addEventListener('click', closeMobileSearch);
 
-        function copyWechatId() {
-            const wechatId = 'feel607';
-            const status = document.getElementById('copyStatus');
-            const copiedText = document.querySelector('.lang-toggle').textContent === '中文' ? '已复制微信号' : 'WeChat ID copied';
+    function handleSearch(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) { closeSearch(); return; }
+      const matches = allItems.filter(item => (item.name + (item.en || '') + (item.desc || '') + (item.category || '')).toLowerCase().includes(q));
+      if (matches.length) {
+        document.getElementById('resultGrid').innerHTML = matches.map(card).join('');
+        document.getElementById('searchSummary').textContent = `找到 ${matches.length} 个相关地点与服务`;
+      } else {
+        document.getElementById('resultGrid').innerHTML = '<div class="empty">没有找到相关地点或服务，试试其他关键词（如：海鲜、沙滩、停车）。</div>';
+        document.getElementById('searchSummary').textContent = '';
+      }
+      searchResults.classList.add('show');
+      searchResults.scrollIntoView({ behavior: 'smooth' });
+    }
 
-            const showCopiedStatus = () => {
-                status.textContent = copiedText;
-                setTimeout(() => {
-                    status.textContent = document.querySelector('.lang-toggle').textContent === '中文' ? status.dataset.langEn : status.dataset.lang;
-                }, 1800);
-            };
+    mobileSearchInput?.addEventListener('input', e => handleSearch(e.target.value));
+    heroSearchInput?.addEventListener('input', e => handleSearch(e.target.value));
+    heroSearchBtn?.addEventListener('click', () => handleSearch(heroSearchInput?.value || ''));
 
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(wechatId).then(showCopiedStatus).catch(() => showCopiedStatus());
-                return;
-            }
-
-            const input = document.createElement('textarea');
-            input.value = wechatId;
-            input.style.position = 'fixed';
-            input.style.opacity = '0';
-            document.body.appendChild(input);
-            input.select();
-            document.execCommand('copy');
-            input.remove();
-            showCopiedStatus();
-        }
-
-        function openWechat() {
-            window.location.href = 'weixin://dl/add?username=feel607';
-            setTimeout(() => {
-                const status = document.getElementById('copyStatus');
-                status.textContent = document.querySelector('.lang-toggle').textContent === '中文' ? '如果未自动打开微信，请手动打开微信搜索 feel607' : 'If WeChat did not open, search feel607 in WeChat manually';
-            }, 1200);
-        }
-
-        function closeModal(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('show');
-            }
-        }
-
-        function applyTheme(dark) {
-            document.body.classList.toggle('dark-mode', dark);
-            const btn = document.querySelector('.mode-toggle i');
-            if (btn) btn.className = dark ? 'fas fa-sun' : 'fas fa-moon';
-        }
-
-        function toggleMode() {
-            const dark = !document.body.classList.contains('dark-mode');
-            applyTheme(dark);
-            try { localStorage.setItem('jtw360-theme', dark ? 'dark' : 'light'); } catch (e) {}
-        }
-
-        // 恢复上次选择的主题
-        try {
-            if (localStorage.getItem('jtw360-theme') === 'dark') applyTheme(true);
-        } catch (e) {}
-
-        function toggleLanguage() {
-            const btn = document.querySelector('.lang-toggle');
-            const isEnglish = btn.textContent === '中文';
-            
-            if (isEnglish) {
-                btn.textContent = 'EN';
-                document.querySelectorAll('[data-lang]').forEach(el => {
-                    el.textContent = el.dataset.lang;
-                });
-            } else {
-                btn.textContent = '中文';
-                document.querySelectorAll('[data-lang]').forEach(el => {
-                    el.textContent = el.dataset.langEn;
-                });
-            }
-        }
-    </script>
+    routeFromUrl();
+  </script>
 </body>
 </html>
