@@ -11,6 +11,7 @@
   <base href="/">
   <title>JTW360 · 金町湾本地生活指南</title>
   <link rel="preload" as="image" href="img/generated/jinting-bay-hero.webp">
+  <link rel="icon" type="image/png" href="img/jtw360logo-sm.png">
   <style>
     :root {
       --primary: #0066ff;
@@ -161,16 +162,19 @@
     .brand-logo-wrap {
       width: 38px;
       height: 38px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
       display: grid;
       place-items: center;
-      font-weight: 900;
-      font-size: 17px;
-      letter-spacing: -0.04em;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 2px 12px rgba(8, 25, 48, 0.25);
+    }
+    .brand-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
     .brand-text {
       display: flex;
@@ -1660,7 +1664,7 @@
         <div class="hero-inner">
           <div class="topbar">
             <a class="brand" href="/" aria-label="JTW360 首页">
-              <div class="brand-logo-wrap">J</div>
+              <div class="brand-logo-wrap"><img src="img/jtw360logo-sm.png" alt="JTW360 logo"></div>
               <div class="brand-text">
                 <strong>JTW360</strong>
                 <small data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</small>
@@ -1862,7 +1866,8 @@
       {slug:'honghaiwan-castle', name:'红海湾古堡', en:'Honghaiwan Castle', image:'img/gubao.jpeg', distance:'39km', rating:'4.5', type:'history', category:'spot', desc:'网红海上古堡，风格独特，电影感十足。', enDesc:'A cinematic seaside castle.', url:AMap('南海观音古堡',115.569269,22.662093)},
       {slug:'houao-glass-sea', name:'后澳玻璃海', en:'Houao Glass Sea', image:'img/generated/houao-glass-sea.webp', distance:'约40km', rating:'4.8', type:'sea', category:'spot', desc:'红海湾原生态果冻海，海水清澈见底，适合晴天打卡。', enDesc:'A clear turquoise cove in Shanwei Red Bay.', url:AMap('后澳玻璃海',115.567242,22.680840), tips:['晴天海水颜色和通透度更好','礁石湿滑，建议穿防滑鞋','出发前留意潮汐、天气和现场开放情况']},
       {slug:'shiqundao', name:'石群岛', en:'Shiqundao Scenic Area', image:'img/generated/shiqundao.webp', distance:'约40km', rating:'4.7', type:'history', category:'spot', desc:'红海湾海蚀奇观，岩石群与海浪同框，适合摄影打卡。', enDesc:'Dramatic sea-eroded rock formations in Shanwei Red Bay.', url:'https://uri.amap.com/search?keyword='+encodeURIComponent('汕尾石群岛奇观景区'), tips:['景区以海蚀岩石和礁岸风景为主','建议穿防滑鞋，不要攀爬湿滑礁石','出发前以高德地图和现场开放信息为准']},
-      {slug:'windmill-island', name:'风车岛', en:'Windmill Island', image:'img/fengche.jpeg', distance:'45km', rating:'4.4', type:'sea', category:'spot', desc:'唯美风车群与沿海公路，适合拍照。', enDesc:'Windmills and a beautiful coastal road.', url:AMap('风车岛',115.586019,22.736799)}
+      {slug:'windmill-island', name:'风车岛', en:'Windmill Island', image:'img/fengche.jpeg', distance:'45km', rating:'4.4', type:'sea', category:'spot', desc:'唯美风车群与沿海公路，适合拍照。', enDesc:'Windmills and a beautiful coastal road.', url:AMap('风车岛',115.586019,22.736799)},
+      {slug:'west-beach-park', name:'西沙滩公园', en:'Xishatan Park', image:'img/west-beach-park.jpg', distance:'附近', rating:'5.0', type:'sea', category:'spot', desc:'五星好评的热门打卡点，导航直达。', enDesc:'A top-rated popular spot, ready to navigate.', url:AMap('西沙滩公园',115.340372,22.783278)}
     ];
 
     const foods = [
@@ -1908,8 +1913,7 @@
     ].map(([slug,name,en,desc,tag,image,lng,lat])=>({slug,name,en,desc,image,tag,lng,lat,category:'charging',type:'service',url:AMap(name,lng,lat)}));
 
     const utilityPlaces = [
-      {slug:'public-restroom',name:'公共厕所',en:'Public Restroom',category:'restroom',type:'service',lng:115.292562,lat:22.795063,desc:'金町湾公共厕所，点击导航直达。'},
-      {slug:'west-beach-park',name:'西沙滩公园',en:'Xishatan Park',category:'spot',type:'service',image:'img/west-beach-park.jpg',rating:'5.0',lng:115.340372,lat:22.783278,desc:'五星好评的热门打卡点，导航直达。',enDesc:'A top-rated popular spot, ready to navigate.'}
+      {slug:'public-restroom',name:'公共厕所',en:'Public Restroom',category:'restroom',type:'service',lng:115.292562,lat:22.795063,desc:'金町湾公共厕所，点击导航直达。'}
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat)}));
 
     const regularFoods = foods.slice(0, 9);
@@ -1960,7 +1964,9 @@
     
     const navButton = item => `<a class="nav-btn" href="${item.url}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()"><svg class="icon"><use href="#i-pin"></use></svg>${text('高德导航','Navigate')}</a>`;
     
-    const card = item => `
+    const card = item => {
+      const metaLabel = item.type === 'food' ? text('精选餐饮','Food Pick') : (item.category === 'spot' ? text('景点推荐','Must-Visit') : '');
+      return `
       <article class="place-card" data-slug="${item.slug}" onclick="openDetail('${item.slug}')">
         <div class="place-image">
           <img loading="lazy" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
@@ -1970,14 +1976,14 @@
           <h3 class="place-name">${text(item.name,item.en)}</h3>
           <div class="place-meta">
             <span class="rating-pill">★ ${item.rating || '4.6'}</span>
-            <span>·</span>
-            <span>${text(item.type === 'food' ? '精选餐饮' : '景点推荐', item.type === 'food' ? 'Food Pick' : 'Must-Visit')}</span>
+            ${metaLabel ? `<span>·</span><span>${metaLabel}</span>` : ''}
           </div>
           <p class="place-desc">${text(item.desc || '靠近金町湾，适合直接导航。', item.enDesc || 'Close to Jinting Bay, ready to navigate.')}</p>
           ${navButton(item)}
         </div>
       </article>
     `;
+    };
 
     const foodCard = item => `
       <article class="food-card" data-food-category="${item.category}" data-slug="${item.slug}" onclick="openDetail('${item.slug}')">
@@ -2068,8 +2074,7 @@
       ['ermaluParkingResource','i-car','二马路停车指南','Ermalu parking guide','凭票免费停车2–3小时','blue',ermaluParking],
       ['luggageResource','i-bag','行李寄存','Luggage storage','4个寄存柜','orange',luggage],
       ['chargingResource','i-bolt','充电桩','EV charging','3个免停车费充电点','green',charging],
-      ['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]],
-      ['hotspotResource','i-camera','热门打卡点','Popular spot','西沙滩公园 · 五星好评','purple',utilityPlaces.filter(item=>item.category==='spot')]
+      ['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]]
     ];
 
     document.getElementById('resourceGrid').innerHTML = resourceData.map(([id,icon,cn,en,desc,color,items])=>`
