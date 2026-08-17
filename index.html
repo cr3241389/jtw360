@@ -369,34 +369,6 @@
       transform: scale(0.97);
     }
 
-    /* Weather Pill */
-    .weather-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #ffffff;
-      font-size: 13px;
-    }
-    .weather-pill .sun {
-      font-size: 18px;
-      line-height: 1;
-    }
-    .weather-pill strong {
-      font-weight: 800;
-      font-size: 15px;
-    }
-    .weather-pill span.sub {
-      opacity: 0.85;
-      font-size: 12px;
-      margin-left: 4px;
-    }
-
     /* ==========================================================================
        QUICK ACTIONS (金刚区 - 8大核心功能)
        ========================================================================== */
@@ -1384,10 +1356,6 @@
         padding: 0 16px;
         font-size: 12px;
       }
-      .weather-pill {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
 
       .quick-wrap {
         margin-top: -24px;
@@ -1725,11 +1693,6 @@
                 <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
                 <input id="heroSearchInput" type="search" placeholder="搜景点、美食、免费停车、充电桩…" data-lang-placeholder="搜景点、美食、免费停车、充电桩…" data-lang-en-placeholder="Search places, food, parking…">
                 <button class="search-btn" id="heroSearchBtn" type="button" data-lang="搜索" data-lang-en="Search">搜索</button>
-              </div>
-              <div class="weather-pill">
-                <span class="sun">☼</span>
-                <strong>26°C</strong>
-                <span class="sub" data-lang="汕尾 · 晴" data-lang-en="Shanwei · Clear">汕尾 · 晴</span>
               </div>
             </div>
           </div>
@@ -2070,24 +2033,27 @@
     `;
 
     const quickActions = [
-      ['i-car','免费停车','Free parking','blue','#parkingResource'],
+      ['i-car','免费停车','Free parking','blue','parkingResource'],
       ['i-food','平价餐厅','Affordable food','orange','#food'],
       ['i-map','避堵美食','Less-crowded food','amber','#trafficFood'],
       ['i-camera','热门打卡点','Popular spots','purple','#nearby'],
-      ['i-bag','行李寄存','Luggage','orange','#luggageResource'],
-      ['i-bolt','充电桩','EV charging','green','#chargingResource'],
-      ['i-pin','洗手间','Restroom','service','#restroomResource'],
-      ['i-hospital','医院医疗','Hospital','green','#hospitalResource']
+      ['i-bag','行李寄存','Luggage','orange','luggageResource'],
+      ['i-bolt','充电桩','EV charging','green','chargingResource'],
+      ['i-pin','洗手间','Restroom','service','restroomResource'],
+      ['i-hospital','医院医疗','Hospital','green','hospitalResource']
     ];
 
-    document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,color,target])=>`
-      <a class="quick-action" href="${target}">
+    // 板块类入口（#开头）：锚点直达，内容已就绪；资源类入口：一次点击立即展开对应内容，无需二次点击
+    document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,color,target])=>{
+      const isSection = target.startsWith('#');
+      return `
+      <a class="quick-action" href="${isSection ? target : '#' + target}"${isSection ? '' : ` onclick="event.preventDefault(); showResource('${target}')"`}>
         <span class="quick-icon-wrap ${color}">
           <svg class="icon"><use href="#${icon}"></use></svg>
         </span>
         <span class="label">${text(cn,en)}</span>
       </a>
-    `).join('');
+    `}).join('');
 
     const nearbyList = document.getElementById('nearbyList');
     nearbyList.innerHTML = places.map(card).join('');
