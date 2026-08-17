@@ -1894,18 +1894,17 @@
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat),type:'service'}));
 
     const luggage = [
-      ['yuehai-locker','玥海北门1号存包柜','Yuehai North Gate No.1 Locker','位于玥海小区北门，提供自助存包服务。',115.29294,22.792649],
-      ['sail-auditorium-locker','风帆礼堂沙滩入口存包柜','Sail Auditorium Beach Entrance Locker','位于风帆礼堂沙滩入口处，方便游客存放物品。',115.292332,22.791426],
-      ['duxiuju-locker','独秀居南门存包柜','Duxiu Ju South Gate Locker','位于独秀居小区南门，提供安全的存包服务。',115.298001,22.795466],
-      ['tinghai-locker','听海沙滩入口存包柜','Tinghai Beach Entrance Locker','位于听海沙滩入口处，方便游客就近存放物品。',115.288851,22.791529]
-    ].map(([slug,name,en,desc,lng,lat])=>({slug,name,en,desc,lng,lat,category:'luggage',type:'service',url:AMap(name,lng,lat)}));
+      ['yuehai-locker','玥海北门1号存包柜','Yuehai North Gate No.1 Locker','位于玥海小区北门，提供自助存包服务。','img/locker.jpg',115.29294,22.792649],
+      ['sail-auditorium-locker','风帆礼堂沙滩入口存包柜','Sail Auditorium Beach Entrance Locker','位于风帆礼堂沙滩入口处，方便游客存放物品。','img/locker.jpg',115.292332,22.791426],
+      ['duxiuju-locker','独秀居南门存包柜','Duxiu Ju South Gate Locker','位于独秀居小区南门，提供安全的存包服务。','img/locker.jpg',115.298001,22.795466],
+      ['tinghai-locker','听海沙滩入口存包柜','Tinghai Beach Entrance Locker','位于听海沙滩入口处，方便游客就近存放物品。','img/locker.jpg',115.288851,22.791529]
+    ].map(([slug,name,en,desc,image,lng,lat])=>({slug,name,en,desc,image,lng,lat,category:'luggage',type:'service',url:AMap(name,lng,lat)}));
 
     const charging = [
-      ['jinshawan-1-charger','金沙湾1号充电站','Jinshawan No.1 Station','位于海遇小区、华夏金沙湾、天奕附近。','快充11个桩',115.291382,22.796298],
-      ['jinshawan-2-charger','金沙湾2号充电站','Jinshawan No.2 Station','位于海遇小区、华夏金沙湾、天奕、天銮附近。','快充11个桩',115.29426,22.796553],
-      ['weijingyun-charger','蔚景云充电站','Weijingyun Station','位于无双墅、亲海寓、玥海附近。','快充12个桩',115.296043,22.79367],
-      ['nanwang-charger','南网充电站','Nanwang Station','位于无双墅、亲海寓、玥海附近。','快充',115.297225,22.793636]
-    ].map(([slug,name,en,desc,tag,lng,lat])=>({slug,name,en,desc,tag,lng,lat,category:'charging',type:'service',url:AMap(name,lng,lat)}));
+      ['jinshawan-1-charger','金沙湾1号充电站','Jinshawan No.1 Station','位于海遇小区、华夏金沙湾、天奕附近。','快充11个桩','img/jinshawan-1-charger.jpg',115.291382,22.796298],
+      ['jinshawan-2-charger','金沙湾2号充电站','Jinshawan No.2 Station','位于海遇小区、华夏金沙湾、天奕、天銮附近。','快充11个桩','img/jinshawan-2-charger.jpg',115.29426,22.796553],
+      ['weijingyun-charger','蔚景云充电站','Weijingyun Station','位于无双墅、亲海寓、玥海附近。','快充12个桩','img/weijingyun-charger.jpg',115.296043,22.79367]
+    ].map(([slug,name,en,desc,tag,image,lng,lat])=>({slug,name,en,desc,image,tag,lng,lat,category:'charging',type:'service',url:AMap(name,lng,lat)}));
 
     const utilityPlaces = [
       {slug:'public-restroom',name:'公共厕所',en:'Public Restroom',category:'restroom',type:'service',lng:115.292562,lat:22.795063,desc:'金町湾公共厕所，点击导航直达。'},
@@ -2066,7 +2065,7 @@
       ['parkingResource','i-car','免费停车场','Free parking','3个免费停车点','blue',freeParking],
       ['ermaluParkingResource','i-car','二马路停车指南','Ermalu parking guide','凭票免费停车2–3小时','blue',ermaluParking],
       ['luggageResource','i-bag','行李寄存','Luggage storage','4个寄存柜','orange',luggage],
-      ['chargingResource','i-bolt','充电桩','EV charging','4个免停车费充电点','green',charging],
+      ['chargingResource','i-bolt','充电桩','EV charging','3个免停车费充电点','green',charging],
       ['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]],
       ['fireworksResource','i-camera','烟花燃放点','Fireworks area','西沙滩公园烟花点','purple',utilityPlaces.filter(item=>item.category==='fireworks')]
     ];
