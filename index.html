@@ -601,6 +601,34 @@
       font-weight: 700;
       letter-spacing: 0.02em;
     }
+    .notice-badge {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      box-shadow: 0 2px 10px rgba(239, 68, 68, 0.45);
+    }
+    .notice-banner {
+      margin: 0 0 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: var(--accent-coral-soft);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #dc2626;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    body.dark-mode .notice-banner {
+      color: #fca5a5;
+      background: rgba(239, 68, 68, 0.16);
+      border-color: rgba(239, 68, 68, 0.35);
+    }
 
     .place-body {
       padding: 16px;
@@ -1852,10 +1880,13 @@
   <script>
     const AMap = (name, lng, lat) => `https://uri.amap.com/marker?position=${lng},${lat}&name=${encodeURIComponent(name)}`;
     
+    // 距离解析：'5.8km' → 5.8，'约40km' → 40
+    const parseDist = d => parseFloat(String(d || '').replace('约','').replace('km','')) || 9999;
+
     const places = [
       {slug:'jinxia-guang-forest', name:'金霞光森林公园', en:'Jinxiaguang Forest Park', image:'img/jinxia.jpg', distance:'2.0km', rating:'4.8', type:'park', category:'spot', desc:'滨海森林公园，日落绝美，山海境特色布局。', enDesc:'Coastal forest park with beautiful sunsets.', url:AMap('金霞光森林公园',115.28309,22.801956)},
       {slug:'baihesi-beach', name:'白鹤寺海滩', en:'Baihe Temple Beach', image:'img/baihe.jpg', distance:'2.0km', rating:'4.7', type:'sea', category:'spot', desc:'赶海圣地，黑礁石与鹅卵石风景独特。', enDesc:'A beachcombing spot with black reefs and pebbles.', url:AMap('白鹤寺',115.277448,22.790192), tips:['下午4–6点来最美，可以拍到日落','退潮时适合赶海，注意礁石湿滑','建议穿防滑鞋并带好饮用水和防晒用品']},
-      {slug:'changsha-fort', name:'长沙炮台', en:'Changsha Fort', image:'img/paotai.jpeg', distance:'5.0km', rating:'4.6', type:'history', category:'spot', desc:'清代炮台，历史感与海景同框。', enDesc:'A historic coastal fort with sea views.', url:AMap('长沙炮台',115.273266,22.82449)},
+      {slug:'changsha-fort', name:'长沙炮台', en:'Changsha Fort', image:'img/paotai.jpeg', distance:'5.0km', rating:'4.6', type:'history', category:'spot', desc:'清代炮台，历史感与海景同框。', enDesc:'A historic coastal fort with sea views.', notice:'升级维护中', url:AMap('长沙炮台',115.273266,22.82449)},
       {slug:'ermalu-food-street', name:'二马路美食街', en:'Ermalu Food Street', image:'img/ermalu.png', distance:'8.3km', rating:'4.8', type:'local', category:'spot', desc:'汕尾美食聚集地，夜间烟火气最足。', enDesc:'Shanwei food street, liveliest at night.', url:AMap('二马路',115.359916,22.773525)},
       {slug:'magong-beach', name:'马宫沙滩', en:'Magong Beach', image:'img/magong.jpg', distance:'8km', rating:'4.4', type:'sea', category:'spot', desc:'小众无人沙滩，海上吊桥拍照出片。', enDesc:'A quiet beach with a photogenic sea bridge.', url:AMap('马宫沙滩',115.244504,22.784115)},
       {slug:'chenzhou-village', name:'晨洲村', en:'Chenzhou Village', image:'img/chenzhou.jpeg', distance:'9km', rating:'4.3', type:'local', category:'spot', desc:'中国蚝乡，有蚝博物馆和水上公路。', enDesc:'Oyster village with a museum and water road.', url:AMap('晨洲村',115.299666,22.848598)},
@@ -1868,7 +1899,7 @@
       {slug:'shiqundao', name:'石群岛', en:'Shiqundao Scenic Area', image:'img/generated/shiqundao.webp', distance:'约40km', rating:'4.7', type:'history', category:'spot', desc:'红海湾海蚀奇观，岩石群与海浪同框，适合摄影打卡。', enDesc:'Dramatic sea-eroded rock formations in Shanwei Red Bay.', url:'https://uri.amap.com/search?keyword='+encodeURIComponent('汕尾石群岛奇观景区'), tips:['景区以海蚀岩石和礁岸风景为主','建议穿防滑鞋，不要攀爬湿滑礁石','出发前以高德地图和现场开放信息为准']},
       {slug:'windmill-island', name:'风车岛', en:'Windmill Island', image:'img/fengche.jpeg', distance:'45km', rating:'4.4', type:'sea', category:'spot', desc:'唯美风车群与沿海公路，适合拍照。', enDesc:'Windmills and a beautiful coastal road.', url:AMap('风车岛',115.586019,22.736799)},
       {slug:'west-beach-park', name:'西沙滩公园', en:'Xishatan Park', image:'img/west-beach-park.jpg', distance:'5.8km', rating:'5.0', type:'sea', category:'spot', desc:'免费开放的落日观景点：沙滩细软、人比金町湾少，沿路可免费停车，傍晚看日落非常出片。', enDesc:'A free sunset viewpoint with fine sand and fewer crowds than Jinting Bay, plus free roadside parking.', url:AMap('西沙滩公园',115.340372,22.783278)}
-    ];
+    ].sort((a,b)=>parseDist(a.distance)-parseDist(b.distance));
 
     const foods = [
       {slug:'kfc-jinting',name:'肯德基',en:'KFC',category:'fast',image:'img/food/kfc-thumb.webp',menuImage:'img/food/kfc.webp',distance:'0.4km',price:'参考人均：¥20–45',meal:['早餐'],tags:['meituan','douyin'],lng:115.292374,lat:22.795705},
@@ -1971,6 +2002,7 @@
         <div class="place-image">
           <img loading="lazy" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
           <span class="distance-badge">${item.distance || '附近'}</span>
+          ${item.notice ? `<span class="notice-badge">${text(item.notice, 'Under Maintenance')}</span>` : ''}
         </div>
         <div class="place-body">
           <h3 class="place-name">${text(item.name,item.en)}</h3>
@@ -2201,6 +2233,7 @@
                 <span class="tag">${text(item.type === 'food' ? '平价美食' : item.category === 'spot' ? '观光景点' : item.category === 'hospital' ? '医疗服务' : '便民服务', item.type === 'food' ? 'Food' : item.category)}</span>
               </div>
               <p style="font-size:15px;line-height:1.6;margin:16px 0;color:var(--ink-secondary)">${text(item.desc || '靠近金町湾，适合直接导航。', item.enDesc || 'Close to Jinting Bay, ready to navigate.')}</p>
+              ${item.notice ? `<p class="notice-banner">${text('⚠ ' + item.notice + '，出发前请确认开放情况', '⚠ Under maintenance — check opening status before you go')}</p>` : ''}
               ${item.price ? `<p style="margin:8px 0;font-size:14px;color:var(--ink)"><strong>${item.price}</strong></p>` : ''}
               ${item.address ? `<p style="margin:8px 0;font-size:13px;color:var(--muted)">地址：${item.address}</p>` : ''}
               ${item.phone ? `<p style="margin:8px 0;font-size:13px;color:var(--muted)">${text('电话：','Tel: ')}<a href="tel:${item.phone.replace(/\s*\/\s*.*/, '')}" style="color:var(--primary);font-weight:700">${item.phone}</a></p>` : ''}
