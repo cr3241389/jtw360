@@ -7,11 +7,14 @@
   <meta name="description" content="JTW360 金町湾本地生活指南：景点、美食、免费停车、洗手间、医院、充电桩、行李寄存与高德地图导航。">
   <meta property="og:title" content="JTW360 · 金町湾本地生活指南">
   <meta property="og:description" content="本地人帮你筛选真正实用的吃、住、玩与出行信息。">
-  <meta property="og:image" content="img/generated/jinting-bay-hero.webp">
+  <meta property="og:image" content="https://www.jtw360.com/img/generated/jinting-bay-hero.webp">
+  <meta property="og:url" content="https://www.jtw360.com/">
+  <link rel="canonical" href="https://www.jtw360.com/">
   <base href="/">
   <title>JTW360 · 金町湾本地生活指南</title>
   <link rel="preload" as="image" href="img/generated/jinting-bay-hero.webp">
   <link rel="icon" type="image/png" href="img/jtw360logo-sm.png">
+  <link rel="apple-touch-icon" href="img/jtw360logo-sm.png">
   <style>
     :root {
       --primary: #0066ff;
@@ -52,6 +55,14 @@
       --radius-full: 9999px;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
       --safe-top: env(safe-area-inset-top, 0px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -1692,7 +1703,7 @@
         <div class="hero-inner">
           <div class="topbar">
             <a class="brand" href="/" aria-label="JTW360 首页">
-              <div class="brand-logo-wrap"><img src="img/jtw360logo-sm.png" alt="JTW360 logo"></div>
+              <div class="brand-logo-wrap"><img src="img/jtw360logo-sm.png" alt="JTW360 logo" decoding="async"></div>
               <div class="brand-text">
                 <strong>JTW360</strong>
                 <small data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</small>
@@ -1887,12 +1898,12 @@
       {slug:'jinxia-guang-forest', name:'金霞光森林公园', en:'Jinxiaguang Forest Park', image:'img/jinxia.jpg', distance:'2.0km', rating:'4.8', type:'park', category:'spot', desc:'滨海森林公园，日落绝美，山海境特色布局。', enDesc:'Coastal forest park with beautiful sunsets.', url:AMap('金霞光森林公园',115.28309,22.801956)},
       {slug:'baihesi-beach', name:'白鹤寺海滩', en:'Baihe Temple Beach', image:'img/baihe.jpg', distance:'2.0km', rating:'4.7', type:'sea', category:'spot', desc:'赶海圣地，黑礁石与鹅卵石风景独特。', enDesc:'A beachcombing spot with black reefs and pebbles.', url:AMap('白鹤寺',115.277448,22.790192), tips:['下午4–6点来最美，可以拍到日落','退潮时适合赶海，注意礁石湿滑','建议穿防滑鞋并带好饮用水和防晒用品']},
       {slug:'changsha-fort', name:'长沙炮台', en:'Changsha Fort', image:'img/paotai.jpeg', distance:'5.0km', rating:'4.6', type:'history', category:'spot', desc:'清代炮台，历史感与海景同框。', enDesc:'A historic coastal fort with sea views.', notice:'升级维护中', url:AMap('长沙炮台',115.273266,22.82449)},
-      {slug:'ermalu-food-street', name:'二马路美食街', en:'Ermalu Food Street', image:'img/ermalu.png', distance:'8.3km', rating:'4.8', type:'local', category:'spot', desc:'汕尾美食聚集地，夜间烟火气最足。', enDesc:'Shanwei food street, liveliest at night.', url:AMap('二马路',115.359916,22.773525)},
+      {slug:'ermalu-food-street', name:'二马路美食街', en:'Ermalu Food Street', image:'img/ermalu.jpg', distance:'8.3km', rating:'4.8', type:'local', category:'spot', desc:'汕尾美食聚集地，夜间烟火气最足。', enDesc:'Shanwei food street, liveliest at night.', url:AMap('二马路',115.359916,22.773525)},
       {slug:'magong-beach', name:'马宫沙滩', en:'Magong Beach', image:'img/magong.jpg', distance:'8km', rating:'4.4', type:'sea', category:'spot', desc:'小众无人沙滩，海上吊桥拍照出片。', enDesc:'A quiet beach with a photogenic sea bridge.', url:AMap('马宫沙滩',115.244504,22.784115)},
       {slug:'chenzhou-village', name:'晨洲村', en:'Chenzhou Village', image:'img/chenzhou.jpeg', distance:'9km', rating:'4.3', type:'local', category:'spot', desc:'中国蚝乡，有蚝博物馆和水上公路。', enDesc:'Oyster village with a museum and water road.', url:AMap('晨洲村',115.299666,22.848598)},
       {slug:'xiaodao-village', name:'小岛渔村', en:'Xiaodao Fishing Village', image:'img/xiaodao.webp', distance:'11km', rating:'4.5', type:'local', category:'spot', desc:'品清湖中央的复古渔船厂与砖红栈道。', enDesc:'A retro fishing village in the middle of Pinqing Lake.', url:AMap('小岛渔村',115.372939,22.768537)},
       {slug:'fengshan-mazu', name:'凤山妈祖', en:'Fengshan Mazu Temple', image:'img/mazu.jpg', distance:'12km', rating:'4.5', type:'history', category:'spot', desc:'4A景区，汕尾文化信仰中心与地标建筑。', enDesc:'A cultural landmark and 4A scenic area.', url:AMap('凤山祖庙',115.370029,22.762059)},
-      {slug:'shanwei-museum', name:'汕尾博物馆', en:'Shanwei Museum', image:'img/museum.png', distance:'13km', rating:'4.5', type:'local', category:'spot', desc:'了解汕尾历史、文化与民俗的窗口。', enDesc:'A window into Shanwei history and culture.', url:AMap('汕尾市博物馆地上停车场',115.40,22.79)},
+      {slug:'shanwei-museum', name:'汕尾博物馆', en:'Shanwei Museum', image:'img/museum.jpg', distance:'13km', rating:'4.5', type:'local', category:'spot', desc:'了解汕尾历史、文化与民俗的窗口。', enDesc:'A window into Shanwei history and culture.', url:AMap('汕尾市博物馆地上停车场',115.40,22.79)},
       {slug:'tongdingshan', name:'铜鼎山旅游区', en:'Tongdingshan Scenic Area', image:'img/tongding.jpg', distance:'18km', rating:'4.2', type:'park', category:'spot', desc:'汕尾后花园，玻璃桥、七彩滑道等项目。', enDesc:'A hill park with a glass bridge and slides.', url:AMap('铜鼎山旅游区',115.365492,22.82482)},
       {slug:'honghaiwan-castle', name:'红海湾古堡', en:'Honghaiwan Castle', image:'img/gubao.jpeg', distance:'39km', rating:'4.5', type:'history', category:'spot', desc:'网红海上古堡，风格独特，电影感十足。', enDesc:'A cinematic seaside castle.', url:AMap('南海观音古堡',115.569269,22.662093)},
       {slug:'houao-glass-sea', name:'后澳玻璃海', en:'Houao Glass Sea', image:'img/generated/houao-glass-sea.webp', distance:'约40km', rating:'4.8', type:'sea', category:'spot', desc:'红海湾原生态果冻海，海水清澈见底，适合晴天打卡。', enDesc:'A clear turquoise cove in Shanwei Red Bay.', url:AMap('后澳玻璃海',115.567242,22.680840), tips:['晴天海水颜色和通透度更好','礁石湿滑，建议穿防滑鞋','出发前留意潮汐、天气和现场开放情况']},
@@ -1982,7 +1993,7 @@
         tips:['节假日镇上租实体店电动车通常比频繁开车找车位方便','共享电动车可能存在跨区域断电限制','海边风大，后澳和古堡实际观感受天气影响明显'], related:['windmill-island','houao-glass-sea','honghaiwan-castle','shiqundao']
       },
       {
-        slug:'shanwei-rainy-day', title:'雨天备用路线', en:'Rainy-Day Plan', audience:'下雨也能玩 · 城区逛吃', duration:'半天–1天', image:'img/museum.png',
+        slug:'shanwei-rainy-day', title:'雨天备用路线', en:'Rainy-Day Plan', audience:'下雨也能玩 · 城区逛吃', duration:'半天–1天', image:'img/museum.jpg',
         summary:'用博物馆、城区餐厅和喝茶替代湿滑海岸，天气转好再临时看海。', route:'汕尾博物馆 → 城区午餐 → 愈欣书店 → 二马路',
         intro:'雨天优先安排城区室内活动。海上古堡、赶海和湿滑礁石不作为固定行程，雨势减弱后再根据现场情况决定是否去海边。',
         days:[{title:'上午｜室内了解汕尾',route:'汕尾博物馆 → 城区午餐',note:'博物馆可避雨并了解本地历史文化，开放时间和停车信息请出发前再次确认。'},{title:'下午至晚上｜喝茶逛吃',route:'愈欣书店喝茶 → 城区平价餐厅 → 二马路',note:'二马路停车困难，建议使用信利大厦／信利城市广场停车指南，或直接打车前往。'}],
@@ -1998,9 +2009,9 @@
     const card = item => {
       const metaLabel = item.type === 'food' ? text('精选餐饮','Food Pick') : (item.category === 'spot' ? text('景点推荐','Must-Visit') : '');
       return `
-      <article class="place-card" data-slug="${item.slug}" onclick="openDetail('${item.slug}')">
+      <article class="place-card" data-slug="${item.slug}" tabindex="0" role="button" aria-label="${item.name}" onclick="openDetail('${item.slug}')">
         <div class="place-image">
-          <img loading="lazy" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
+          <img loading="lazy" decoding="async" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
           <span class="distance-badge">${item.distance || '附近'}</span>
           ${item.notice ? `<span class="notice-badge">${text(item.notice, 'Under Maintenance')}</span>` : ''}
         </div>
@@ -2018,8 +2029,8 @@
     };
 
     const foodCard = item => `
-      <article class="food-card" data-food-category="${item.category}" data-slug="${item.slug}" onclick="openDetail('${item.slug}')">
-        <img class="food-image" loading="lazy" src="${item.image}" alt="${item.name}">
+      <article class="food-card" data-food-category="${item.category}" data-slug="${item.slug}" tabindex="0" role="button" aria-label="${item.name}" onclick="openDetail('${item.slug}')">
+        <img class="food-image" loading="lazy" decoding="async" src="${item.image}" alt="${item.name}">
         <div class="food-info">
           <h3>${text(item.name,item.en)}</h3>
           <div class="food-sub">
@@ -2041,9 +2052,9 @@
     `;
 
     const guideCard = guide => `
-      <article class="guide-card" onclick="openGuide('${guide.slug}')">
+      <article class="guide-card" tabindex="0" role="button" aria-label="${guide.title}" onclick="openGuide('${guide.slug}')">
         <div class="guide-image-wrap">
-          <img class="guide-image" loading="lazy" src="${guide.image}" alt="${guide.title}">
+          <img class="guide-image" loading="lazy" decoding="async" src="${guide.image}" alt="${guide.title}">
           <div class="guide-kicker">
             <span class="guide-badge">${guide.audience}</span>
             <span class="guide-duration">${guide.duration}</span>
@@ -2061,8 +2072,8 @@
     `;
 
     const guidePlaceCard = item => `
-      <article class="guide-place" onclick="openDetail('${item.slug}')">
-        <img loading="lazy" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
+      <article class="guide-place" tabindex="0" role="button" aria-label="${item.name}" onclick="openDetail('${item.slug}')">
+        <img loading="lazy" decoding="async" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
         <div>
           <h3>${item.name}</h3>
           <p>${item.desc || '点击查看地点信息与高德导航。'}</p>
@@ -2110,7 +2121,7 @@
     ];
 
     document.getElementById('resourceGrid').innerHTML = resourceData.map(([id,icon,cn,en,desc,color,items])=>`
-      <article class="resource-card ${color}" id="${id}" tabindex="0" onclick="showResource('${id}')">
+      <article class="resource-card ${color}" id="${id}" tabindex="0" role="button" onclick="showResource('${id}')">
         <div class="resource-top">
           <span class="resource-icon-wrap">
             <svg class="icon"><use href="#${icon}"></use></svg>
@@ -2214,7 +2225,7 @@
         </div>
 
         <div class="detail-hero">
-          <img src="${image}" alt="${item.name}">
+          <img src="${image}" alt="${item.name}" decoding="async">
           <div class="detail-title">
             <h1>${text(item.name, item.en)}</h1>
             <div class="place-meta" style="color:rgba(255,255,255,0.9)">
@@ -2270,7 +2281,7 @@
             <div class="detail-card">
               <h2>${text('附近更多推荐','Nearby Recommendations')}</h2>
               <div class="food-grid" style="grid-template-columns:1fr">
-                ${(item.category === 'spot' ? foods.slice(0, 3) : places.slice(0, 3)).map(item.category === 'spot' ? foodCard : card).join('')}
+                ${(item.type === 'food' ? foods.filter(f => f.slug !== item.slug).slice(0, 3) : places.filter(p => p.slug !== item.slug).slice(0, 3)).map(item.type === 'food' ? foodCard : card).join('')}
               </div>
             </div>
           </aside>
@@ -2330,7 +2341,7 @@
         </div>
 
         <div class="detail-hero">
-          <img src="${guide.image}" alt="${guide.title}">
+          <img src="${guide.image}" alt="${guide.title}" decoding="async">
           <div class="detail-title">
             <h1>${text(guide.title, guide.en)}</h1>
             <div class="place-meta" style="color:rgba(255,255,255,0.9)">
@@ -2441,6 +2452,17 @@
     };
     window.addEventListener('scroll', updateNavSpy, { passive: true });
     updateNavSpy();
+
+    // Keyboard accessibility: Enter/Space activates card-style interactive elements
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      const target = event.target;
+      if (!target || typeof target.matches !== 'function') return;
+      if (target.matches('.place-card, .food-card, .guide-card, .guide-place, .resource-card, [data-filter], [data-favorite-button], .quick-action')) {
+        if (event.key === ' ') event.preventDefault();
+        target.click();
+      }
+    });
 
     // Language & Dark Mode
     const setLanguage = english => {
