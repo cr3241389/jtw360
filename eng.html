@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f4f7fb">
     <title>English Tense Builder (英语时态积木墙)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -306,6 +307,42 @@
             .block { padding: 10px 16px; font-size: 0.95rem; }
             .word-btn, .assembly-word { padding: 8px 16px; font-size: 1rem; }
         }
+
+        /* ---- UI refinement layer ---- */
+        body { -webkit-font-smoothing: antialiased; line-height: 1.5; padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom)); }
+        h1 { flex-wrap: wrap; text-align: center; line-height: 1.2; }
+        .game-container { max-width: 760px; }
+        .mode-selector { max-width: 100%; }
+        .mode-btn { min-height: 44px; white-space: nowrap; }
+        .mode-btn:hover:not(.active) { color: var(--text-color); }
+        .block, .word-btn, .assembly-word, .check-btn, .mode-btn { min-height: 44px; touch-action: manipulation; }
+        .block-label { flex-wrap: wrap; text-align: center; line-height: 1.4; }
+        .challenge-box, .display-area { overflow-wrap: anywhere; }
+        .display-area { padding: 1.5rem; }
+        .feedback { height: auto; min-height: 28px; text-align: center; }
+        .sentence-assembly { min-height: 64px; }
+        .test-input { font-size: 16px; }
+        button:focus-visible, .test-input:focus-visible {
+            outline: 3px solid rgba(74, 144, 226, 0.5);
+            outline-offset: 2px;
+        }
+        @media (min-width: 601px) and (max-width: 900px) {
+            .game-container { padding: 2rem; }
+            .score-board { top: 2rem; right: 2rem; }
+        }
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .game-container { padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem max(1.5rem, env(safe-area-inset-bottom)); }
+            h1 { font-size: 1.5rem; }
+            .score-board { margin-bottom: 1rem; }
+            .challenge-box { padding: 1.25rem; margin-bottom: 1.5rem; }
+            .display-area { margin: 1.5rem 0; padding: 1.25rem; }
+            .blocks, .word-bank { gap: 8px; }
+            .check-btn { max-width: 100%; padding: 14px 24px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
     </style>
 </head>
 <body>
@@ -368,7 +405,7 @@
     </div>
 
     <button id="check-btn" class="check-btn" disabled><i class="fas fa-check-circle"></i> Verify Tense</button>
-    <div id="feedback" class="feedback"></div>
+    <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
 </div>
 
 <script>
@@ -446,8 +483,8 @@
 
         checkBtn.addEventListener('click', handleMainAction);
         
-        testInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && gameStage === 'SENTENCE') {
+        testInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.isComposing && gameStage === 'SENTENCE') {
                 verifySentence();
             }
         });
@@ -556,7 +593,7 @@
         assemblyWord.className = 'assembly-word';
         assemblyWord.innerText = word;
         assemblyWord.onclick = () => {
-            const idx = builtSentence.lastIndexOf(word);
+            const idx = Array.from(sentenceAssembly.children).indexOf(assemblyWord);
             if (idx > -1) builtSentence.splice(idx, 1);
             assemblyWord.remove();
             btn.classList.remove('used');
@@ -571,7 +608,7 @@
         if (gameMode === 'BUILD') {
             userSentence = builtSentence.join(" ").toLowerCase().trim();
         } else {
-            userSentence = testInput.value.toLowerCase().trim().replace(/[.,!?;]$/, "");
+            userSentence = testInput.value.toLowerCase().trim().replace(/\s+/g, " ").replace(/[.,!?;]$/, "");
         }
 
         if (userSentence === target) {

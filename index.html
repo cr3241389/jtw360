@@ -1658,6 +1658,192 @@
         background: var(--primary);
       }
     }
+
+    /* ==========================================================================
+       UI REFINEMENT LAYER — typography, rhythm, desktop grids, a11y
+       ========================================================================== */
+    :root {
+      --page-gutter: 32px;
+      --section-gap: 56px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+    }
+    h1, h2, h3 { text-wrap: balance; }
+    p { text-wrap: pretty; }
+    img { max-width: 100%; }
+
+    /* Keyboard accessibility */
+    a:focus-visible, button:focus-visible, input:focus-visible,
+    .place-card:focus-visible, .food-card:focus-visible, .guide-card:focus-visible,
+    .resource-card:focus-visible, .guide-place:focus-visible {
+      outline: 3px solid rgba(0, 102, 255, 0.45);
+      outline-offset: 2px;
+    }
+    .search-capsule input:focus-visible { outline: none; }
+
+    /* Hero: richer depth and tighter vertical rhythm */
+    .hero {
+      background:
+        radial-gradient(120% 80% at 80% 0%, rgba(0, 102, 255, 0.22) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(8, 25, 48, 0.68) 0%, rgba(8, 25, 48, 0.2) 42%, rgba(8, 25, 48, 0.9) 100%),
+        url('img/generated/jinting-bay-hero.webp') center 40%/cover no-repeat;
+    }
+    .hero-body { max-width: 720px; }
+    .hero-sub { max-width: 560px; }
+    .search-capsule { border-color: rgba(255, 255, 255, 0.8); }
+
+    /* Quick actions: calmer cards, clearer hover */
+    .quick-actions { gap: 6px; padding: 12px; }
+    .quick-action { border-radius: var(--radius-lg); }
+    .quick-action:hover { box-shadow: var(--shadow-sm); }
+    .quick-icon-wrap { border-radius: 16px; }
+
+    /* Section rhythm */
+    main { padding-top: 48px; }
+    section { margin-bottom: var(--section-gap); }
+    .section-head { margin-bottom: 20px; }
+    .section-head h2::before {
+      height: 20px;
+      background: linear-gradient(180deg, var(--primary), var(--accent-sky));
+    }
+    .section-head p { line-height: 1.5; }
+
+    /* Chips: larger, evenly spaced, with focus-friendly active state */
+    .chips { gap: 10px; padding: 6px 2px; }
+    .chip { min-height: 40px; padding: 8px 18px; }
+    .chip:active { transform: scale(0.96); }
+
+    /* Cards: consistent radius, smoother motion */
+    .place-card, .food-card, .guide-card, .resource-card {
+      transition: transform 0.28s var(--ease-out), box-shadow 0.28s var(--ease-out), border-color 0.2s;
+    }
+    .place-name, .food-info h3, .guide-body h3 { overflow-wrap: anywhere; }
+    .place-desc { font-size: 13px; line-height: 1.55; }
+    .place-meta { flex-wrap: wrap; row-gap: 4px; }
+    .food-info { min-width: 0; }
+    .food-sub { line-height: 1.4; }
+    .food-card { align-items: center; }
+    .food-image { aspect-ratio: 1; }
+    .guide-body p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .guide-route-pill { margin-top: auto; }
+    .guide-body p + .guide-route-pill { margin-top: 14px; }
+    .resource-card h3 { margin-top: 14px; }
+    .resource-card p { line-height: 1.45; }
+    .detail-card { padding: 24px; }
+    .tips li { font-size: 14px; }
+    .itinerary-day p, .guide-body p { font-size: 13.5px; }
+
+    .footer { padding: 48px 0 28px; line-height: 1.8; border-top: 1px solid var(--line-subtle); margin-top: 8px; }
+
+    /* Tablet: 641–900 */
+    @media (min-width: 641px) and (max-width: 900px) {
+      .page, .hero-inner { width: calc(100% - 48px); }
+      .quick-actions { grid-template-columns: repeat(4, 1fr); }
+      .resource-grid { grid-template-columns: repeat(3, 1fr); }
+      .food-grid { grid-template-columns: repeat(2, 1fr); }
+      .food-card { grid-template-columns: 64px 1fr auto; }
+      .food-image { width: 64px; height: 64px; }
+    }
+
+    /* Desktop: turn scroll rails into proper grids, use the width */
+    @media (min-width: 1024px) {
+      .page, .hero-inner { width: min(1200px, calc(100% - 64px)); }
+      .hero, .hero-inner { min-height: 520px; }
+      .hero-inner { padding-bottom: 64px; }
+      .quick-wrap { margin-top: -44px; }
+      .quick-actions { gap: 8px; padding: 16px; }
+      .quick-action { min-height: 100px; }
+      .quick-icon-wrap { width: 48px; height: 48px; }
+      .quick-action span.label { font-size: 13px; }
+
+      .horizontal-scroll {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-auto-columns: auto;
+        overflow: visible;
+        scroll-snap-type: none;
+        gap: 20px;
+        padding: 4px 0 8px;
+      }
+      .guide-grid {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-columns: auto;
+        overflow: visible;
+        scroll-snap-type: none;
+        gap: 20px;
+        padding-bottom: 8px;
+      }
+      .food-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .food-card { padding: 14px; }
+      .resource-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .result-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .chips-wrap { margin-bottom: 20px; }
+
+      .detail-content { grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.75fr); gap: 24px; align-items: start; }
+      .detail-content > :last-child { position: sticky; top: 24px; }
+      .detail-hero { height: 420px; }
+    }
+    @media (min-width: 1200px) {
+      .horizontal-scroll { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+    }
+    @media (min-width: 1400px) {
+      .page, .hero-inner { width: min(1280px, calc(100% - 96px)); }
+    }
+    /* The mobile search bar only exists on phones; hide its dead trigger elsewhere */
+    @media (min-width: 641px) {
+      #mobileSearchOpen { display: none; }
+    }
+    [data-favorite-button].is-favorite .icon { fill: currentColor; }
+    .chip[aria-pressed="true"] { font-weight: 700; }
+
+    /* Mobile refinements */
+    @media (max-width: 640px) {
+      :root { --section-gap: 40px; }
+      main { padding-top: 36px; }
+      .quick-actions { gap: 4px; padding: 10px 6px; }
+      .quick-action span.label { font-size: 12px; }
+      .section-head { margin-bottom: 14px; }
+      .section-head h2 { font-size: 20px; }
+      .place-desc { font-size: 12.5px; }
+      .place-name { font-size: 15px; }
+      .chip { min-height: 38px; padding: 8px 16px; }
+      /* Peek of the next card hints at horizontal scroll */
+      .horizontal-scroll, .guide-grid { scroll-padding-left: 2px; margin-right: -12px; padding-right: 12px; }
+      .horizontal-scroll { grid-auto-columns: minmax(220px, 74vw); }
+      .guide-grid { grid-auto-columns: minmax(260px, 82vw); }
+      .resource-card h3 { margin-top: 10px; font-size: 14px; }
+      .resource-card p { font-size: 12px; }
+      .detail-card { padding: 18px; border-radius: var(--radius-lg); }
+      .detail-stats { gap: 8px; }
+      .detail-hero { min-height: 220px; border-radius: var(--radius-lg); }
+      .detail-title { left: 16px; right: 16px; bottom: 16px; }
+      .guide-place { grid-template-columns: 56px 1fr auto; padding: 8px; }
+      .guide-place img { width: 56px; height: 56px; }
+      /* Legible bottom-nav labels, safe tap targets */
+      .bottom-nav a { font-size: 11px; min-height: 50px; }
+      .footer { padding: 36px 0 20px; }
+    }
+    @media (max-width: 360px) {
+      .quick-action span.label { font-size: 11px; }
+      .horizontal-scroll { grid-auto-columns: minmax(200px, 78vw); }
+      h1 { font-size: 27px; }
+    }
+    @media (hover: none) {
+      .place-card:hover, .food-card:hover, .guide-card:hover, .resource-card:hover, .quick-action:hover {
+        transform: none;
+        box-shadow: var(--shadow-sm);
+      }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -2144,10 +2330,15 @@
 
     // Filter Chips Event
     document.querySelectorAll('[data-filter]').forEach(btn => {
+      btn.setAttribute('aria-pressed', btn.classList.contains('active'));
       btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b === btn));
+        document.querySelectorAll('[data-filter]').forEach(b => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-pressed', b === btn);
+        });
         nearbyList.innerHTML = places.filter(p => btn.dataset.filter === 'all' || p.type === btn.dataset.filter).map(card).join('');
         nearbyList.scrollLeft = 0;
+        refreshLang();
       });
     });
 
@@ -2170,9 +2361,12 @@
       renderFavorites();
       document.querySelectorAll('[data-favorite-button]').forEach(btn => {
         const isFav = next.includes(slug);
-        btn.innerHTML = `<svg class="icon"><use href="#i-heart"></use></svg><span style="margin-left:4px">${isFav ? '已收藏' : '收藏'}</span>`;
         btn.classList.toggle('is-favorite', isFav);
+        btn.setAttribute('aria-pressed', isFav);
+        btn.setAttribute('aria-label', isFav ? '取消收藏' : '收藏');
+        if (btn.classList.contains('icon-button')) btn.style.color = isFav ? 'var(--accent-coral)' : 'var(--primary)';
       });
+      refreshLang();
     }
 
     function renderFavorites() {
@@ -2186,6 +2380,7 @@
       const section = document.getElementById('favorites');
       section.classList.add('show');
       renderFavorites();
+      refreshLang();
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     document.querySelectorAll('a[href="#favorites"]').forEach(link => link.addEventListener('click', showFavorites));
@@ -2196,6 +2391,7 @@
         document.getElementById('resultGrid').innerHTML = data[6].map(card).join('');
         document.getElementById('searchSummary').textContent = `${data[6].length} 个${data[2]}`;
         searchResults.classList.add('show');
+        refreshLang();
         searchResults.scrollIntoView({ behavior: 'smooth' });
       } else if (id === 'restroomResource') {
         window.open(AMap('公共厕所', 115.292562, 22.795063), '_blank');
@@ -2321,6 +2517,7 @@
       `;
       document.body.insertAdjacentHTML('beforeend', bottomBarHtml);
       window.scrollTo(0, 0);
+      refreshLang();
       document.title = `${item.name} · JTW360`;
       updateSeo(`${item.name} · JTW360`, item.desc || item.enDesc, image, `/places/${item.slug}`);
     }
@@ -2398,6 +2595,7 @@
         </div>
       `;
       window.scrollTo(0, 0);
+      refreshLang();
       document.title = `${guide.title} · JTW360`;
       updateSeo(`${guide.title} · JTW360`, guide.summary, guide.image, `/guides/${guide.slug}`);
     }
@@ -2519,19 +2717,30 @@
     });
 
     // Language & Dark Mode
-    const setLanguage = english => {
+    const applyLanguage = english => {
       document.querySelectorAll('[data-lang]').forEach(el => el.textContent = english ? el.dataset.langEn : el.dataset.lang);
-      document.querySelectorAll('[data-lang-placeholder]').forEach(el => el.placeholder = english ? el.dataset.langPlaceholderEn : el.dataset.langPlaceholder);
+      document.querySelectorAll('[data-lang-placeholder]').forEach(el => el.placeholder = english ? el.dataset.langEnPlaceholder : el.dataset.langPlaceholder);
       document.getElementById('langButton').textContent = english ? '中文' : 'EN';
       document.documentElement.lang = english ? 'en' : 'zh-CN';
+    };
+    const setLanguage = english => {
+      applyLanguage(english);
       localStorage.setItem('jtw360-language', english ? 'en' : 'zh');
     };
+    // Re-apply the saved language after any dynamic re-render (filters, search, detail pages)
+    function refreshLang() {
+      if (localStorage.getItem('jtw360-language') === 'en') applyLanguage(true);
+    }
     document.getElementById('langButton').addEventListener('click', () => setLanguage(localStorage.getItem('jtw360-language') !== 'en'));
 
     // 主题：首次访问跟随系统，用户手动切换后以用户选择为准
+    function syncThemeColor() {
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', document.body.classList.contains('dark-mode') ? '#090e17' : '#f8fafc');
+    }
     function applyTheme(theme) {
       document.body.classList.toggle('dark-mode', theme === 'dark');
       localStorage.setItem('jtw360-theme', theme);
+      syncThemeColor();
     }
     document.getElementById('themeButton').addEventListener('click', () => {
       const next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
@@ -2543,6 +2752,7 @@
     } else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
       document.body.classList.add('dark-mode');
     }
+    syncThemeColor();
     if (localStorage.getItem('jtw360-language') === 'en') setLanguage(true);
 
     // Mobile Search Bar Handler (fixed top bar slides in once scrolled, or on demand)
@@ -2592,8 +2802,11 @@
         document.getElementById('resultGrid').innerHTML = '<div class="empty">没有找到相关地点或服务，试试其他关键词（如：海鲜、沙滩、停车）。</div>';
         document.getElementById('searchSummary').textContent = '';
       }
+      const wasShown = searchResults.classList.contains('show');
       searchResults.classList.add('show');
-      searchResults.scrollIntoView({ behavior: 'smooth' });
+      refreshLang();
+      // Only scroll on first reveal; re-scrolling on every keystroke makes the page jump while typing
+      if (!wasShown) searchResults.scrollIntoView({ behavior: 'smooth' });
     }
 
     // 搜索防抖：避免输入过程中高频全量过滤/重渲染
