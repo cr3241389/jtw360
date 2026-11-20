@@ -22,6 +22,17 @@
   <link rel="preload" as="image" href="img/generated/jinting-bay-hero.webp">
   <link rel="icon" type="image/png" href="img/jtw360logo-sm.png">
   <link rel="apple-touch-icon" href="img/jtw360logo-sm.png">
+  <!-- Fonts & Liquid Glass Design System -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="gemini_theme.css">
+  <script src="liquid_glass.js" defer></script>
+  <script>
+    if (localStorage.getItem("jtw360-theme") === "dark" || (!("jtw360-theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
   <style>
     :root {
       --primary: #0066ff;
@@ -2735,10 +2746,14 @@
 
     // 主题：首次访问跟随系统，用户手动切换后以用户选择为准
     function syncThemeColor() {
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', document.body.classList.contains('dark-mode') ? '#090e17' : '#f8fafc');
+      const isDark = document.body.classList.contains('dark-mode');
+      document.documentElement.classList.toggle('dark', isDark);
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#090e17' : '#f8fafc');
     }
     function applyTheme(theme) {
-      document.body.classList.toggle('dark-mode', theme === 'dark');
+      const isDark = theme === 'dark';
+      document.body.classList.toggle('dark-mode', isDark);
+      document.documentElement.classList.toggle('dark', isDark);
       localStorage.setItem('jtw360-theme', theme);
       syncThemeColor();
     }
@@ -2748,9 +2763,13 @@
     });
 
     if (localStorage.getItem('jtw360-theme')) {
-      if (localStorage.getItem('jtw360-theme') === 'dark') document.body.classList.add('dark-mode');
+      if (localStorage.getItem('jtw360-theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark');
+      }
     } else if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
       document.body.classList.add('dark-mode');
+      document.documentElement.classList.add('dark');
     }
     syncThemeColor();
     if (localStorage.getItem('jtw360-language') === 'en') setLanguage(true);
