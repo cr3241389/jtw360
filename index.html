@@ -1987,34 +1987,33 @@
         <div class="horizontal-scroll" id="nearbyList"></div>
       </section>
 
-      <!-- Section 2: Affordable Food -->
+      <!-- Section 2: Unified Food Guide -->
       <section id="food" aria-labelledby="foodTitle">
         <div class="section-head">
           <div class="section-title-wrap">
-            <h2 id="foodTitle" data-lang="景区平价餐厅" data-lang-en="Affordable Dining">景区平价餐厅</h2>
-            <p data-lang="房东自购实测 · 无景区不合理溢价" data-lang-en="Local tested · No tourist traps or markup">房东自购实测 · 无景区不合理溢价</p>
+            <h2 id="foodTitle" data-lang="本地美食精选" data-lang-en="Local Food Picks">本地美食精选</h2>
+            <p data-lang="房东自购实测 · 明码标价 · 含节假日避堵好店" data-lang-en="Local tested · Transparent pricing & less-crowded picks">房东自购实测 · 明码标价 · 含节假日避堵好店</p>
           </div>
           <span class="section-badge" data-lang="明码标价" data-lang-en="Clear Pricing">明码标价</span>
+        </div>
+        <div class="chips-wrap">
+          <div class="chips" id="foodChips">
+            <button class="chip active" data-food-filter="all" data-lang="全部美食" data-lang-en="All">全部美食</button>
+            <button class="chip" data-food-filter="regular" data-lang="景区平价" data-lang-en="Nearby">景区平价</button>
+            <button class="chip" data-food-filter="traffic" data-lang="避堵推荐" data-lang-en="Less-Crowded">避堵推荐</button>
+            <button class="chip" data-food-filter="seafood" data-lang="海鲜" data-lang-en="Seafood">海鲜</button>
+            <button class="chip" data-food-filter="beef" data-lang="牛肉烧肉" data-lang-en="Beef & BBQ">牛肉烧肉</button>
+            <button class="chip" data-food-filter="snack" data-lang="小吃茶饮" data-lang-en="Snacks & Tea">小吃茶饮</button>
+          </div>
+        </div>
+        <div class="route-note" id="trafficNote" style="display:none">
+          <svg class="icon" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><use href="#i-car"></use></svg>
+          <span data-lang="房东日常消费店铺。节假日城区人流量大、停车困难、吃饭排队严重，推荐前往此处，地库停车免费。" data-lang-en="Everyday local picks. On holidays, avoid downtown traffic and long restaurant queues; underground parking is free here.">房东日常消费店铺。节假日城区人流量大、停车困难、吃饭排队严重，推荐前往此处，地库停车免费。</span>
         </div>
         <div class="food-grid" id="foodList"></div>
       </section>
 
-      <!-- Section 3: Traffic Avoidance Food Route -->
-      <section id="trafficFood" aria-labelledby="trafficFoodTitle">
-        <div class="section-head">
-          <div class="section-title-wrap">
-            <h2 id="trafficFoodTitle" data-lang="避堵美食路线" data-lang-en="Less-Crowded Food Route">避堵美食路线</h2>
-            <p data-lang="节假日城区拥堵时的备选用餐好去处" data-lang-en="Avoid holiday congestion and parking trouble">节假日城区拥堵时的备选用餐好去处</p>
-          </div>
-        </div>
-        <div class="route-note">
-          <svg class="icon" style="flex-shrink:0;margin-top:2px" aria-hidden="true"><use href="#i-car"></use></svg>
-          <span data-lang="房东日常消费店铺。节假日城区人流量大、停车困难、吃饭排队严重，推荐前往此处，地库停车免费。" data-lang-en="Everyday local picks. On holidays, avoid downtown traffic and long restaurant queues; underground parking is free here.">房东日常消费店铺。节假日城区人流量大、停车困难、吃饭排队严重，推荐前往此处，地库停车免费。</span>
-        </div>
-        <div class="food-grid" id="trafficFoodList"></div>
-      </section>
-
-      <!-- Section 4: Travel Guides / Itineraries -->
+      <!-- Section 3: Travel Guides / Itineraries -->
       <section id="guides" aria-labelledby="guidesTitle">
         <div class="section-head">
           <div class="section-title-wrap">
@@ -2025,24 +2024,36 @@
         <div class="guide-grid" id="guideGrid"></div>
       </section>
 
-      <!-- Section 5: Practical Tools -->
+      <!-- Section 4: Practical Tools -->
       <section id="tools" aria-labelledby="toolsTitle">
         <div class="section-head">
           <div class="section-title-wrap">
             <h2 id="toolsTitle" data-lang="实用工具 · 旅行必备" data-lang-en="Travel Essentials">实用工具 · 旅行必备</h2>
-            <p data-lang="免费停车、充电桩、行李寄存与紧急医疗" data-lang-en="Free parking, chargers, luggage & emergency support">免费停车、充电桩、行李寄存与紧急医疗</p>
+            <p data-lang="点击任意卡片即可就地展开详情与一键导航" data-lang-en="Tap any card to expand details and direct navigation">点击任意卡片即可就地展开详情与一键导航</p>
           </div>
         </div>
         <div class="resource-grid" id="resourceGrid"></div>
+        <div class="search-results resource-panel" id="resourcePanel" aria-live="polite">
+          <div class="section-head">
+            <div class="section-title-wrap">
+              <h2 id="resourcePanelTitle"></h2>
+              <p id="resourcePanelSummary"></p>
+            </div>
+            <button class="search-close" id="resourcePanelClose" type="button" aria-label="收起列表">×</button>
+          </div>
+          <div class="result-grid" id="resourcePanelGrid"></div>
+        </div>
       </section>
 
-      <!-- Section 6: Favorites -->
+      <!-- Section 5: Favorites -->
       <section id="favorites" class="search-results" aria-live="polite">
         <div class="section-head">
           <div class="section-title-wrap">
             <h2 data-lang="我的收藏" data-lang-en="Saved Places">我的收藏</h2>
             <p data-lang="你保存的地点与餐厅" data-lang-en="Your saved spots and restaurants">你保存的地点与餐厅</p>
           </div>
+          <button class="search-close" id="favoritesClose" type="button" aria-label="收起收藏">×</button>
+        </div>
         </div>
         <div class="result-grid" id="favoriteGrid"></div>
       </section>
@@ -2286,33 +2297,68 @@
     `;
 
     const quickActions = [
-      ['i-car','免费停车','Free parking','blue','parkingResource'],
-      ['i-food','平价餐厅','Affordable food','orange','#food'],
-      ['i-map','避堵美食','Less-crowded food','amber','#trafficFood'],
+      ['i-car','免费停车','Free parking','blue','resource:parkingResource'],
+      ['i-food','平价餐厅','Affordable food','orange','food:regular'],
+      ['i-map','避堵美食','Less-crowded food','amber','food:traffic'],
       ['i-camera','热门打卡点','Popular spots','purple','#nearby'],
-      ['i-bag','行李寄存','Luggage','orange','luggageResource'],
-      ['i-bolt','充电桩','EV charging','green','chargingResource'],
-      ['i-pin','洗手间','Restroom','service','restroomResource'],
-      ['i-hospital','医院医疗','Hospital','green','hospitalResource']
+      ['i-bag','行李寄存','Luggage','orange','resource:luggageResource'],
+      ['i-bolt','充电桩','EV charging','green','resource:chargingResource'],
+      ['i-pin','洗手间','Restroom','service','resource:restroomResource'],
+      ['i-hospital','医院医疗','Hospital','green','resource:hospitalResource']
     ];
 
-    // 板块类入口（#开头）：锚点直达，内容已就绪；资源类入口：一次点击立即展开对应内容，无需二次点击
-    document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,color,target])=>{
-      const isSection = target.startsWith('#');
-      return `
-      <a class="quick-action" href="${isSection ? target : '#' + target}"${isSection ? '' : ` onclick="event.preventDefault(); showResource('${target}')"`}>
+    function handleQuickAction(target) {
+      if (target.startsWith('#')) {
+        document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (target.startsWith('food:')) {
+        setFoodFilter(target.slice(5));
+        document.getElementById('food')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (target.startsWith('resource:')) {
+        const resId = target.slice(9);
+        showResource(resId, true);
+      }
+    }
+
+    // 统一交互：所有快捷入口均平滑定位到对应板块并自动选中对应分类，不再劫持搜索框
+    document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,color,target])=>`
+      <a class="quick-action" href="${target.startsWith('#') ? target : '#' + target.replace(':','-')}" onclick="event.preventDefault(); handleQuickAction('${target}')">
         <span class="quick-icon-wrap ${color}">
           <svg class="icon"><use href="#${icon}"></use></svg>
         </span>
         <span class="label">${text(cn,en)}</span>
       </a>
-    `}).join('');
+    `).join('');
 
     const nearbyList = document.getElementById('nearbyList');
     nearbyList.innerHTML = places.map(card).join('');
-    document.getElementById('foodList').innerHTML = regularFoods.map(foodCard).join('');
-    document.getElementById('trafficFoodList').innerHTML = trafficFoods.map(foodCard).join('');
     document.getElementById('guideGrid').innerHTML = guides.map(guideCard).join('');
+
+    // Unified Food Filtering
+    const foodList = document.getElementById('foodList');
+    const trafficNote = document.getElementById('trafficNote');
+    const trafficSlugs = new Set(trafficFoods.map(f => f.slug));
+
+    function setFoodFilter(filter) {
+      document.querySelectorAll('[data-food-filter]').forEach(b => {
+        const isActive = b.dataset.foodFilter === filter;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-pressed', isActive);
+      });
+      let list = foods;
+      if (filter === 'regular') list = regularFoods;
+      else if (filter === 'traffic') list = trafficFoods;
+      else if (filter === 'seafood') list = foods.filter(f => f.category === 'seafood');
+      else if (filter === 'beef') list = foods.filter(f => f.category === 'beef');
+      else if (filter === 'snack') list = foods.filter(f => ['snack','tea','fast'].includes(f.category));
+      foodList.innerHTML = list.map(foodCard).join('');
+      if (trafficNote) trafficNote.style.display = filter === 'traffic' ? 'flex' : 'none';
+      refreshLang();
+    }
+    document.querySelectorAll('[data-food-filter]').forEach(btn => {
+      btn.setAttribute('aria-pressed', btn.classList.contains('active'));
+      btn.addEventListener('click', () => setFoodFilter(btn.dataset.foodFilter));
+    });
+    setFoodFilter('all');
 
     const resourceData = [
       ['hospitalResource','i-hospital','医院医疗','Nearby hospitals','2个医院 / 卫生院','green',hospitals],
@@ -2320,11 +2366,11 @@
       ['ermaluParkingResource','i-car','二马路停车指南','Ermalu parking guide','信利广场/超市消费小票可换免费停车2–3小时','blue',ermaluParking],
       ['luggageResource','i-bag','行李寄存','Luggage storage','4个寄存柜','orange',luggage],
       ['chargingResource','i-bolt','充电桩','EV charging','3个免停车费充电点','green',charging],
-      ['restroomResource','i-pin','洗手间地图','Restroom map','高德地图导航','blue',[]]
+      ['restroomResource','i-pin','洗手间地图','Restroom map','金町湾公共厕所 · 高德直达','blue',utilityPlaces]
     ];
 
     document.getElementById('resourceGrid').innerHTML = resourceData.map(([id,icon,cn,en,desc,color,items])=>`
-      <article class="resource-card ${color}" id="${id}" tabindex="0" role="button" onclick="showResource('${id}')">
+      <article class="resource-card ${color}" id="${id}" tabindex="0" role="button" aria-expanded="false" onclick="showResource('${id}', false)">
         <div class="resource-top">
           <span class="resource-icon-wrap">
             <svg class="icon"><use href="#${icon}"></use></svg>
@@ -2339,7 +2385,45 @@
       </article>
     `).join('');
 
-    // Filter Chips Event
+    // Inline Resource Panel Logic (就地展开，不打乱页面结构)
+    const resourcePanel = document.getElementById('resourcePanel');
+    let activeResourceId = null;
+
+    function closeResourcePanel() {
+      activeResourceId = null;
+      resourcePanel.classList.remove('show');
+      document.querySelectorAll('.resource-card').forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-expanded', 'false');
+      });
+    }
+    document.getElementById('resourcePanelClose').addEventListener('click', closeResourcePanel);
+
+    function showResource(id, scrollToPanel = false) {
+      // 点击已展开的同一卡片直接收起（从金刚区跳转时则保持展开）
+      if (!scrollToPanel && activeResourceId === id) {
+        closeResourcePanel();
+        return;
+      }
+      const data = resourceData.find(item => item[0] === id);
+      if (!data?.[6]?.length) return;
+      activeResourceId = id;
+      document.querySelectorAll('.resource-card').forEach(c => {
+        const isCurrent = c.id === id;
+        c.classList.toggle('active', isCurrent);
+        c.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
+      });
+      document.getElementById('resourcePanelTitle').innerHTML = text(data[2], data[3]);
+      document.getElementById('resourcePanelSummary').textContent = `${data[6].length} 个地点 · ${data[4]}`;
+      document.getElementById('resourcePanelGrid').innerHTML = data[6].map(card).join('');
+      resourcePanel.classList.add('show');
+      refreshLang();
+      if (scrollToPanel) {
+        resourcePanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // Filter Chips Event (Nearby Spots)
     document.querySelectorAll('[data-filter]').forEach(btn => {
       btn.setAttribute('aria-pressed', btn.classList.contains('active'));
       btn.addEventListener('click', () => {
@@ -2353,14 +2437,18 @@
       });
     });
 
-    // Search Results Logic
+    // Search Results Logic (专注搜索，不再被其他入口混用)
     const searchResults = document.getElementById('searchResults');
-    function closeSearch() {
+    function closeSearch(clearInputs = false) {
       searchResults.classList.remove('show');
       document.getElementById('resultGrid').innerHTML = '';
       document.getElementById('searchSummary').textContent = '';
+      if (clearInputs) {
+        if (heroSearchInput) heroSearchInput.value = '';
+        if (mobileSearchInput) mobileSearchInput.value = '';
+      }
     }
-    document.getElementById('searchClose').addEventListener('click', closeSearch);
+    document.getElementById('searchClose').addEventListener('click', () => closeSearch(true));
 
     // Favorites Logic
     const favoriteKey = 'jtw360-favorites';
@@ -2382,37 +2470,38 @@
 
     function renderFavorites() {
       const list = favorites().map(slug => allItems.find(item => item.slug === slug)).filter(Boolean);
-      document.getElementById('favoriteGrid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">还没有收藏地点，点击地点卡片中的爱心即可保存。</div>`;
+      document.getElementById('favoriteGrid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">还没有收藏地点，点击地点详情中的爱心即可保存。</div>`;
     }
     renderFavorites();
 
     function showFavorites(event) {
       event?.preventDefault();
+      if (document.getElementById('detailView').classList.contains('show')) {
+        goHome(true, false);
+      }
       const section = document.getElementById('favorites');
       section.classList.add('show');
       renderFavorites();
       refreshLang();
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      requestAnimationFrame(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     }
     document.querySelectorAll('a[href="#favorites"]').forEach(link => link.addEventListener('click', showFavorites));
+    document.getElementById('favoritesClose')?.addEventListener('click', () => {
+      document.getElementById('favorites').classList.remove('show');
+    });
 
-    function showResource(id) {
-      const data = resourceData.find(item => item[0] === id);
-      if (data?.[6]?.length) {
-        document.getElementById('resultGrid').innerHTML = data[6].map(card).join('');
-        document.getElementById('searchSummary').textContent = `${data[6].length} 个${data[2]}`;
-        searchResults.classList.add('show');
-        refreshLang();
-        searchResults.scrollIntoView({ behavior: 'smooth' });
-      } else if (id === 'restroomResource') {
-        window.open(AMap('公共厕所', 115.292562, 22.795063), '_blank');
+    // Detail View Logic (保留首页滚动位置，返回无跳动)
+    let lastHomeScrollY = 0;
+    function saveHomeScroll() {
+      if (document.getElementById('homeView').style.display !== 'none') {
+        lastHomeScrollY = window.scrollY;
       }
     }
 
-    // Detail View Logic
     function openDetail(slug, push = true) {
       const item = allItems.find(entry => entry.slug === slug);
       if (!item) return;
+      saveHomeScroll();
       if (push) history.pushState({ slug }, '', `/places/${slug}`);
       document.getElementById('homeView').style.display = 'none';
       const detail = document.getElementById('detailView');
@@ -2526,7 +2615,7 @@
           `}
         </div>
       `;
-      document.body.insertAdjacentHTML('beforeend', bottomBarHtml);
+      detail.insertAdjacentHTML('beforeend', bottomBarHtml);
       window.scrollTo(0, 0);
       refreshLang();
       document.title = `${item.name} · JTW360`;
@@ -2535,9 +2624,10 @@
 
     // Guide Detail View
     function openGuide(slug, push = true) {
-      removeDetailBar();
       const guide = guides.find(entry => entry.slug === slug);
       if (!guide) return;
+      saveHomeScroll();
+      removeDetailBar();
       if (push) history.pushState({ guide: slug }, '', `/guides/${slug}`);
       document.getElementById('homeView').style.display = 'none';
       const detail = document.getElementById('detailView');
@@ -2611,7 +2701,7 @@
       updateSeo(`${guide.title} · JTW360`, guide.summary, guide.image, `/guides/${guide.slug}`);
     }
 
-    function goHome(push = true) {
+    function goHome(push = true, restoreScroll = true) {
       if (push) history.pushState({}, '', '/');
       removeDetailBar();
       const detail = document.getElementById('detailView');
@@ -2620,8 +2710,11 @@
       document.getElementById('homeView').style.display = 'block';
       document.title = 'JTW360 · 金町湾本地生活指南';
       updateSeo();
-      window.scrollTo(0, 0);
+      if (restoreScroll) {
+        window.scrollTo({ top: lastHomeScrollY, behavior: 'instant' });
+      }
       updateMobileBar();
+      updateNavSpy();
     }
 
     // 详情页/攻略页动态更新 SEO meta（og/canonical 跟随当前页面，保证分享卡片正确）
@@ -2692,9 +2785,10 @@
     document.querySelectorAll('.desktop-nav a[href^="#"], .bottom-nav a[href^="#"]').forEach(link => {
       link.addEventListener('click', event => {
         const target = link.getAttribute('href');
+        if (target === '#favorites') return;
         if (document.getElementById('detailView').classList.contains('show')) {
           event.preventDefault();
-          goHome();
+          goHome(true, false);
           requestAnimationFrame(() => document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
         }
       });
@@ -2721,7 +2815,7 @@
       if (event.key !== 'Enter' && event.key !== ' ') return;
       const target = event.target;
       if (!target || typeof target.matches !== 'function') return;
-      if (target.matches('.place-card, .food-card, .guide-card, .guide-place, .resource-card, [data-filter], [data-favorite-button], .quick-action')) {
+      if (target.matches('.place-card, .food-card, .guide-card, .guide-place, .resource-card, [data-filter], [data-food-filter], [data-favorite-button], .quick-action')) {
         if (event.key === ' ') event.preventDefault();
         target.click();
       }
@@ -2798,14 +2892,12 @@
     function openMobileSearch() {
       mobileBarClosedManually = false;
       setMobileBarVisible(true);
-      closeSearch();
       requestAnimationFrame(() => mobileSearchInput?.focus());
     }
     function closeMobileSearch() {
       mobileBarClosedManually = true;
       setMobileBarVisible(false);
-      if (mobileSearchInput) mobileSearchInput.value = '';
-      closeSearch();
+      closeSearch(true);
     }
     document.getElementById('mobileSearchOpen').addEventListener('click', openMobileSearch);
     document.getElementById('mobileSearchClose').addEventListener('click', closeMobileSearch);
@@ -2824,19 +2916,24 @@
       const wasShown = searchResults.classList.contains('show');
       searchResults.classList.add('show');
       refreshLang();
-      // Only scroll on first reveal; re-scrolling on every keystroke makes the page jump while typing
-      if (!wasShown) searchResults.scrollIntoView({ behavior: 'smooth' });
+      if (!wasShown) searchResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    // 搜索防抖：避免输入过程中高频全量过滤/重渲染
+    // 搜索防抖与双端输入同步
     let searchTimer = null;
     function debouncedSearch(q) {
       clearTimeout(searchTimer);
       searchTimer = setTimeout(() => handleSearch(q), 200);
     }
 
-    mobileSearchInput?.addEventListener('input', e => debouncedSearch(e.target.value));
-    heroSearchInput?.addEventListener('input', e => debouncedSearch(e.target.value));
+    mobileSearchInput?.addEventListener('input', e => {
+      if (heroSearchInput) heroSearchInput.value = e.target.value;
+      debouncedSearch(e.target.value);
+    });
+    heroSearchInput?.addEventListener('input', e => {
+      if (mobileSearchInput) mobileSearchInput.value = e.target.value;
+      debouncedSearch(e.target.value);
+    });
     heroSearchBtn?.addEventListener('click', () => { clearTimeout(searchTimer); handleSearch(heroSearchInput?.value || ''); });
 
     routeFromUrl();

@@ -629,3 +629,24 @@ body::before {
         box-shadow: var(--lg-edge), var(--lg-shadow-float) !important;
     }
 }
+
+/* ============================================================
+ * Inline Resource Panel & Active Card State
+ * ============================================================ */
+.resource-card.active {
+    border-color: var(--gemini-primary) !important;
+    box-shadow: var(--lg-edge), var(--lg-shadow-float), 0 0 0 2px var(--gemini-primary-soft), 0 0 22px -4px var(--gemini-glow) !important;
+    transform: translateY(-2px) !important;
+}
+.resource-card.active .resource-top > .icon {
+    color: var(--gemini-primary) !important;
+    transform: rotate(90deg);
+    transition: transform 0.25s var(--lg-ease), color 0.2s ease;
+}
+.resource-card .resource-top > .icon {
+    transition: transform 0.25s var(--lg-ease), color 0.2s ease;
+}
+.resource-panel {
+    margin-top: 16px !important;
+    margin-bottom: 0 !important;
+}
