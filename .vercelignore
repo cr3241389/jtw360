@@ -1,0 +1,17 @@
+# AI / 多账号交接文档与规则（不随静态站发布）
+HANDOFF.md
+AGENTS.md
+GEMINI.md
+docs/handoff_archive/
+.workbuddy/
+
+# 本地辅助与历史备份文件
+.DS_Store
+*.bak
+*.bak2
+patch.js
+patch2.js
+patch3.js
+create_placeholders.py
+jtw360.code-workspace
+CODE.JPG
