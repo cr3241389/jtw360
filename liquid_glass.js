@@ -12,7 +12,7 @@
     if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
         var pending = null;
         var frame = 0;
-        var targetSelector = ".place-card, .food-card, .guide-card, .resource-card, .quick-action, .quick-actions, .detail-card, .stat-box, .guide-place, .itinerary-day, .search-capsule, .glass-card, .gemini-card";
+        var targetSelector = ".place-card, .food-card, .guide-card, .resource-card, .quick-action, .quick-actions, .detail-card, .stat-box, .guide-place, .itinerary-day, .glass-card, .gemini-card";
 
         document.addEventListener("pointermove", function (event) {
             var card = event.target && event.target.closest ? event.target.closest(targetSelector) : null;

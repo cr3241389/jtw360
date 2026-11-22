@@ -188,7 +188,7 @@ body::before {
  * Liquid Glass Surfaces (卡片材质全面升级)
  * ============================================================ */
 
-/* 金刚区导航卡 */
+/* 首屏全功能宫格卡 */
 .quick-actions {
     background: var(--lg-fill) !important;
     border: 1px solid var(--lg-border) !important;
@@ -200,13 +200,23 @@ body::before {
 }
 
 .quick-action {
+    background: var(--lg-fill-inner) !important;
+    border: 1px solid var(--lg-border-subtle) !important;
+    box-shadow: inset 0 1px 0 0 var(--lg-sheen) !important;
     border-radius: var(--radius-md) !important;
-    transition: transform 0.35s var(--lg-spring), background 0.2s var(--lg-ease) !important;
+    transition: transform 0.35s var(--lg-spring), background 0.2s var(--lg-ease), border-color 0.2s var(--lg-ease), box-shadow 0.25s var(--lg-ease) !important;
 }
 
 .quick-action:hover {
-    background: var(--lg-fill-inner) !important;
+    background: var(--lg-fill-thick) !important;
+    border-color: var(--lg-border-hover) !important;
     transform: translateY(-2.5px) !important;
+}
+
+.quick-action.active {
+    background: var(--lg-fill-thick) !important;
+    border-color: var(--gemini-primary) !important;
+    box-shadow: var(--lg-edge), 0 0 0 2px var(--gemini-primary-soft), 0 8px 20px -6px var(--gemini-glow) !important;
 }
 
 .quick-action:active {
@@ -340,23 +350,6 @@ body::before {
  * Controls & Inputs (液态玻璃控件)
  * ============================================================ */
 
-/* 搜索胶囊：凹嵌玻璃槽 (Recessed Glass Trench) */
-.search-capsule {
-    background: var(--lg-fill-thick) !important;
-    border: 1px solid var(--lg-border) !important;
-    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08), 0 1px 0 0 var(--lg-sheen), var(--lg-shadow) !important;
-    backdrop-filter: blur(20px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-    transition: transform 0.3s var(--lg-ease), box-shadow 0.3s var(--lg-ease), border-color 0.3s var(--lg-ease) !important;
-}
-
-.search-capsule:focus-within {
-    background: var(--lg-solid) !important;
-    border-color: var(--gemini-primary) !important;
-    box-shadow: var(--gemini-ring), var(--lg-shadow-float) !important;
-    transform: translateY(-1.5px) !important;
-}
-
 /* 筛选分类药丸 (Filter Chips) */
 .chip {
     background: var(--lg-fill-clear) !important;
@@ -382,7 +375,6 @@ body::before {
 }
 
 /* 核心行动按钮 (Primary Buttons) */
-.search-btn,
 .primary-button,
 .nav-btn {
     background: var(--lg-tint) !important;
@@ -393,7 +385,6 @@ body::before {
     transition: transform 0.4s var(--lg-spring), box-shadow 0.25s var(--lg-ease), filter 0.2s ease !important;
 }
 
-.search-btn:hover,
 .primary-button:hover,
 .nav-btn:hover {
     filter: brightness(1.08) saturate(1.12);
@@ -401,7 +392,6 @@ body::before {
     box-shadow: var(--lg-tint-edge), 0 14px 28px -6px rgba(0, 102, 255, 0.75) !important;
 }
 
-.search-btn:active,
 .primary-button:active,
 .nav-btn:active {
     transform: scale(0.96) !important;
@@ -451,17 +441,8 @@ body::before {
 }
 
 /* ============================================================
- * Floating Navigation & Dock (悬浮胶囊底栏与吸顶搜索条)
+ * Floating Navigation & Dock (悬浮胶囊底栏)
  * ============================================================ */
-
-/* 移动端吸顶搜索条 */
-.mobile-search-bar {
-    background: var(--lg-fill-thick) !important;
-    border-bottom: 1px solid var(--lg-border) !important;
-    box-shadow: var(--lg-edge), var(--lg-shadow-float) !important;
-    backdrop-filter: blur(28px) saturate(200%) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
-}
 
 /* 移动端底部悬浮胶囊导航栏 (Floating Capsule Dock) */
 .bottom-nav {
@@ -560,7 +541,7 @@ body::before {
         box-shadow: none !important;
         backdrop-filter: none !important;
     }
-    .bottom-nav, .mobile-search-bar {
+    .bottom-nav {
         display: none !important;
     }
 }

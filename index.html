@@ -156,7 +156,7 @@
       background: #0b1d3a;
     }
     .hero {
-      min-height: 480px;
+      min-height: 320px;
       color: #ffffff;
       position: relative;
       overflow: hidden;
@@ -170,8 +170,8 @@
       z-index: 2;
       width: min(1200px, calc(100% - 32px));
       margin: 0 auto;
-      padding: max(20px, var(--safe-top)) 0 44px;
-      min-height: 480px;
+      padding: max(20px, var(--safe-top)) 0 54px;
+      min-height: 320px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -291,14 +291,14 @@
     }
 
     .hero-body {
-      margin-top: 36px;
+      margin-top: 24px;
       max-width: 760px;
     }
     .eyebrow-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: var(--radius-full);
       background: rgba(255, 255, 255, 0.14);
       backdrop-filter: blur(12px);
@@ -307,7 +307,7 @@
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.05em;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
     .eyebrow-pill span.dot {
       width: 6px;
@@ -317,7 +317,7 @@
       box-shadow: 0 0 10px #22c55e;
     }
     h1 {
-      font-size: clamp(30px, 5.2vw, 54px);
+      font-size: clamp(26px, 4.6vw, 46px);
       line-height: 1.15;
       letter-spacing: -0.04em;
       margin: 0;
@@ -325,58 +325,15 @@
       text-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
     }
     .hero-sub {
-      font-size: clamp(14px, 2.2vw, 17px);
+      font-size: clamp(13px, 2vw, 16px);
       opacity: 0.92;
-      margin: 12px 0 24px;
+      margin: 8px 0 0;
       font-weight: 400;
-      line-height: 1.5;
+      line-height: 1.45;
       text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
     }
 
-    /* Hero Floating Search */
-    .hero-search-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .search-capsule {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: min(520px, 100%);
-      height: 52px;
-      padding: 4px 5px 4px 18px;
-      border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.98);
-      color: var(--ink);
-      box-shadow: 0 12px 32px rgba(8, 25, 48, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .search-capsule:focus-within {
-      box-shadow: 0 16px 40px rgba(0, 102, 255, 0.25);
-      transform: translateY(-1px);
-    }
-    .search-capsule .icon {
-      color: var(--muted);
-      width: 18px;
-      height: 18px;
-    }
-    .search-capsule input {
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: var(--ink);
-      width: 100%;
-      min-width: 0;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .search-capsule input::placeholder {
-      color: var(--muted);
-    }
-    .search-btn, .primary-button {
+    .primary-button {
       min-height: 42px;
       border: 0;
       padding: 0 20px;
@@ -395,43 +352,44 @@
       gap: 6px;
       transition: background 0.2s, transform 0.15s;
     }
-    .search-btn:hover, .primary-button:hover {
+    .primary-button:hover {
       background: var(--primary-hover);
     }
-    .search-btn:active, .primary-button:active {
+    .primary-button:active {
       transform: scale(0.97);
     }
 
     /* ==========================================================================
-       QUICK ACTIONS (金刚区 - 8大核心功能)
+       QUICK ACTIONS (首屏全功能 9 宫格)
        ========================================================================== */
     .quick-wrap {
-      margin-top: -30px;
+      margin-top: -28px;
       position: relative;
       z-index: 10;
     }
     .quick-actions {
       display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 10px;
-      padding: 14px;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      gap: 8px;
+      padding: 12px;
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-md);
     }
     .quick-action {
-      min-height: 88px;
+      min-height: 92px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       border-radius: var(--radius-md);
       color: var(--ink);
-      transition: background 0.2s, transform 0.15s;
-      padding: 8px 4px;
+      transition: background 0.2s, transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+      padding: 10px 6px;
       text-align: center;
+      border: 1px solid transparent;
     }
     .quick-action:hover {
       background: var(--primary-light);
@@ -441,14 +399,28 @@
       transform: scale(0.95);
     }
     .quick-action span.label {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 12.5px;
+      font-weight: 700;
       white-space: nowrap;
       letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .quick-action span.sub {
+      font-size: 10.5px;
+      color: var(--muted);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .quick-panel {
+      margin-top: 14px !important;
+      margin-bottom: 0 !important;
     }
     .quick-icon-wrap {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 14px;
       display: grid;
       place-items: center;
@@ -1292,12 +1264,9 @@
     }
 
     /* ==========================================================================
-       BOTTOM NAVIGATION & MOBILE SEARCH BAR
+       BOTTOM NAVIGATION
        ========================================================================== */
     .bottom-nav {
-      display: none;
-    }
-    .mobile-search-bar {
       display: none;
     }
     .detail-action-bar {
@@ -1355,99 +1324,102 @@
        ========================================================================== */
     @media (max-width: 900px) {
       .desktop-nav { display: none; }
-      .quick-actions { grid-template-columns: repeat(4, 1fr); }
+      .quick-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .detail-content { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
       body {
-        padding-bottom: calc(76px + var(--safe-bottom));
+        padding-bottom: calc(78px + var(--safe-bottom));
       }
       .page, .hero-inner {
         width: min(100% - 24px, 540px);
       }
       .hero {
-        min-height: 420px;
+        min-height: 0;
         border-radius: 0 0 24px 24px;
       }
       .hero-inner {
-        min-height: 420px;
-        padding-top: max(14px, var(--safe-top));
-        padding-bottom: 40px;
+        min-height: 0;
+        padding-top: max(12px, var(--safe-top));
+        padding-bottom: 34px;
       }
       .brand-text strong {
-        font-size: 18px;
+        font-size: 17px;
+      }
+      .brand-text small {
+        font-size: 10.5px;
       }
       .brand-logo-wrap {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
         font-size: 15px;
       }
       .top-actions {
         gap: 6px;
       }
       .icon-button {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
+      }
+      .lang-button {
+        width: auto;
+        min-width: 44px;
+        padding: 0 12px;
       }
       .hero-body {
-        margin-top: auto;
+        margin-top: 14px;
       }
       .eyebrow-pill {
-        font-size: 11px;
-        padding: 4px 12px;
-        margin-bottom: 10px;
+        font-size: 10.5px;
+        padding: 3px 10px;
+        margin-bottom: 6px;
       }
       h1 {
-        font-size: 30px;
-        line-height: 1.15;
+        font-size: 24px;
+        line-height: 1.18;
       }
       .hero-sub {
-        font-size: 13px;
-        margin: 10px 0 18px;
-      }
-      .hero-search-wrap {
-        gap: 8px;
-      }
-      .search-capsule {
-        height: 48px;
-        padding: 3px 4px 3px 14px;
-      }
-      .search-btn {
-        min-height: 38px;
-        padding: 0 16px;
         font-size: 12px;
+        margin: 5px 0 0;
       }
 
       .quick-wrap {
-        margin-top: -24px;
+        margin-top: -20px;
       }
       .quick-actions {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 6px;
-        padding: 10px 6px;
-        border-radius: var(--radius-lg);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        padding: 10px;
+        border-radius: var(--radius-xl);
       }
       .quick-action {
-        min-height: 76px;
-        gap: 6px;
-        padding: 6px 2px;
+        min-height: 86px;
+        gap: 4px;
+        padding: 9px 4px;
+        background: var(--canvas);
+        border: 1px solid var(--line-subtle);
+        border-radius: var(--radius-md);
       }
       .quick-icon-wrap {
-        width: 38px;
-        height: 38px;
-        border-radius: 12px;
+        width: 36px;
+        height: 36px;
+        border-radius: 11px;
+        margin-bottom: 2px;
       }
       .quick-icon-wrap .icon {
         width: 18px;
         height: 18px;
       }
       .quick-action span.label {
-        font-size: 11px;
+        font-size: 12.5px;
+      }
+      .quick-action span.sub {
+        font-size: 10px;
       }
 
       main {
-        padding-top: 32px;
+        padding-top: 22px;
       }
       section {
         margin-bottom: 38px;
@@ -1521,47 +1493,12 @@
         border-radius: 10px;
       }
 
-      /* Mobile Sticky Search Bar (slides in once user scrolls past the hero, or on demand) */
-      .mobile-search-bar {
-        position: fixed;
-        z-index: 60;
-        top: 0;
-        left: 0;
-        right: 0;
-        display: none;
-        gap: 8px;
-        padding: max(10px, var(--safe-top)) 14px 10px;
-        background: rgba(248, 250, 252, 0.96);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--line);
-        animation: barSlideDown 0.22s ease-out;
-      }
-      body.show-mobile-search .mobile-search-bar {
-        display: flex;
-      }
-      /* Detail pages have their own header chrome — never float the search bar over them */
-      body.detail-open .mobile-search-bar {
-        display: none;
-      }
-      body.dark-mode .mobile-search-bar {
-        background: rgba(9, 14, 23, 0.96);
-      }
-      .mobile-search-bar .search-capsule {
-        height: 44px;
-        box-shadow: none;
-      }
-      @keyframes barSlideDown {
-        from { transform: translateY(-100%); }
-        to { transform: translateY(0); }
-      }
-
       /* Mobile Bottom Navigation Bar */
       .bottom-nav {
         position: fixed;
         z-index: 50;
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         bottom: 0;
         left: 0;
         right: 0;
@@ -1593,6 +1530,23 @@
         width: 20px;
         height: 20px;
       }
+      .nav-badge {
+        position: absolute;
+        top: 4px;
+        right: calc(50% - 20px);
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background: var(--accent-coral);
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 16px;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(255, 90, 54, 0.45);
+      }
+      .nav-badge:empty { display: none; }
 
       /* Detail Page Mobile Action Bar */
       .detail-action-bar {
@@ -1637,20 +1591,15 @@
       }
 
       /* --- Mobile UX polish --- */
-      /* Anchored navigation must land below the fixed search bar */
       section {
-        scroll-margin-top: calc(78px + var(--safe-top));
-      }
-      /* iOS Safari auto-zooms the page when focusing inputs smaller than 16px */
-      .search-capsule input {
-        font-size: 16px;
+        scroll-margin-top: calc(16px + var(--safe-top));
       }
       /* Keep horizontal swipe inside the rail, don't chain into vertical page scroll */
       .chips, .horizontal-scroll, .guide-grid {
         overscroll-behavior-x: contain;
       }
       /* Cards with click handlers: no double-tap zoom delay */
-      .place-card, .food-card, .guide-card, .resource-card, .guide-place, .chips-wrap {
+      .place-card, .food-card, .guide-card, .resource-card, .guide-place, .chips-wrap, .quick-action {
         touch-action: manipulation;
       }
       /* Scroll-spy indicator on the bottom nav */
@@ -1694,8 +1643,6 @@
       outline: 3px solid rgba(0, 102, 255, 0.45);
       outline-offset: 2px;
     }
-    .search-capsule input:focus-visible { outline: none; }
-
     /* Hero: richer depth and tighter vertical rhythm */
     .hero {
       background:
@@ -1705,13 +1652,12 @@
     }
     .hero-body { max-width: 720px; }
     .hero-sub { max-width: 560px; }
-    .search-capsule { border-color: rgba(255, 255, 255, 0.8); }
 
     /* Quick actions: calmer cards, clearer hover */
-    .quick-actions { gap: 6px; padding: 12px; }
+    .quick-actions { gap: 8px; padding: 12px; }
     .quick-action { border-radius: var(--radius-lg); }
     .quick-action:hover { box-shadow: var(--shadow-sm); }
-    .quick-icon-wrap { border-radius: 16px; }
+    .quick-icon-wrap { border-radius: 14px; }
 
     /* Section rhythm */
     main { padding-top: 48px; }
@@ -1758,7 +1704,7 @@
     /* Tablet: 641–900 */
     @media (min-width: 641px) and (max-width: 900px) {
       .page, .hero-inner { width: calc(100% - 48px); }
-      .quick-actions { grid-template-columns: repeat(4, 1fr); }
+      .quick-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
       .resource-grid { grid-template-columns: repeat(3, 1fr); }
       .food-grid { grid-template-columns: repeat(2, 1fr); }
       .food-card { grid-template-columns: 64px 1fr auto; }
@@ -1768,12 +1714,12 @@
     /* Desktop: turn scroll rails into proper grids, use the width */
     @media (min-width: 1024px) {
       .page, .hero-inner { width: min(1200px, calc(100% - 64px)); }
-      .hero, .hero-inner { min-height: 520px; }
+      .hero, .hero-inner { min-height: 340px; }
       .hero-inner { padding-bottom: 64px; }
-      .quick-wrap { margin-top: -44px; }
-      .quick-actions { gap: 8px; padding: 16px; }
-      .quick-action { min-height: 100px; }
-      .quick-icon-wrap { width: 48px; height: 48px; }
+      .quick-wrap { margin-top: -40px; }
+      .quick-actions { gap: 8px; padding: 14px; }
+      .quick-action { min-height: 104px; }
+      .quick-icon-wrap { width: 46px; height: 46px; }
       .quick-action span.label { font-size: 13px; }
 
       .horizontal-scroll {
@@ -1810,21 +1756,17 @@
     @media (min-width: 1400px) {
       .page, .hero-inner { width: min(1280px, calc(100% - 96px)); }
     }
-    /* The mobile search bar only exists on phones; hide its dead trigger elsewhere */
-    @media (min-width: 641px) {
-      #mobileSearchOpen { display: none; }
-    }
     [data-favorite-button].is-favorite .icon { fill: currentColor; }
     .chip[aria-pressed="true"] { font-weight: 700; }
 
     /* Mobile refinements */
     @media (max-width: 640px) {
-      :root { --section-gap: 40px; }
-      main { padding-top: 36px; }
-      .quick-actions { gap: 4px; padding: 10px 6px; }
-      .quick-action span.label { font-size: 12px; }
-      .section-head { margin-bottom: 14px; }
-      .section-head h2 { font-size: 20px; }
+      :root { --section-gap: 34px; }
+      main { padding-top: 20px; }
+      .quick-actions { gap: 8px; padding: 10px; }
+      .quick-action span.label { font-size: 12.5px; }
+      .section-head { margin-bottom: 12px; }
+      .section-head h2 { font-size: 19px; }
       .place-desc { font-size: 12.5px; }
       .place-name { font-size: 15px; }
       .chip { min-height: 38px; padding: 8px 16px; }
@@ -1841,13 +1783,16 @@
       .guide-place { grid-template-columns: 56px 1fr auto; padding: 8px; }
       .guide-place img { width: 56px; height: 56px; }
       /* Legible bottom-nav labels, safe tap targets */
-      .bottom-nav a { font-size: 11px; min-height: 50px; }
-      .footer { padding: 36px 0 20px; }
+      .bottom-nav a { font-size: 10.5px; min-height: 48px; }
+      .footer { padding: 32px 0 20px; }
     }
     @media (max-width: 360px) {
-      .quick-action span.label { font-size: 11px; }
+      .quick-actions { gap: 6px; padding: 8px; }
+      .quick-action { min-height: 80px; padding: 7px 2px; }
+      .quick-action span.label { font-size: 11.5px; }
+      .quick-action span.sub { font-size: 9.5px; }
       .horizontal-scroll { grid-auto-columns: minmax(200px, 78vw); }
-      h1 { font-size: 27px; }
+      h1 { font-size: 21px; }
     }
     @media (hover: none) {
       .place-card:hover, .food-card:hover, .guide-card:hover, .resource-card:hover, .quick-action:hover {
@@ -1891,15 +1836,6 @@
     <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></symbol>
   </svg>
 
-  <!-- Mobile Sticky Search Header -->
-  <div class="mobile-search-bar" id="mobileSearchBar">
-    <div class="search-capsule" style="flex:1">
-      <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
-      <input id="mobileSearchInput" type="search" inputmode="search" placeholder="搜景点、平价海鲜、停车场…" data-lang-placeholder="搜景点、平价海鲜、停车场…" data-lang-en-placeholder="Search places, food, guides…">
-    </div>
-    <button class="icon-button" id="mobileSearchClose" type="button" aria-label="关闭搜索" style="color:var(--ink);background:var(--surface);border-color:var(--line)"><svg class="icon"><use href="#i-back"></use></svg></button>
-  </div>
-
   <!-- Main View -->
   <div id="homeView">
     <header class="hero-wrap">
@@ -1924,7 +1860,6 @@
             <div class="top-actions">
               <button class="icon-button" id="themeButton" aria-label="切换深色模式"><svg class="icon"><use href="#i-moon"></use></svg></button>
               <button class="icon-button lang-button" id="langButton">EN</button>
-              <button class="icon-button" id="mobileSearchOpen" aria-label="搜索地点"><svg class="icon"><use href="#i-search"></use></svg></button>
             </div>
           </div>
 
@@ -1934,38 +1869,41 @@
               <span data-lang="LOCAL & TRUSTED · 本地人推荐" data-lang-en="LOCAL & TRUSTED · LOCAL PICKS">LOCAL & TRUSTED · 本地人推荐</span>
             </div>
             <h1 data-lang="来金町湾 · 吃住玩不踩坑" data-lang-en="Jinting Bay, made easy">来金町湾 · 吃住玩不踩坑</h1>
-            <p class="hero-sub" data-lang="景点直达导航 · 平价海鲜推荐 · 免费停车指南 · 5条实战攻略" data-lang-en="Practical spots, transparent seafood picks, and curated itineraries.">景点直达导航 · 平价海鲜推荐 · 免费停车指南 · 5条实战攻略</p>
-            
-            <div class="hero-search-wrap">
-              <div class="search-capsule">
-                <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
-                <input id="heroSearchInput" type="search" placeholder="搜景点、美食、免费停车、充电桩…" data-lang-placeholder="搜景点、美食、免费停车、充电桩…" data-lang-en-placeholder="Search places, food, parking…">
-                <button class="search-btn" id="heroSearchBtn" type="button" data-lang="搜索" data-lang-en="Search">搜索</button>
-              </div>
-            </div>
+            <p class="hero-sub" data-lang="景点 · 美食 · 攻略 · 停车与便民导航，点下方宫格直达" data-lang-en="Spots, food, itineraries, parking & essentials — tap any tile below.">景点 · 美食 · 攻略 · 停车与便民导航，点下方宫格直达</p>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Quick Actions (金刚区 8大入口) -->
+    <!-- Quick Actions (首屏全功能 3×3 九宫格) -->
     <div class="page quick-wrap">
-      <nav class="quick-actions" aria-label="快捷入口" id="quickActions"></nav>
+      <nav class="quick-actions" aria-label="全部功能入口" id="quickActions"></nav>
+      <!-- 首屏便民速查就地展开面板（点击停车/充电/存包/公厕/医院原地展开，无需长距离翻页） -->
+      <section class="search-results quick-panel" id="quickResourcePanel" aria-live="polite">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 id="quickResourceTitle"></h2>
+            <p id="quickResourceSummary"></p>
+          </div>
+          <button class="search-close" id="quickResourceClose" type="button" aria-label="收起列表">×</button>
+        </div>
+        <div class="result-grid" id="quickResourceGrid"></div>
+      </section>
+      <!-- 我的收藏（置顶按需展开，点击底栏“我的”即可就地查看） -->
+      <section id="favorites" class="search-results quick-panel" aria-live="polite">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <h2 data-lang="我的收藏" data-lang-en="Saved Places">我的收藏</h2>
+            <p data-lang="你保存的地点与餐厅" data-lang-en="Your saved spots and restaurants">你保存的地点与餐厅</p>
+          </div>
+          <button class="search-close" id="favoritesClose" type="button" aria-label="收起收藏">×</button>
+        </div>
+        <div class="result-grid" id="favoriteGrid"></div>
+      </section>
     </div>
 
     <!-- Main Content Flow -->
     <main class="page">
-      <!-- Search Results Area -->
-      <section class="search-results" id="searchResults" aria-live="polite">
-        <div class="section-head">
-          <div class="section-title-wrap">
-            <h2 data-lang="搜索结果" data-lang-en="Search results">搜索结果</h2>
-            <p id="searchSummary"></p>
-          </div>
-          <button class="search-close" id="searchClose" type="button" aria-label="关闭搜索结果">×</button>
-        </div>
-        <div class="result-grid" id="resultGrid"></div>
-      </section>
 
       <!-- Section 1: Nearby Spots -->
       <section id="nearby" aria-labelledby="nearbyTitle">
@@ -2045,19 +1983,6 @@
         </div>
       </section>
 
-      <!-- Section 5: Favorites -->
-      <section id="favorites" class="search-results" aria-live="polite">
-        <div class="section-head">
-          <div class="section-title-wrap">
-            <h2 data-lang="我的收藏" data-lang-en="Saved Places">我的收藏</h2>
-            <p data-lang="你保存的地点与餐厅" data-lang-en="Your saved spots and restaurants">你保存的地点与餐厅</p>
-          </div>
-          <button class="search-close" id="favoritesClose" type="button" aria-label="收起收藏">×</button>
-        </div>
-        </div>
-        <div class="result-grid" id="favoriteGrid"></div>
-      </section>
-
       <footer class="footer">
         <p>© 2026 JTW360 · <span data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</span></p>
       </footer>
@@ -2077,6 +2002,10 @@
       <svg class="icon"><use href="#i-pin"></use></svg>
       <span data-lang="景点" data-lang-en="Spots">景点</span>
     </a>
+    <a href="#food">
+      <svg class="icon"><use href="#i-food"></use></svg>
+      <span data-lang="美食" data-lang-en="Food">美食</span>
+    </a>
     <a href="#guides">
       <svg class="icon"><use href="#i-book"></use></svg>
       <span data-lang="攻略" data-lang-en="Guides">攻略</span>
@@ -2084,6 +2013,7 @@
     <a href="#favorites">
       <svg class="icon"><use href="#i-heart"></use></svg>
       <span data-lang="我的" data-lang-en="Saved">我的</span>
+      <span class="nav-badge" id="favBadge"></span>
     </a>
   </nav>
 
@@ -2296,36 +2226,74 @@
       </article>
     `;
 
+    // 首屏 3×3 全功能九宫格：覆盖景点、美食、攻略及全部 6 大实用便民模块
     const quickActions = [
-      ['i-car','免费停车','Free parking','blue','resource:parkingResource'],
-      ['i-food','平价餐厅','Affordable food','orange','food:regular'],
-      ['i-map','避堵美食','Less-crowded food','amber','food:traffic'],
-      ['i-camera','热门打卡点','Popular spots','purple','#nearby'],
-      ['i-bag','行李寄存','Luggage','orange','resource:luggageResource'],
-      ['i-bolt','充电桩','EV charging','green','resource:chargingResource'],
-      ['i-pin','洗手间','Restroom','service','resource:restroomResource'],
-      ['i-hospital','医院医疗','Hospital','green','resource:hospitalResource']
+      ['i-camera','精选景点','Spots','15处 · 距你最近','15 nearby','purple','#nearby'],
+      ['i-food','本地美食','Food','12家 · 平价避堵','12 picks','orange','food:all'],
+      ['i-book','玩法攻略','Guides','5条实测路线','5 routes','blue','#guides'],
+      ['i-car','免费停车','Free Park','3处 · 近沙滩','3 free lots','blue','resource:parkingResource'],
+      ['i-map','二马路停车','Ermalu','小票免2–3h','2–3h free','amber','resource:ermaluParkingResource'],
+      ['i-bolt','充电桩','EV Charge','3站 · 34快充','34 chargers','green','resource:chargingResource'],
+      ['i-bag','行李寄存','Luggage','4处存包柜','4 lockers','orange','resource:luggageResource'],
+      ['i-pin','洗手间','Restroom','高德直达','Direct nav','service','resource:restroomResource'],
+      ['i-hospital','医院医疗','Hospital','2家 · 含电话','2 clinics','green','resource:hospitalResource']
     ];
+
+    const quickResourcePanel = document.getElementById('quickResourcePanel');
+    let activeQuickResourceId = null;
+
+    function closeQuickResourcePanel() {
+      activeQuickResourceId = null;
+      quickResourcePanel.classList.remove('show');
+      document.querySelectorAll('.quick-action').forEach(el => {
+        el.classList.remove('active');
+        el.setAttribute('aria-expanded', 'false');
+      });
+    }
+    document.getElementById('quickResourceClose').addEventListener('click', closeQuickResourcePanel);
+
+    function openQuickResource(resId) {
+      if (activeQuickResourceId === resId) {
+        closeQuickResourcePanel();
+        return;
+      }
+      const data = resourceData.find(item => item[0] === resId);
+      if (!data?.[6]?.length) return;
+      document.getElementById('favorites').classList.remove('show');
+      activeQuickResourceId = resId;
+      document.querySelectorAll('.quick-action').forEach(el => {
+        const isCurrent = el.dataset.quickTarget === `resource:${resId}`;
+        el.classList.toggle('active', isCurrent);
+        el.setAttribute('aria-expanded', isCurrent ? 'true' : 'false');
+      });
+      document.getElementById('quickResourceTitle').innerHTML = text(data[2], data[3]);
+      document.getElementById('quickResourceSummary').textContent = `${data[6].length} 个地点 · ${data[4]}`;
+      document.getElementById('quickResourceGrid').innerHTML = data[6].map(card).join('');
+      quickResourcePanel.classList.add('show');
+      refreshLang();
+      requestAnimationFrame(() => quickResourcePanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
+    }
 
     function handleQuickAction(target) {
       if (target.startsWith('#')) {
+        closeQuickResourcePanel();
         document.querySelector(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else if (target.startsWith('food:')) {
+        closeQuickResourcePanel();
         setFoodFilter(target.slice(5));
         document.getElementById('food')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else if (target.startsWith('resource:')) {
-        const resId = target.slice(9);
-        showResource(resId, true);
+        openQuickResource(target.slice(9));
       }
     }
 
-    // 统一交互：所有快捷入口均平滑定位到对应板块并自动选中对应分类，不再劫持搜索框
-    document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,color,target])=>`
-      <a class="quick-action" href="${target.startsWith('#') ? target : '#' + target.replace(':','-')}" onclick="event.preventDefault(); handleQuickAction('${target}')">
+    document.getElementById('quickActions').innerHTML = quickActions.map(([icon,cn,en,subCn,subEn,color,target])=>`
+      <a class="quick-action" data-quick-target="${target}" href="${target.startsWith('#') ? target : '#' + target.replace(':','-')}" ${target.startsWith('resource:') ? 'aria-expanded="false"' : ''} onclick="event.preventDefault(); handleQuickAction('${target}')">
         <span class="quick-icon-wrap ${color}">
           <svg class="icon"><use href="#${icon}"></use></svg>
         </span>
         <span class="label">${text(cn,en)}</span>
+        <span class="sub">${text(subCn,subEn)}</span>
       </a>
     `).join('');
 
@@ -2437,19 +2405,6 @@
       });
     });
 
-    // Search Results Logic (专注搜索，不再被其他入口混用)
-    const searchResults = document.getElementById('searchResults');
-    function closeSearch(clearInputs = false) {
-      searchResults.classList.remove('show');
-      document.getElementById('resultGrid').innerHTML = '';
-      document.getElementById('searchSummary').textContent = '';
-      if (clearInputs) {
-        if (heroSearchInput) heroSearchInput.value = '';
-        if (mobileSearchInput) mobileSearchInput.value = '';
-      }
-    }
-    document.getElementById('searchClose').addEventListener('click', () => closeSearch(true));
-
     // Favorites Logic
     const favoriteKey = 'jtw360-favorites';
     const favorites = () => JSON.parse(localStorage.getItem(favoriteKey) || '[]');
@@ -2470,6 +2425,8 @@
 
     function renderFavorites() {
       const list = favorites().map(slug => allItems.find(item => item.slug === slug)).filter(Boolean);
+      const badge = document.getElementById('favBadge');
+      if (badge) badge.textContent = list.length ? String(list.length) : '';
       document.getElementById('favoriteGrid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">还没有收藏地点，点击地点详情中的爱心即可保存。</div>`;
     }
     renderFavorites();
@@ -2479,11 +2436,12 @@
       if (document.getElementById('detailView').classList.contains('show')) {
         goHome(true, false);
       }
+      closeQuickResourcePanel();
       const section = document.getElementById('favorites');
       section.classList.add('show');
       renderFavorites();
       refreshLang();
-      requestAnimationFrame(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+      requestAnimationFrame(() => section.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
     }
     document.querySelectorAll('a[href="#favorites"]').forEach(link => link.addEventListener('click', showFavorites));
     document.getElementById('favoritesClose')?.addEventListener('click', () => {
@@ -2713,7 +2671,6 @@
       if (restoreScroll) {
         window.scrollTo({ top: lastHomeScrollY, behavior: 'instant' });
       }
-      updateMobileBar();
       updateNavSpy();
     }
 
@@ -2744,7 +2701,6 @@
     function removeDetailBar() {
       document.body.classList.remove('detail-open');
       document.getElementById('detailActionBar')?.remove();
-      setMobileBarVisible(false);
     }
 
     // Lightbox：详情页大图点击预览
@@ -2799,11 +2755,16 @@
     const navTargetEls = navLinkEls.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
     const updateNavSpy = () => {
       if (document.getElementById('detailView').classList.contains('show')) return;
-      const probe = 160; // just below the fixed search bar
+      const probe = 100;
       let active = navTargetEls[0];
+      let bestTop = -Infinity;
       for (const sec of navTargetEls) {
-        if (sec.getBoundingClientRect().height === 0) continue; // hidden section (e.g. favorites) is not on screen
-        if (sec.getBoundingClientRect().top <= probe) active = sec;
+        const rect = sec.getBoundingClientRect();
+        if (rect.height === 0) continue; // hidden section (e.g. favorites) is not on screen
+        if (rect.top <= probe && rect.top >= bestTop) {
+          bestTop = rect.top;
+          active = sec;
+        }
       }
       navLinkEls.forEach((a, i) => a.classList.toggle('active', navTargetEls[i] === active));
     };
@@ -2867,74 +2828,6 @@
     }
     syncThemeColor();
     if (localStorage.getItem('jtw360-language') === 'en') setLanguage(true);
-
-    // Mobile Search Bar Handler (fixed top bar slides in once scrolled, or on demand)
-    const mobileSearchInput = document.getElementById('mobileSearchInput');
-    const heroSearchInput = document.getElementById('heroSearchInput');
-    const heroSearchBtn = document.getElementById('heroSearchBtn');
-    let mobileBarClosedManually = false;
-
-    function setMobileBarVisible(visible) {
-      document.body.classList.toggle('show-mobile-search', visible);
-    }
-    function updateMobileBar() {
-      if (document.body.classList.contains('detail-open')) return;
-      if (window.scrollY > 90) {
-        if (!mobileBarClosedManually) setMobileBarVisible(true);
-      } else {
-        setMobileBarVisible(false);
-        if (window.scrollY < 10) mobileBarClosedManually = false;
-      }
-    }
-    window.addEventListener('scroll', updateMobileBar, { passive: true });
-    updateMobileBar();
-
-    function openMobileSearch() {
-      mobileBarClosedManually = false;
-      setMobileBarVisible(true);
-      requestAnimationFrame(() => mobileSearchInput?.focus());
-    }
-    function closeMobileSearch() {
-      mobileBarClosedManually = true;
-      setMobileBarVisible(false);
-      closeSearch(true);
-    }
-    document.getElementById('mobileSearchOpen').addEventListener('click', openMobileSearch);
-    document.getElementById('mobileSearchClose').addEventListener('click', closeMobileSearch);
-
-    function handleSearch(query) {
-      const q = query.trim().toLowerCase();
-      if (!q) { closeSearch(); return; }
-      const matches = allItems.filter(item => (item.name + (item.en || '') + (item.desc || '') + (item.category || '')).toLowerCase().includes(q));
-      if (matches.length) {
-        document.getElementById('resultGrid').innerHTML = matches.map(card).join('');
-        document.getElementById('searchSummary').textContent = `找到 ${matches.length} 个相关地点与服务`;
-      } else {
-        document.getElementById('resultGrid').innerHTML = '<div class="empty">没有找到相关地点或服务，试试其他关键词（如：海鲜、沙滩、停车）。</div>';
-        document.getElementById('searchSummary').textContent = '';
-      }
-      const wasShown = searchResults.classList.contains('show');
-      searchResults.classList.add('show');
-      refreshLang();
-      if (!wasShown) searchResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    // 搜索防抖与双端输入同步
-    let searchTimer = null;
-    function debouncedSearch(q) {
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(() => handleSearch(q), 200);
-    }
-
-    mobileSearchInput?.addEventListener('input', e => {
-      if (heroSearchInput) heroSearchInput.value = e.target.value;
-      debouncedSearch(e.target.value);
-    });
-    heroSearchInput?.addEventListener('input', e => {
-      if (mobileSearchInput) mobileSearchInput.value = e.target.value;
-      debouncedSearch(e.target.value);
-    });
-    heroSearchBtn?.addEventListener('click', () => { clearTimeout(searchTimer); handleSearch(heroSearchInput?.value || ''); });
 
     routeFromUrl();
   </script>
