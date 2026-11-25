@@ -584,11 +584,6 @@ body::before {
 
 /* Floating Bottom Capsule Dock on Mobile */
 @media (max-width: 640px) {
-    /* Pause continuous background mesh animation on mobile to save GPU & battery */
-    body::before {
-        animation: none !important;
-        will-change: auto !important;
-    }
     .bottom-nav {
         left: 14px !important;
         right: 14px !important;
@@ -635,12 +630,4 @@ body::before {
 .resource-panel {
     margin-top: 16px !important;
     margin-bottom: 0 !important;
-}
-
-#toast {
-    background: var(--lg-fill-thick) !important;
-    border: 1px solid var(--lg-border) !important;
-    box-shadow: var(--lg-edge), var(--lg-shadow-float) !important;
-    backdrop-filter: blur(24px) saturate(190%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
 }

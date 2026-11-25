@@ -19,11 +19,9 @@
   <link rel="canonical" href="https://www.jtw360.com/">
   <base href="/">
   <title>JTW360 · 金町湾本地生活指南</title>
-  <link rel="preload" as="image" href="img/generated/jinting-bay-hero-mobile.webp" media="(max-width: 640px)" fetchpriority="high">
-  <link rel="preload" as="image" href="img/generated/jinting-bay-hero.webp" media="(min-width: 641px)" fetchpriority="high">
+  <link rel="preload" as="image" href="img/generated/jinting-bay-hero.webp">
   <link rel="icon" type="image/png" href="img/jtw360logo-sm.png">
   <link rel="apple-touch-icon" href="img/jtw360logo-sm.png">
-  <link rel="manifest" href="site.webmanifest">
   <!-- Fonts & Liquid Glass Design System -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1083,12 +1081,10 @@
       border-radius: var(--radius-xl);
       overflow: hidden;
       box-shadow: var(--shadow-md);
-      background: linear-gradient(135deg, rgba(148, 163, 184, 0.2), rgba(148, 163, 184, 0.08));
     }
     .detail-hero img {
       width: 100%;
       height: 100%;
-      display: block;
       object-fit: cover;
     }
     .detail-hero::after {
@@ -1096,61 +1092,6 @@
       position: absolute;
       inset: 35% 0 0;
       background: linear-gradient(transparent, rgba(15, 23, 42, 0.85));
-      pointer-events: none;
-    }
-    .detail-zoom-hint {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 11px;
-      border-radius: var(--radius-full);
-      background: rgba(15, 23, 42, 0.56);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #ffffff;
-      font-size: 11.5px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      pointer-events: none;
-    }
-    .detail-menu-card {
-      padding: 18px !important;
-    }
-    .detail-menu-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    .detail-menu-head h2 {
-      margin: 0;
-    }
-    .detail-menu-hint {
-      font-size: 12px;
-      color: var(--primary);
-      font-weight: 600;
-    }
-    .detail-menu-wrap {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid var(--line-subtle);
-      background: var(--bg);
-      cursor: zoom-in;
-    }
-    .detail-menu-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.3s var(--ease-out);
-    }
-    .detail-menu-wrap:hover img {
-      transform: scale(1.015);
     }
     .detail-title {
       position: absolute;
@@ -1159,7 +1100,6 @@
       right: 20px;
       bottom: 20px;
       color: #ffffff;
-      pointer-events: none;
     }
     .detail-title h1 {
       font-size: clamp(24px, 4.5vw, 40px);
@@ -1346,22 +1286,12 @@
       inset: 0;
       z-index: 100;
       background: rgba(0, 0, 0, 0.9);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
+      display: grid;
+      place-items: center;
       padding: 20px;
     }
     #lightbox[hidden] { display: none; }
-    #lightbox img { max-width: 94%; max-height: 82vh; object-fit: contain; border-radius: 12px; box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45); }
-    #lightboxCaption {
-      color: rgba(255, 255, 255, 0.86);
-      font-size: 13px;
-      font-weight: 500;
-      text-align: center;
-      max-width: 90%;
-    }
+    #lightbox img { max-width: 90%; max-height: 85vh; border-radius: 12px; }
     #lightboxClose {
       position: absolute;
       top: 20px;
@@ -1388,60 +1318,6 @@
     }
     #wechatModal[hidden] { display: none; }
     #wechatModal .detail-card { max-width: 360px; width: 100%; text-align: center; }
-
-    #toast {
-      position: fixed;
-      left: 50%;
-      bottom: calc(82px + var(--safe-bottom));
-      transform: translate(-50%, 16px);
-      z-index: 120;
-      padding: 10px 18px;
-      border-radius: var(--radius-full);
-      background: var(--surface);
-      color: var(--ink);
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: var(--shadow-lg);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.22s ease, transform 0.22s var(--ease-out);
-      white-space: nowrap;
-      max-width: calc(100vw - 32px);
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    #toast.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-    .footer-actions {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .footer-contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: var(--radius-full);
-      border: 1px solid var(--line);
-      background: var(--surface);
-      color: var(--ink-secondary);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s, transform 0.15s;
-    }
-    .footer-contact-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-    .footer-contact-btn:active {
-      transform: scale(0.96);
-    }
 
     /* ==========================================================================
        RESPONSIVE DESIGN (Mobile First Optimizations)
@@ -1886,12 +1762,6 @@
     /* Mobile refinements */
     @media (max-width: 640px) {
       :root { --section-gap: 34px; }
-      .hero {
-        background:
-          radial-gradient(120% 80% at 80% 0%, rgba(0, 102, 255, 0.22) 0%, transparent 55%),
-          linear-gradient(180deg, rgba(8, 25, 48, 0.68) 0%, rgba(8, 25, 48, 0.2) 42%, rgba(8, 25, 48, 0.9) 100%),
-          url('img/generated/jinting-bay-hero-mobile.webp') center 40%/cover no-repeat;
-      }
       main { padding-top: 20px; }
       .quick-actions { gap: 8px; padding: 10px; }
       .quick-action span.label { font-size: 12.5px; }
@@ -1946,6 +1816,7 @@
 <body>
   <!-- SVG Symbols -->
   <svg class="sr-only" aria-hidden="true">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></symbol>
     <symbol id="i-map" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></symbol>
@@ -1972,7 +1843,7 @@
         <div class="hero-inner">
           <div class="topbar">
             <a class="brand" href="/" aria-label="JTW360 首页">
-              <div class="brand-logo-wrap"><img src="img/jtw360logo-sm.webp" alt="JTW360 logo" width="38" height="38" decoding="async"></div>
+              <div class="brand-logo-wrap"><img src="img/jtw360logo-sm.png" alt="JTW360 logo" decoding="async"></div>
               <div class="brand-text">
                 <strong>JTW360</strong>
                 <small data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</small>
@@ -2114,12 +1985,6 @@
 
       <footer class="footer">
         <p>© 2026 JTW360 · <span data-lang="金町湾本地生活指南" data-lang-en="Jinting Bay Local Guide">金町湾本地生活指南</span></p>
-        <div class="footer-actions">
-          <button type="button" class="footer-contact-btn" id="openWechatBtn">
-            <svg class="icon" style="width:14px;height:14px"><use href="#i-user"></use></svg>
-            <span data-lang="联系房东 / 问路咨询（微信）" data-lang-en="Contact Host (WeChat)">联系房东 / 问路咨询（微信）</span>
-          </button>
-        </div>
       </footer>
     </main>
   </div>
@@ -2156,20 +2021,17 @@
   <div id="lightbox" role="dialog" aria-modal="true" aria-label="图片预览" hidden>
     <button id="lightboxClose" aria-label="关闭">×</button>
     <img id="lightboxImg" alt="">
-    <div id="lightboxCaption"></div>
   </div>
 
   <div id="wechatModal" role="dialog" aria-modal="true" hidden>
     <div class="detail-card">
-      <button id="wechatClose" type="button" class="back-button" style="margin-bottom:12px">× <span data-lang="关闭" data-lang-en="Close">关闭</span></button>
+      <button id="wechatClose" class="back-button" style="margin-bottom:12px">× <span data-lang="关闭" data-lang-en="Close">关闭</span></button>
       <h2 data-lang="添加房东微信" data-lang-en="Add landlord on WeChat">添加房东微信</h2>
       <p data-lang="点击微信号复制，然后打开微信添加" data-lang-en="Tap the ID to copy, then add it in WeChat" style="color:var(--muted);font-size:13px">点击微信号复制，然后打开微信添加</p>
-      <button id="wechatId" type="button" class="primary-button" style="width:100%;margin-top:10px">feel607</button>
+      <button id="wechatId" class="primary-button" style="width:100%;margin-top:10px">feel607</button>
       <p id="copyStatus" style="font-size:12px;color:var(--accent-green);margin-top:8px"></p>
     </div>
   </div>
-
-  <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script>
     const AMap = (name, lng, lat) => `https://uri.amap.com/marker?position=${lng},${lat}&name=${encodeURIComponent(name)}`;
@@ -2178,21 +2040,21 @@
     const parseDist = d => parseFloat(String(d || '').replace('约','').replace('km','')) || 9999;
 
     const places = [
-      {slug:'jinxia-guang-forest', name:'金霞光森林公园', en:'Jinxiaguang Forest Park', image:'img/jinxia.webp', distance:'2.0km', rating:'4.8', type:'park', category:'spot', desc:'滨海森林公园，日落绝美，山海境特色布局。', enDesc:'Coastal forest park with beautiful sunsets.', url:AMap('金霞光森林公园',115.28309,22.801956)},
-      {slug:'baihesi-beach', name:'白鹤寺海滩', en:'Baihe Temple Beach', image:'img/baihe.webp', distance:'2.0km', rating:'4.7', type:'sea', category:'spot', desc:'赶海圣地，黑礁石与鹅卵石风景独特。', enDesc:'A beachcombing spot with black reefs and pebbles.', url:AMap('白鹤寺',115.277448,22.790192), tips:['下午4–6点来最美，可以拍到日落','退潮时适合赶海，注意礁石湿滑','建议穿防滑鞋并带好饮用水和防晒用品']},
-      {slug:'changsha-fort', name:'长沙炮台', en:'Changsha Fort', image:'img/paotai.webp', distance:'5.0km', rating:'4.6', type:'history', category:'spot', desc:'清代炮台，历史感与海景同框。', enDesc:'A historic coastal fort with sea views.', notice:'升级维护中', url:AMap('长沙炮台',115.273266,22.82449)},
-      {slug:'ermalu-food-street', name:'二马路美食街', en:'Ermalu Food Street', image:'img/ermalu.webp', distance:'8.3km', rating:'4.8', type:'local', category:'spot', desc:'汕尾美食聚集地，夜间烟火气最足。', enDesc:'Shanwei food street, liveliest at night.', url:AMap('二马路',115.359916,22.773525)},
-      {slug:'magong-beach', name:'马宫沙滩', en:'Magong Beach', image:'img/magong.webp', distance:'8km', rating:'4.4', type:'sea', category:'spot', desc:'小众无人沙滩，海上吊桥拍照出片。', enDesc:'A quiet beach with a photogenic sea bridge.', url:AMap('马宫沙滩',115.244504,22.784115)},
-      {slug:'chenzhou-village', name:'晨洲村', en:'Chenzhou Village', image:'img/chenzhou.webp', distance:'9km', rating:'4.3', type:'local', category:'spot', desc:'中国蚝乡，有蚝博物馆和水上公路。', enDesc:'Oyster village with a museum and water road.', url:AMap('晨洲村',115.299666,22.848598)},
+      {slug:'jinxia-guang-forest', name:'金霞光森林公园', en:'Jinxiaguang Forest Park', image:'img/jinxia.jpg', distance:'2.0km', rating:'4.8', type:'park', category:'spot', desc:'滨海森林公园，日落绝美，山海境特色布局。', enDesc:'Coastal forest park with beautiful sunsets.', url:AMap('金霞光森林公园',115.28309,22.801956)},
+      {slug:'baihesi-beach', name:'白鹤寺海滩', en:'Baihe Temple Beach', image:'img/baihe.jpg', distance:'2.0km', rating:'4.7', type:'sea', category:'spot', desc:'赶海圣地，黑礁石与鹅卵石风景独特。', enDesc:'A beachcombing spot with black reefs and pebbles.', url:AMap('白鹤寺',115.277448,22.790192), tips:['下午4–6点来最美，可以拍到日落','退潮时适合赶海，注意礁石湿滑','建议穿防滑鞋并带好饮用水和防晒用品']},
+      {slug:'changsha-fort', name:'长沙炮台', en:'Changsha Fort', image:'img/paotai.jpeg', distance:'5.0km', rating:'4.6', type:'history', category:'spot', desc:'清代炮台，历史感与海景同框。', enDesc:'A historic coastal fort with sea views.', notice:'升级维护中', url:AMap('长沙炮台',115.273266,22.82449)},
+      {slug:'ermalu-food-street', name:'二马路美食街', en:'Ermalu Food Street', image:'img/ermalu.jpg', distance:'8.3km', rating:'4.8', type:'local', category:'spot', desc:'汕尾美食聚集地，夜间烟火气最足。', enDesc:'Shanwei food street, liveliest at night.', url:AMap('二马路',115.359916,22.773525)},
+      {slug:'magong-beach', name:'马宫沙滩', en:'Magong Beach', image:'img/magong.jpg', distance:'8km', rating:'4.4', type:'sea', category:'spot', desc:'小众无人沙滩，海上吊桥拍照出片。', enDesc:'A quiet beach with a photogenic sea bridge.', url:AMap('马宫沙滩',115.244504,22.784115)},
+      {slug:'chenzhou-village', name:'晨洲村', en:'Chenzhou Village', image:'img/chenzhou.jpeg', distance:'9km', rating:'4.3', type:'local', category:'spot', desc:'中国蚝乡，有蚝博物馆和水上公路。', enDesc:'Oyster village with a museum and water road.', url:AMap('晨洲村',115.299666,22.848598)},
       {slug:'xiaodao-village', name:'小岛渔村', en:'Xiaodao Fishing Village', image:'img/xiaodao.webp', distance:'11km', rating:'4.5', type:'local', category:'spot', desc:'品清湖中央的复古渔船厂与砖红栈道。', enDesc:'A retro fishing village in the middle of Pinqing Lake.', url:AMap('小岛渔村',115.372939,22.768537)},
-      {slug:'fengshan-mazu', name:'凤山妈祖', en:'Fengshan Mazu Temple', image:'img/mazu.webp', distance:'12km', rating:'4.5', type:'history', category:'spot', desc:'4A景区，汕尾文化信仰中心与地标建筑。', enDesc:'A cultural landmark and 4A scenic area.', url:AMap('凤山祖庙',115.370029,22.762059)},
-      {slug:'shanwei-museum', name:'汕尾博物馆', en:'Shanwei Museum', image:'img/museum.webp', distance:'13km', rating:'4.5', type:'local', category:'spot', desc:'了解汕尾历史、文化与民俗的窗口。', enDesc:'A window into Shanwei history and culture.', url:AMap('汕尾市博物馆地上停车场',115.40,22.79)},
-      {slug:'tongdingshan', name:'铜鼎山旅游区', en:'Tongdingshan Scenic Area', image:'img/tongding.webp', distance:'18km', rating:'4.2', type:'park', category:'spot', desc:'汕尾后花园，玻璃桥、七彩滑道等项目。', enDesc:'A hill park with a glass bridge and slides.', url:AMap('铜鼎山旅游区',115.365492,22.82482)},
-      {slug:'honghaiwan-castle', name:'红海湾古堡', en:'Honghaiwan Castle', image:'img/gubao.webp', distance:'39km', rating:'4.5', type:'history', category:'spot', desc:'网红海上古堡，风格独特，电影感十足。', enDesc:'A cinematic seaside castle.', url:AMap('南海观音古堡',115.569269,22.662093)},
+      {slug:'fengshan-mazu', name:'凤山妈祖', en:'Fengshan Mazu Temple', image:'img/mazu.jpg', distance:'12km', rating:'4.5', type:'history', category:'spot', desc:'4A景区，汕尾文化信仰中心与地标建筑。', enDesc:'A cultural landmark and 4A scenic area.', url:AMap('凤山祖庙',115.370029,22.762059)},
+      {slug:'shanwei-museum', name:'汕尾博物馆', en:'Shanwei Museum', image:'img/museum.jpg', distance:'13km', rating:'4.5', type:'local', category:'spot', desc:'了解汕尾历史、文化与民俗的窗口。', enDesc:'A window into Shanwei history and culture.', url:AMap('汕尾市博物馆地上停车场',115.40,22.79)},
+      {slug:'tongdingshan', name:'铜鼎山旅游区', en:'Tongdingshan Scenic Area', image:'img/tongding.jpg', distance:'18km', rating:'4.2', type:'park', category:'spot', desc:'汕尾后花园，玻璃桥、七彩滑道等项目。', enDesc:'A hill park with a glass bridge and slides.', url:AMap('铜鼎山旅游区',115.365492,22.82482)},
+      {slug:'honghaiwan-castle', name:'红海湾古堡', en:'Honghaiwan Castle', image:'img/gubao.jpeg', distance:'39km', rating:'4.5', type:'history', category:'spot', desc:'网红海上古堡，风格独特，电影感十足。', enDesc:'A cinematic seaside castle.', url:AMap('南海观音古堡',115.569269,22.662093)},
       {slug:'houao-glass-sea', name:'后澳玻璃海', en:'Houao Glass Sea', image:'img/generated/houao-glass-sea.webp', distance:'约40km', rating:'4.8', type:'sea', category:'spot', desc:'红海湾原生态果冻海，海水清澈见底，适合晴天打卡。', enDesc:'A clear turquoise cove in Shanwei Red Bay.', url:AMap('后澳玻璃海',115.567242,22.680840), tips:['晴天海水颜色和通透度更好','礁石湿滑，建议穿防滑鞋','出发前留意潮汐、天气和现场开放情况']},
       {slug:'shiqundao', name:'石群岛', en:'Shiqundao Scenic Area', image:'img/generated/shiqundao.webp', distance:'约40km', rating:'4.7', type:'history', category:'spot', desc:'红海湾海蚀奇观，岩石群与海浪同框，适合摄影打卡。', enDesc:'Dramatic sea-eroded rock formations in Shanwei Red Bay.', url:'https://uri.amap.com/search?keyword='+encodeURIComponent('汕尾石群岛奇观景区'), tips:['景区以海蚀岩石和礁岸风景为主','建议穿防滑鞋，不要攀爬湿滑礁石','出发前以高德地图和现场开放信息为准']},
-      {slug:'windmill-island', name:'风车岛', en:'Windmill Island', image:'img/fengche.webp', distance:'45km', rating:'4.4', type:'sea', category:'spot', desc:'唯美风车群与沿海公路，适合拍照。', enDesc:'Windmills and a beautiful coastal road.', url:AMap('风车岛',115.586019,22.736799)},
-      {slug:'west-beach-park', name:'西沙滩公园', en:'Xishatan Park', image:'img/west-beach-park.webp', distance:'5.8km', rating:'5.0', type:'sea', category:'spot', desc:'免费开放的落日观景点：沙滩细软、人比金町湾少，沿路可免费停车，傍晚看日落非常出片。', enDesc:'A free sunset viewpoint with fine sand and fewer crowds than Jinting Bay, plus free roadside parking.', url:AMap('西沙滩公园',115.340372,22.783278)}
+      {slug:'windmill-island', name:'风车岛', en:'Windmill Island', image:'img/fengche.jpeg', distance:'45km', rating:'4.4', type:'sea', category:'spot', desc:'唯美风车群与沿海公路，适合拍照。', enDesc:'Windmills and a beautiful coastal road.', url:AMap('风车岛',115.586019,22.736799)},
+      {slug:'west-beach-park', name:'西沙滩公园', en:'Xishatan Park', image:'img/west-beach-park.jpg', distance:'5.8km', rating:'5.0', type:'sea', category:'spot', desc:'免费开放的落日观景点：沙滩细软、人比金町湾少，沿路可免费停车，傍晚看日落非常出片。', enDesc:'A free sunset viewpoint with fine sand and fewer crowds than Jinting Bay, plus free roadside parking.', url:AMap('西沙滩公园',115.340372,22.783278)}
     ].sort((a,b)=>parseDist(a.distance)-parseDist(b.distance));
 
     const foods = [
@@ -2211,29 +2073,29 @@
     ].map((item,index)=>({...item,type:'food',url:AMap(item.name,item.lng,item.lat),rating:['4.6','4.7','4.8','4.5'][index%4],desc:item.desc || item.address || '本地日常消费，点击店名查看菜单与信息。'}));
 
     const hospitals = [
-      {slug:'shenshan-tcm-hospital',name:'深汕中医医院',en:'Shenshan TCM Hospital',category:'hospital',image:'img/shenshan-tcm-hospital.webp',phone:'06606162398',lng:115.305937,lat:22.796466,desc:'电话：06606162398'},
-      {slug:'hongcao-health-center',name:'红草中心卫生院',en:'Hongcao Central Health Center',category:'hospital',image:'img/hongcao-health-center.webp',phone:'06603445366',lng:115.303672,lat:22.828743,desc:'电话：06603445366'}
+      {slug:'shenshan-tcm-hospital',name:'深汕中医医院',en:'Shenshan TCM Hospital',category:'hospital',image:'img/shenshan-tcm-hospital.jpg',phone:'06606162398',lng:115.305937,lat:22.796466,desc:'电话：06606162398'},
+      {slug:'hongcao-health-center',name:'红草中心卫生院',en:'Hongcao Central Health Center',category:'hospital',image:'img/hongcao-health-center.jpg',phone:'06603445366',lng:115.303672,lat:22.828743,desc:'电话：06603445366'}
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat)}));
 
     const parking = [
       {slug:'tingtao-free-parking',name:'听涛路免费停车场',en:'Tingtao Rd Free Parking',category:'parking',lng:115.29211,lat:22.79516,image:'img/generated/parking-tingtao.webp',desc:'靠近海遇小区、天奕小区、华夏金沙湾，步行可达海滩。'},
       {slug:'wushuangshu-west-parking',name:'无双墅西停车场',en:'Wushuangshu West Parking',category:'parking',lng:115.295833,lat:22.793737,image:'img/generated/parking-wushuangshu.webp',desc:'靠近无双墅、亲海寓，步行可达海滩。'},
       {slug:'wushuangshu-east-parking',name:'无双墅东停车场',en:'Wushuangshu East Parking',category:'parking',lng:115.29718,lat:22.793647,image:'img/generated/parking-wushuangshu.webp',desc:'靠近无双墅、亲海寓，步行可达海滩。'},
-      {slug:'xinli-building',name:'信利大厦',en:'Xinli Building',category:'parking',lng:115.359926,lat:22.773533,image:'img/xinli-building.webp',desc:'二马路美食街停车指南：定位信利大厦停车场，步行即达美食街。车位紧张时可继续往下开到最里面，停靠近电梯口的位置，从维也纳酒店侧进出。在信利城市广场或信利超市消费后，凭小票到信利大厦1楼超市柜台可领免费停车2–3小时。'},
-      {slug:'xinli-city-plaza',name:'信利城市广场',en:'Xinli City Plaza',category:'parking',lng:115.359926,lat:22.773533,image:'img/xinli-city-plaza.webp',desc:'信利超市就在广场内，逛街购物一站搞定。广场车位紧张时可改停信利大厦；在广场或信利超市消费后，凭小票到信利大厦1楼超市柜台领免费停车2–3小时。'}
+      {slug:'xinli-building',name:'信利大厦',en:'Xinli Building',category:'parking',lng:115.359926,lat:22.773533,image:'img/xinli-building.jpg',desc:'二马路美食街停车指南：定位信利大厦停车场，步行即达美食街。车位紧张时可继续往下开到最里面，停靠近电梯口的位置，从维也纳酒店侧进出。在信利城市广场或信利超市消费后，凭小票到信利大厦1楼超市柜台可领免费停车2–3小时。'},
+      {slug:'xinli-city-plaza',name:'信利城市广场',en:'Xinli City Plaza',category:'parking',lng:115.359926,lat:22.773533,image:'img/xinli-city-plaza.jpg',desc:'信利超市就在广场内，逛街购物一站搞定。广场车位紧张时可改停信利大厦；在广场或信利超市消费后，凭小票到信利大厦1楼超市柜台领免费停车2–3小时。'}
     ].map(item=>({...item,url:AMap(item.name,item.lng,item.lat),type:'service'}));
 
     const luggage = [
-      ['yuehai-locker','玥海北门1号存包柜','Yuehai North Gate No.1 Locker','位于玥海小区北门，提供自助存包服务。','img/locker.webp',115.29294,22.792649],
-      ['sail-auditorium-locker','风帆礼堂沙滩入口存包柜','Sail Auditorium Beach Entrance Locker','位于风帆礼堂沙滩入口处，方便游客存放物品。','img/locker.webp',115.292332,22.791426],
-      ['duxiuju-locker','独秀居南门存包柜','Duxiu Ju South Gate Locker','位于独秀居小区南门，提供安全的存包服务。','img/locker.webp',115.298001,22.795466],
-      ['tinghai-locker','听海沙滩入口存包柜','Tinghai Beach Entrance Locker','位于听海沙滩入口处，方便游客就近存放物品。','img/locker.webp',115.288851,22.791529]
+      ['yuehai-locker','玥海北门1号存包柜','Yuehai North Gate No.1 Locker','位于玥海小区北门，提供自助存包服务。','img/locker.jpg',115.29294,22.792649],
+      ['sail-auditorium-locker','风帆礼堂沙滩入口存包柜','Sail Auditorium Beach Entrance Locker','位于风帆礼堂沙滩入口处，方便游客存放物品。','img/locker.jpg',115.292332,22.791426],
+      ['duxiuju-locker','独秀居南门存包柜','Duxiu Ju South Gate Locker','位于独秀居小区南门，提供安全的存包服务。','img/locker.jpg',115.298001,22.795466],
+      ['tinghai-locker','听海沙滩入口存包柜','Tinghai Beach Entrance Locker','位于听海沙滩入口处，方便游客就近存放物品。','img/locker.jpg',115.288851,22.791529]
     ].map(([slug,name,en,desc,image,lng,lat])=>({slug,name,en,desc,image,lng,lat,category:'luggage',type:'service',url:AMap(name,lng,lat)}));
 
     const charging = [
-      ['jinshawan-1-charger','金沙湾1号充电站','Jinshawan No.1 Station','位于海遇小区、华夏金沙湾、天奕附近。','快充11个桩','img/jinshawan-1-charger.webp',115.291382,22.796298],
-      ['jinshawan-2-charger','金沙湾2号充电站','Jinshawan No.2 Station','位于海遇小区、华夏金沙湾、天奕、天銮附近。','快充11个桩','img/jinshawan-2-charger.webp',115.29426,22.796553],
-      ['weijingyun-charger','蔚景云充电站','Weijingyun Station','位于无双墅、亲海寓、玥海附近。','快充12个桩','img/weijingyun-charger.webp',115.296043,22.79367]
+      ['jinshawan-1-charger','金沙湾1号充电站','Jinshawan No.1 Station','位于海遇小区、华夏金沙湾、天奕附近。','快充11个桩','img/jinshawan-1-charger.jpg',115.291382,22.796298],
+      ['jinshawan-2-charger','金沙湾2号充电站','Jinshawan No.2 Station','位于海遇小区、华夏金沙湾、天奕、天銮附近。','快充11个桩','img/jinshawan-2-charger.jpg',115.29426,22.796553],
+      ['weijingyun-charger','蔚景云充电站','Weijingyun Station','位于无双墅、亲海寓、玥海附近。','快充12个桩','img/weijingyun-charger.jpg',115.296043,22.79367]
     ].map(([slug,name,en,desc,tag,image,lng,lat])=>({slug,name,en,desc,image,tag,lng,lat,category:'charging',type:'service',url:AMap(name,lng,lat)}));
 
     const utilityPlaces = [
@@ -2261,21 +2123,21 @@
         tips:['金町湾到红海湾通常需预留约50分钟，旺季可能更久','金町湾适合看海住宿，城区适合逛吃和赶高铁','打车出行建议提前预约，不要卡着高铁时间返程'], related:['ermalu-food-street','houao-glass-sea','honghaiwan-castle','shiqundao','windmill-island']
       },
       {
-        slug:'jinting-family-two-night', title:'亲子松弛 2天2夜', en:'Relaxed Family Trip', audience:'带娃家庭 · 午休友好', duration:'2天2夜', image:'img/baihe.webp',
+        slug:'jinting-family-two-night', title:'亲子松弛 2天2夜', en:'Relaxed Family Trip', audience:'带娃家庭 · 午休友好', duration:'2天2夜', image:'img/baihe.jpg',
         summary:'把挖沙、午睡和吃饭都留足时间，不用带孩子连续赶景点。', route:'金町湾挖沙 → 风帆礼堂 → 风车岛',
         intro:'以金町湾为住宿基地，第一天在住宿附近慢玩，第二天再选择风车岛方向。路线重视孩子作息，不安排连续礁石徒步。',
         days:[{title:'抵达当晚｜入住休息',route:'抵达金町湾 → 入住 → 附近晚餐',note:'不安排夜间赶景点，给孩子留足睡眠。'},{title:'Day 1｜沙滩慢玩',route:'早餐 → 金町湾挖沙 → 午餐午睡 → 风帆礼堂 → 鲸湾小镇',note:'准备换洗衣服、饮用水和简单冲沙用水，鲸湾小镇附近更方便补给。'},{title:'Day 2｜短途看海',route:'风车岛／浮日湾 → 午餐 → 返程',note:'若孩子不适合骑电动车，优先自驾；遇到大风、暴晒或恶劣海况及时缩短行程。'}],
         tips:['儿童下水和靠近礁石必须由成人全程陪同','准备防晒、饮用水、换洗衣服和挖沙工具','住宿卫生和实际距离需在预订平台再次确认'], related:['baihesi-beach','windmill-island']
       },
       {
-        slug:'red-bay-one-day', title:'红海湾一日游', en:'Red Bay in One Day', audience:'情侣拍照 · 海岸公路', duration:'1天', image:'img/gubao.webp',
+        slug:'red-bay-one-day', title:'红海湾一日游', en:'Red Bay in One Day', audience:'情侣拍照 · 海岸公路', duration:'1天', image:'img/gubao.jpeg',
         summary:'沿红海湾海岸线顺路打卡，早到后澳玻璃海，傍晚在古堡和石群岛看海。', route:'风车岛 → 后澳玻璃海 → 海上古堡 → 石群岛',
         intro:'适合专门去红海湾看海和拍照的游客。建议早上进入景区，避开后澳玻璃海高峰，并根据天气调整礁石景点。',
         days:[{title:'上午｜风车岛方向',route:'海上公路 → 风车岛／浮日湾 → 后澳玻璃海',note:'后澳玻璃海的通透度依赖晴天和光线，旺季建议尽早抵达。'},{title:'下午｜古堡方向',route:'海上古堡 → 石群岛 → 南海观音',note:'海上古堡和石群岛可连线游玩。礁石湿滑，不要为了拍照靠近浪区或攀爬湿滑位置。'}],
         tips:['节假日镇上租实体店电动车通常比频繁开车找车位方便','共享电动车可能存在跨区域断电限制','海边风大，后澳和古堡实际观感受天气影响明显'], related:['windmill-island','houao-glass-sea','honghaiwan-castle','shiqundao']
       },
       {
-        slug:'shanwei-rainy-day', title:'雨天备用路线', en:'Rainy-Day Plan', audience:'下雨也能玩 · 城区逛吃', duration:'半天–1天', image:'img/museum.webp',
+        slug:'shanwei-rainy-day', title:'雨天备用路线', en:'Rainy-Day Plan', audience:'下雨也能玩 · 城区逛吃', duration:'半天–1天', image:'img/museum.jpg',
         summary:'用博物馆、城区餐厅和喝茶替代湿滑海岸，天气转好再临时看海。', route:'汕尾博物馆 → 城区午餐 → 愈欣书店 → 二马路',
         intro:'雨天优先安排城区室内活动。海上古堡、赶海和湿滑礁石不作为固定行程，雨势减弱后再根据现场情况决定是否去海边。',
         days:[{title:'上午｜室内了解汕尾',route:'汕尾博物馆 → 城区午餐',note:'博物馆可避雨并了解本地历史文化，开放时间和停车信息请出发前再次确认。'},{title:'下午至晚上｜喝茶逛吃',route:'愈欣书店喝茶 → 城区平价餐厅 → 二马路',note:'二马路停车困难，建议使用信利大厦／信利城市广场停车指南，或直接打车前往。'}],
@@ -2288,16 +2150,12 @@
     
     const navButton = item => `<a class="nav-btn" href="${item.url}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()"><svg class="icon"><use href="#i-pin"></use></svg>${text('高德导航','Navigate')}</a>`;
     
-    const fallbackImg = 'img/gubao.webp';
-    const imgFallbackAttr = `onerror="this.onerror=null;this.src='${fallbackImg}'"`;
-
-    const card = (item, idx) => {
+    const card = item => {
       const metaLabel = item.type === 'food' ? text('精选餐饮','Food Pick') : (item.category === 'spot' ? text('景点推荐','Must-Visit') : '');
-      const loadMode = typeof idx === 'number' && idx < 2 ? 'eager' : 'lazy';
       return `
       <article class="place-card" data-slug="${item.slug}" tabindex="0" role="button" aria-label="${item.name}" onclick="openDetail('${item.slug}')">
         <div class="place-image">
-          <img loading="${loadMode}" decoding="async" width="400" height="260" src="${item.image || fallbackImg}" alt="${item.name}" ${imgFallbackAttr}>
+          <img loading="lazy" decoding="async" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
           <span class="distance-badge">${item.distance || '附近'}</span>
           ${item.notice ? `<span class="notice-badge">${text(item.notice, 'Under Maintenance')}</span>` : ''}
         </div>
@@ -2316,7 +2174,7 @@
 
     const foodCard = item => `
       <article class="food-card" data-food-category="${item.category}" data-slug="${item.slug}" tabindex="0" role="button" aria-label="${item.name}" onclick="openDetail('${item.slug}')">
-        <img class="food-image" loading="lazy" decoding="async" width="76" height="76" src="${item.image}" alt="${item.name}" ${imgFallbackAttr}>
+        <img class="food-image" loading="lazy" decoding="async" src="${item.image}" alt="${item.name}">
         <div class="food-info">
           <h3>${text(item.name,item.en)}</h3>
           <div class="food-sub">
@@ -2340,7 +2198,7 @@
     const guideCard = guide => `
       <article class="guide-card" tabindex="0" role="button" aria-label="${guide.title}" onclick="openGuide('${guide.slug}')">
         <div class="guide-image-wrap">
-          <img class="guide-image" loading="lazy" decoding="async" width="480" height="270" src="${guide.image}" alt="${guide.title}" ${imgFallbackAttr}>
+          <img class="guide-image" loading="lazy" decoding="async" src="${guide.image}" alt="${guide.title}">
           <div class="guide-kicker">
             <span class="guide-badge">${guide.audience}</span>
             <span class="guide-duration">${guide.duration}</span>
@@ -2359,7 +2217,7 @@
 
     const guidePlaceCard = item => `
       <article class="guide-place" tabindex="0" role="button" aria-label="${item.name}" onclick="openDetail('${item.slug}')">
-        <img loading="lazy" decoding="async" width="64" height="64" src="${item.image || fallbackImg}" alt="${item.name}" ${imgFallbackAttr}>
+        <img loading="lazy" decoding="async" src="${item.image || 'img/gubao.jpeg'}" alt="${item.name}">
         <div>
           <h3>${item.name}</h3>
           <p>${item.desc || '点击查看地点信息与高德导航。'}</p>
@@ -2547,66 +2405,13 @@
       });
     });
 
-    // Safe storage, Toast & Share helpers
-    const safeStorage = {
-      get(key) { try { return localStorage.getItem(key); } catch { return null; } },
-      set(key, val) { try { localStorage.setItem(key, val); } catch {} }
-    };
-    const isEnglish = () => safeStorage.get('jtw360-language') === 'en';
-    let toastTimer = 0;
-    function showToast(zhMsg, enMsg) {
-      const el = document.getElementById('toast');
-      if (!el) return;
-      el.textContent = isEnglish() ? (enMsg || zhMsg) : zhMsg;
-      el.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
-    }
-    async function copyText(str) {
-      if (navigator.clipboard?.writeText) {
-        try { await navigator.clipboard.writeText(str); return true; } catch {}
-      }
-      try {
-        const ta = document.createElement('textarea');
-        ta.value = str;
-        ta.setAttribute('readonly', '');
-        ta.style.cssText = 'position:fixed;opacity:0;left:-9999px';
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand('copy');
-        ta.remove();
-        return ok;
-      } catch { return false; }
-    }
-    async function sharePage(title, url) {
-      const shareUrl = url || location.href;
-      if (navigator.share) {
-        try {
-          await navigator.share({ title, url: shareUrl });
-          return;
-        } catch (err) {
-          if (err && err.name === 'AbortError') return;
-        }
-      }
-      const ok = await copyText(shareUrl);
-      if (ok) showToast('链接已复制，可直接发给同行朋友', 'Link copied to clipboard');
-      else showToast('请复制浏览器地址栏链接分享', 'Copy the URL from the address bar');
-    }
-    const itemPath = item => item.type === 'food' ? `/food/${item.slug}` : item.category === 'parking' ? `/parking/${item.slug}` : `/places/${item.slug}`;
-
     // Favorites Logic
     const favoriteKey = 'jtw360-favorites';
-    const favorites = () => {
-      try {
-        const parsed = JSON.parse(safeStorage.get(favoriteKey) || '[]');
-        return Array.isArray(parsed) ? parsed : [];
-      } catch { return []; }
-    };
+    const favorites = () => JSON.parse(localStorage.getItem(favoriteKey) || '[]');
     function toggleFavorite(slug) {
       const list = favorites();
-      const added = !list.includes(slug);
-      const next = added ? [...list, slug] : list.filter(id => id !== slug);
-      safeStorage.set(favoriteKey, JSON.stringify(next));
+      const next = list.includes(slug) ? list.filter(id => id !== slug) : [...list, slug];
+      localStorage.setItem(favoriteKey, JSON.stringify(next));
       renderFavorites();
       document.querySelectorAll('[data-favorite-button]').forEach(btn => {
         const isFav = next.includes(slug);
@@ -2616,14 +2421,13 @@
         if (btn.classList.contains('icon-button')) btn.style.color = isFav ? 'var(--accent-coral)' : 'var(--primary)';
       });
       refreshLang();
-      showToast(added ? '已加入收藏夹' : '已取消收藏', added ? 'Saved to favorites' : 'Removed from favorites');
     }
 
     function renderFavorites() {
       const list = favorites().map(slug => allItems.find(item => item.slug === slug)).filter(Boolean);
       const badge = document.getElementById('favBadge');
       if (badge) badge.textContent = list.length ? String(list.length) : '';
-      document.getElementById('favoriteGrid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">${text('还没有收藏地点，点击地点详情中的爱心即可保存。','No saved places yet. Tap the heart on any detail page to save it.')}</div>`;
+      document.getElementById('favoriteGrid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty">还没有收藏地点，点击地点详情中的爱心即可保存。</div>`;
     }
     renderFavorites();
 
@@ -2654,17 +2458,14 @@
 
     function openDetail(slug, push = true) {
       const item = allItems.find(entry => entry.slug === slug);
-      if (!item) { goHome(false, false); return; }
+      if (!item) return;
       saveHomeScroll();
-      const canonicalPath = itemPath(item);
-      if (push) history.pushState({ slug }, '', canonicalPath);
+      if (push) history.pushState({ slug }, '', `/places/${slug}`);
       document.getElementById('homeView').style.display = 'none';
       const detail = document.getElementById('detailView');
       detail.classList.add('show');
       const favorite = favorites().includes(slug);
-      const image = item.menuImage || item.image || fallbackImg;
-      const safeImage = image.replace(/'/g, "\\'");
-      const safeName = (item.name || '').replace(/'/g, "\\'");
+      const image = item.menuImage || item.image || 'img/gubao.jpeg';
       const tips = item.tips || ['本地人筛选的实用地点，出发前可先地图确认营业状态','直接点击下方导航按钮，使用高德地图直达','如果是海鲜餐厅，建议傍晚6点前到达避免排队'];
 
       detail.innerHTML = `
@@ -2674,18 +2475,17 @@
             ${text('返回列表','Back')}
           </button>
           <div class="top-actions">
-            <button class="icon-button ${favorite ? 'is-favorite' : ''}" style="color:${favorite ? 'var(--accent-coral)' : 'var(--primary)'};background:var(--surface);border-color:var(--line)" data-favorite-button aria-pressed="${favorite}" onclick="toggleFavorite('${slug}')" aria-label="${favorite ? '取消收藏' : '收藏'}">
+            <button class="icon-button ${favorite ? 'is-favorite' : ''}" style="color:${favorite ? 'var(--accent-coral)' : 'var(--primary)'};background:var(--surface);border-color:var(--line)" data-favorite-button onclick="toggleFavorite('${slug}')" aria-label="收藏">
               <svg class="icon"><use href="#i-heart"></use></svg>
             </button>
-            <button class="icon-button" style="color:var(--primary);background:var(--surface);border-color:var(--line)" onclick="sharePage('${safeName}', location.href)" aria-label="分享">
+            <button class="icon-button" style="color:var(--primary);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${item.name}',url:location.href})" aria-label="分享">
               <svg class="icon"><use href="#i-share"></use></svg>
             </button>
           </div>
         </div>
 
         <div class="detail-hero">
-          <img src="${image}" alt="${item.name}" decoding="async" fetchpriority="high" onclick="openLightbox('${safeImage}','${safeName}')" style="cursor:zoom-in" loading="eager" ${imgFallbackAttr}>
-          <span class="detail-zoom-hint">${item.menuImage ? text('点击看完整菜单','Tap for full menu') : text('点击查看大图','Tap to zoom')}</span>
+          <img src="${image}" alt="${item.name}" decoding="async" fetchpriority="high" onclick="openLightbox('${image.replace(/'/g, "\\'")}','${(item.name||'').replace(/'/g, "\\'")}')" style="cursor:zoom-in" loading="eager">
           <div class="detail-title">
             <h1>${text(item.name, item.en)}</h1>
             <div class="place-meta" style="color:rgba(255,255,255,0.9)">
@@ -2729,18 +2529,6 @@
               </div>
             </div>
 
-            ${item.menuImage ? `
-            <div class="detail-card detail-menu-card">
-              <div class="detail-menu-head">
-                <h2>${text('完整参考菜单','Full Reference Menu')}</h2>
-                <span class="detail-menu-hint">${text('点击放大查看','Tap to zoom')}</span>
-              </div>
-              <div class="detail-menu-wrap" onclick="openLightbox('${safeImage}','${safeName}')">
-                <img src="${item.menuImage}" alt="${item.name} 完整菜单" loading="lazy" decoding="async" ${imgFallbackAttr}>
-              </div>
-            </div>
-            ` : ''}
-
             <div class="detail-card tip-card">
               <h2>${text('本地人避坑与游玩提醒','Local Insider Tips')}</h2>
               <ul class="tips">
@@ -2779,7 +2567,7 @@
               <svg class="icon"><use href="#i-hospital"></use></svg>
             </a>
           ` : `
-            <button class="icon-btn" onclick="sharePage('${safeName}', location.href)" aria-label="分享">
+            <button class="icon-btn" onclick="navigator.share?.({title:'${item.name}',url:location.href})" aria-label="分享">
               <svg class="icon"><use href="#i-share"></use></svg>
             </button>
           `}
@@ -2789,13 +2577,13 @@
       window.scrollTo(0, 0);
       refreshLang();
       document.title = `${item.name} · JTW360`;
-      updateSeo(`${item.name} · JTW360`, item.desc || item.enDesc, image, canonicalPath);
+      updateSeo(`${item.name} · JTW360`, item.desc || item.enDesc, image, `/places/${item.slug}`);
     }
 
     // Guide Detail View
     function openGuide(slug, push = true) {
       const guide = guides.find(entry => entry.slug === slug);
-      if (!guide) { goHome(false, false); return; }
+      if (!guide) return;
       saveHomeScroll();
       removeDetailBar();
       if (push) history.pushState({ guide: slug }, '', `/guides/${slug}`);
@@ -2803,7 +2591,6 @@
       const detail = document.getElementById('detailView');
       detail.classList.add('show');
       const related = guide.related.map(id => allItems.find(item => item.slug === id)).filter(Boolean);
-      const safeTitle = (guide.title || '').replace(/'/g, "\\'");
 
       detail.innerHTML = `
         <div class="detail-top">
@@ -2811,14 +2598,13 @@
             <svg class="icon"><use href="#i-back"></use></svg>
             ${text('返回攻略列表','Back')}
           </button>
-          <button class="icon-button" style="color:var(--primary);background:var(--surface);border-color:var(--line)" onclick="sharePage('${safeTitle}', location.href)" aria-label="分享">
+          <button class="icon-button" style="color:var(--primary);background:var(--surface);border-color:var(--line)" onclick="navigator.share?.({title:'${guide.title}',url:location.href})" aria-label="分享">
             <svg class="icon"><use href="#i-share"></use></svg>
           </button>
         </div>
 
         <div class="detail-hero">
-          <img src="${guide.image}" alt="${guide.title}" decoding="async" fetchpriority="high" onclick="openLightbox('${guide.image.replace(/'/g, "\\'")}','${(guide.title||'').replace(/'/g, "\\'")}')" style="cursor:zoom-in" loading="eager" ${imgFallbackAttr}>
-          <span class="detail-zoom-hint">${text('点击查看大图','Tap to zoom')}</span>
+          <img src="${guide.image}" alt="${guide.title}" decoding="async" fetchpriority="high" onclick="openLightbox('${guide.image.replace(/'/g, "\\'")}','${(guide.title||'').replace(/'/g, "\\'")}')" style="cursor:zoom-in" loading="eager">
           <div class="detail-title">
             <h1>${text(guide.title, guide.en)}</h1>
             <div class="place-meta" style="color:rgba(255,255,255,0.9)">
@@ -2921,10 +2707,8 @@
     function openLightbox(src, alt) {
       const box = document.getElementById('lightbox');
       const img = document.getElementById('lightboxImg');
-      const cap = document.getElementById('lightboxCaption');
       img.alt = alt || '';
       img.src = src.startsWith('http') || src.startsWith('data:') || src.startsWith('/') ? src : '/' + src;
-      if (cap) cap.textContent = alt || '';
       box.hidden = false;
       document.body.style.overflow = 'hidden';
       requestAnimationFrame(() => document.getElementById('lightboxClose').focus());
@@ -2934,66 +2718,24 @@
       if (box.hidden) return;
       box.hidden = true;
       document.getElementById('lightboxImg').removeAttribute('src');
-      const cap = document.getElementById('lightboxCaption');
-      if (cap) cap.textContent = '';
       document.body.style.overflow = '';
     }
     document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
     document.getElementById('lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-    // WeChat Landlord Modal
-    const wechatModal = document.getElementById('wechatModal');
-    const copyStatus = document.getElementById('copyStatus');
-    function openWechatModal() {
-      if (!wechatModal) return;
-      if (copyStatus) copyStatus.textContent = '';
-      wechatModal.hidden = false;
-      document.body.style.overflow = 'hidden';
-      requestAnimationFrame(() => document.getElementById('wechatId')?.focus());
-    }
-    function closeWechatModal() {
-      if (!wechatModal || wechatModal.hidden) return;
-      wechatModal.hidden = true;
-      document.body.style.overflow = '';
-    }
-    document.getElementById('openWechatBtn')?.addEventListener('click', openWechatModal);
-    document.getElementById('wechatClose')?.addEventListener('click', closeWechatModal);
-    wechatModal?.addEventListener('click', e => { if (e.target.id === 'wechatModal') closeWechatModal(); });
-    document.getElementById('wechatId')?.addEventListener('click', async () => {
-      const ok = await copyText('feel607');
-      if (copyStatus) copyStatus.textContent = ok ? (isEnglish() ? 'Copied: feel607' : '已复制微信号：feel607') : 'feel607';
-      showToast(ok ? '微信号 feel607 已复制' : '请手动复制 feel607', ok ? 'WeChat ID copied: feel607' : 'Please copy: feel607');
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        closeLightbox();
-        closeWechatModal();
-      }
-    });
-
-    // URL Router (supports /places/:slug, /food/:slug, /parking/:slug, /guides/:slug)
+    // URL Router
     function routeFromUrl() {
       const params = new URLSearchParams(location.search);
-      const itemMatch = location.pathname.match(/\/(?:places|food|parking)\/([^/]+)/);
+      const placeMatch = location.pathname.match(/\/places\/([^/]+)/);
       const guideMatch = location.pathname.match(/\/guides\/([^/]+)/);
-      const rawSlug = params.get('place') || itemMatch?.[1];
-      const rawGuide = params.get('guide') || guideMatch?.[1];
-      const slug = rawSlug ? decodeURIComponent(rawSlug) : null;
-      const guideSlug = rawGuide ? decodeURIComponent(rawGuide) : null;
+      const slug = params.get('place') || placeMatch?.[1];
+      const guideSlug = params.get('guide') || guideMatch?.[1];
       if (slug) openDetail(slug, false);
       else if (guideSlug) openGuide(guideSlug, false);
       else goHome(false);
     }
     window.addEventListener('popstate', routeFromUrl);
-
-    // Brand logo click: smooth SPA return without full page reload
-    document.querySelector('.brand')?.addEventListener('click', event => {
-      event.preventDefault();
-      if (document.getElementById('detailView').classList.contains('show')) {
-        goHome(true, false);
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
 
     // Nav Smooth Scrolling
     document.querySelectorAll('.desktop-nav a[href^="#"], .bottom-nav a[href^="#"]').forEach(link => {
@@ -3008,12 +2750,10 @@
       });
     });
 
-    // Bottom Nav Scroll Spy (rAF-throttled to avoid layout thrashing)
+    // Bottom Nav Scroll Spy (highlights the section currently in view on mobile)
     const navLinkEls = [...document.querySelectorAll('.bottom-nav a[href^="#"]')];
     const navTargetEls = navLinkEls.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
-    let navSpyRaf = 0;
     const updateNavSpy = () => {
-      navSpyRaf = 0;
       if (document.getElementById('detailView').classList.contains('show')) return;
       const probe = 100;
       let active = navTargetEls[0];
@@ -3028,9 +2768,7 @@
       }
       navLinkEls.forEach((a, i) => a.classList.toggle('active', navTargetEls[i] === active));
     };
-    window.addEventListener('scroll', () => {
-      if (!navSpyRaf) navSpyRaf = requestAnimationFrame(updateNavSpy);
-    }, { passive: true });
+    window.addEventListener('scroll', updateNavSpy, { passive: true });
     updateNavSpy();
 
     // Keyboard accessibility: Enter/Space activates card-style interactive elements
@@ -3053,32 +2791,25 @@
     };
     const setLanguage = english => {
       applyLanguage(english);
-      safeStorage.set('jtw360-language', english ? 'en' : 'zh');
+      localStorage.setItem('jtw360-language', english ? 'en' : 'zh');
     };
-    // Re-apply the saved language after any dynamic re-render (filters, detail pages)
+    // Re-apply the saved language after any dynamic re-render (filters, search, detail pages)
     function refreshLang() {
-      if (isEnglish()) applyLanguage(true);
+      if (localStorage.getItem('jtw360-language') === 'en') applyLanguage(true);
     }
-    document.getElementById('langButton').addEventListener('click', () => setLanguage(!isEnglish()));
+    document.getElementById('langButton').addEventListener('click', () => setLanguage(localStorage.getItem('jtw360-language') !== 'en'));
 
-    // 主题：首次访问跟随系统，用户手动切换后以用户选择为准，同步切换月亮/太阳图标
+    // 主题：首次访问跟随系统，用户手动切换后以用户选择为准
     function syncThemeColor() {
       const isDark = document.body.classList.contains('dark-mode');
       document.documentElement.classList.toggle('dark', isDark);
       document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isDark ? '#090e17' : '#f8fafc');
-      const btn = document.getElementById('themeButton');
-      if (btn) {
-        btn.setAttribute('aria-pressed', String(isDark));
-        btn.setAttribute('aria-label', isDark ? '切换浅色模式' : '切换深色模式');
-        const useEl = btn.querySelector('use');
-        if (useEl) useEl.setAttribute('href', isDark ? '#i-sun' : '#i-moon');
-      }
     }
     function applyTheme(theme) {
       const isDark = theme === 'dark';
       document.body.classList.toggle('dark-mode', isDark);
       document.documentElement.classList.toggle('dark', isDark);
-      safeStorage.set('jtw360-theme', theme);
+      localStorage.setItem('jtw360-theme', theme);
       syncThemeColor();
     }
     document.getElementById('themeButton').addEventListener('click', () => {
@@ -3086,9 +2817,8 @@
       applyTheme(next);
     });
 
-    const savedTheme = safeStorage.get('jtw360-theme');
-    if (savedTheme) {
-      if (savedTheme === 'dark') {
+    if (localStorage.getItem('jtw360-theme')) {
+      if (localStorage.getItem('jtw360-theme') === 'dark') {
         document.body.classList.add('dark-mode');
         document.documentElement.classList.add('dark');
       }
@@ -3097,7 +2827,7 @@
       document.documentElement.classList.add('dark');
     }
     syncThemeColor();
-    if (isEnglish()) setLanguage(true);
+    if (localStorage.getItem('jtw360-language') === 'en') setLanguage(true);
 
     routeFromUrl();
   </script>
