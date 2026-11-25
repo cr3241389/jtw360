@@ -7,14 +7,14 @@
 
 ## 1. 当前状态快照（覆写区）
 
-- **最后更新**：2026-11-22
+- **最后更新**：2026-11-25
 - **仓库与分支**：`origin` = `https://github.com/cr3241389/jtw360.git`｜当前分支 `main`（已与 `origin/main` 同步）
-- **基线 HEAD**：已提交推送「移动端首屏 3×3 全功能宫格重构 + 多账号交接日志体系」（见第 5 节最新 2 条）
-- **线上形态**：纯静态零构建站，托管于 Vercel（域名 `https://www.jtw360.com`），通过 `vercel.json` 处理详情/攻略重写路由；推送 `main` 后自动触发 Vercel 生产部署
+- **基线 HEAD**：`fdd3076` + 本次交接日志同步提交（全站图片 WebP 瘦身 57% + 交互/路由/性能/SEO/PWA 综合优化）
+- **线上形态**：纯静态零构建站，托管于 Vercel（域名 `https://www.jtw360.com`），已配齐 `vercel.json`（重写+缓存+安全头）、`robots.txt`、`sitemap.xml`（48 URLs）与 `site.webmanifest`
 - **当前进行中任务**：无
 - **未提交改动**：无（仅保留第 4 节所列未跟踪本地文件）
-- **待验证项**：线上 Vercel 部署完成后，可在真机顺手核验 `https://www.jtw360.com` 移动端首屏 3×3 宫格展示
-- **下一步建议**：按需继续业务迭代；如新增内容或调整 UI，遵循第 2 节红线并在任务结束前更新本文件第 1、5 节
+- **待验证项**：线上 Vercel 自动部署完成后，可在真机顺手抽验首屏移动版 Hero、美食完整菜单卡、分享复制 Toast、太阳/月亮主题切换与房东微信弹窗
+- **下一步建议**：按需继续业务迭代；如新增图片或页面，遵循第 2 节红线并同步更新 `sitemap.xml` 与本文件第 1、5 节
 
 ---
 
@@ -23,12 +23,12 @@
 1. **纯静态零构建**：仓库无 `package.json`、无打包器、无后端 API；修改 `index.html` / `gemini_theme.css` / `liquid_glass.js` 即刻生效。
 2. **严禁 `git add .` / `git add -A`**：根目录长期保留多个未跟踪的本地/历史文件（见第 4 节），提交时**必须显式指定文件路径**，且未经用户允许不要删除这些未跟踪文件。
 3. **样式与主题双层机制**：
-   - `index.html` 先引入外部 `gemini_theme.css`（L29），随后有内联 `<style>`（L36–1858）与防闪烁脚本（L31–35，写入 `html.dark`）；运行时切换主题操作 `body.dark-mode` 与 `localStorage['jtw360-theme']`。
-   - `gemini_theme.css` 定义 Liquid Glass 材质与 `body.dark-mode, .dark` 覆盖变量；`liquid_glass.js`（L30 `defer`）负责精细指针光斑 `--lg-x/--lg-y` 及 Chromium SVG 折射滤镜 `#lg-refract`。
+   - `index.html` 先引入外部 `gemini_theme.css`（L31），随后有内联 `<style>`（L38–1933）与防闪烁脚本（L33–37，写入 `html.dark`）；运行时切换主题操作 `body.dark-mode` 与 `localStorage['jtw360-theme']`。
+   - `gemini_theme.css` 定义 Liquid Glass 材质与 `body.dark-mode, .dark` 覆盖变量；`liquid_glass.js`（L32 `defer`）负责精细指针光斑 `--lg-x/--lg-y` 及 Chromium SVG 折射滤镜 `#lg-refract`。
    - 改视觉/暗黑模式/移动端底栏时，**必须同时检查 `index.html` 内联 `<style>` 与 `gemini_theme.css`**，避免选择器优先级冲突。
 4. **图片与 SEO 红线**：
-   - `img/` 经多轮 WebP/JPEG 瘦身（当前 52 张约 7.7 MB），新增图片必须压缩后再入库，禁止堆放未引用的大图。
-   - 动态 SEO（`updateSeo()`）与 `og:image` / `canonical` 基准域名固定为 `https://www.jtw360.com`，改动路由或默认分享图时需同步核对 `vercel.json` 与 `<head>` meta。
+   - `img/` 已全量 WebP 化并精简（当前 53 张约 3.45 MB，零未引用图、零 `.jpg/.jpeg` 残留；仅保留 20.8 KB `jtw360logo-sm.png` 作 favicon/apple-touch-icon），新增图片必须压成 WebP 后再入库，禁止堆放未引用的大图。
+   - 动态 SEO（`updateSeo()`）与 `og:image` / `canonical` 基准域名固定为 `https://www.jtw360.com`，改动路由、增删景点/美食/攻略或默认分享图时需同步核对 `vercel.json`、`sitemap.xml` 与 `<head>` meta。
 5. **文档不随站点发布**：`HANDOFF.md`、`AGENTS.md`、`GEMINI.md`、`docs/handoff_archive/`、`.workbuddy/` 等已写入 `.vercelignore`，避免暴露在公网静态路径下。
 
 ---
@@ -39,26 +39,27 @@
 
 | 文件 | 规模 | 职责 |
 | :--- | :--- | :--- |
-| `index.html` | 2,829 行 | 主站单页应用（SEO meta + 基础 CSS + 全站 HTML + 全部数据 + 交互脚本；已移除搜索框，首屏 3×3 全功能宫格） |
-| `gemini_theme.css` | 633 行 | Liquid Glass 液态毛玻璃设计系统（光影令牌、宫格/卡片/按钮/浮层、移动端悬浮胶囊导航） |
+| `index.html` | 3,105 行 | 主站单页应用（SEO meta + 基础 CSS + 全站 HTML + 全部数据 + 交互脚本；含响应式 Hero、分享/复制降级 Toast、美食完整菜单卡、房东微信弹窗） |
+| `gemini_theme.css` | 646 行 | Liquid Glass 液态毛玻璃设计系统（含 `#toast` 浮层、移动端暂停背景持续动画降耗、悬浮胶囊导航） |
 | `liquid_glass.js` | 69 行 | 桌面端卡片指针高光（`--lg-x/--lg-y`）+ Chromium `backdrop-filter: url(#lg-refract)` 折射滤镜 |
-| `vercel.json` | 8 行 | 静态站 4 条 rewrite：`/places/:slug`、`/guides/:slug`、`/food/:slug`、`/parking/:slug` → `/index.html` |
+| `vercel.json` | 29 行 | 全局安全头（`nosniff`/`Referrer-Policy`）、`/img/*` 30 天强缓存、CSS/JS 缓存 + 4 条静态路由重写 |
+| `robots.txt` / `sitemap.xml` / `site.webmanifest` | 4 / 50 / 19 行 | 搜索引擎收录入口（48 个全站规范 URL）与 PWA 主屏幕图标/独立应用配置 |
 | `eng.html` | 634 行 | 独立工具页「English Tense Builder（英语时态积木墙）」，不挂载在主站导航 |
-| `img/` | 52 张 / 7.7 MB | 静态图片：`img/`（景点与设施实拍）、`img/food/`（餐饮缩略图+菜单图）、`img/generated/`（首图/停车场/玻璃海等 WebP） |
+| `img/` | 53 张 / 3.45 MB | 全量 WebP 静态图（含移动版 Hero 与 WebP Logo）+ 1 张 20.8 KB favicon PNG；全部 53 张均已引用 |
 
 ### 3.2 `index.html` 精准行号定位（改局部时直接读对应区段）
 
 | 行号区间 | 模块 | 关键标识 / 函数 |
 | :--- | :--- | :--- |
-| `L1–L35` | Head / SEO / 资源引入 | `og:*`、`twitter:*`、`canonical`、`<base href="/">`、`gemini_theme.css`、`liquid_glass.js`、暗黑防闪烁脚本 |
-| `L36–L1798` | 基础内联样式 | `:root` / `body.dark-mode` 变量、紧凑 Hero、首屏 3×3 宫格（桌面 9×1）、5 项底栏 `.bottom-nav` 与角标 `.nav-badge` |
-| `L1800–L1832` | 结构化数据 + SVG 雪碧图 | `application/ld+json`；图标 `#i-sun` `#i-pin` `#i-map` `#i-food` `#i-car` `#i-hospital` `#i-bag` `#i-bolt` `#i-camera` `#i-book` `#i-heart` `#i-user` `#i-arrow` `#i-back` `#i-moon` `#i-share` `#i-compass` |
-| `L1835–L1986` | 首页视图 `#homeView` | 紧凑 Hero、首屏 3×3 宫格 `#quickActions`、首屏便民速查面板 `#quickResourcePanel`、置顶收藏 `#favorites`、景点 `#nearby`、美食 `#food`、攻略 `#guides`、便民 `#tools` |
-| `L1988–L2029` | 详情视图 + 底部导航 + 弹窗 | `#detailView`、5 项 `.bottom-nav`（含 `#favBadge`）、`#lightbox`、`#wechatModal`（房东微信 `feel607`） |
-| `L2031–L2143` | 全站内置数据源 | `AMap()`、`parseDist()`、`places`(15, 距离升序)、`foods`(12: 前9常规+后3错峰)、`hospitals`(2)、`parking`(5: 前3免费+后2二马路)、`luggage`(4)、`charging`(3)、`utilityPlaces`(1)、`guides`(5)、`allItems` |
-| `L2144–L2445` | 渲染/宫格速查/筛选/收藏 | `text()`、`card()`、`quickActions`(9 项)、`openQuickResource()`、`setFoodFilter()`、`resourceData`、`showResource()`、`toggleFavorite()` / `renderFavorites()` |
-| `L2447–L2721` | 详情/攻略/SEO/灯箱 | `lastHomeScrollY`、`openDetail()`、`openGuide()`、`updateSeo()`、`openLightbox()` / `closeLightbox()` |
-| `L2723–L2827` | 路由/导航监听/双语/主题 | `routeFromUrl()`、`updateNavSpy()`（按可视位置选最近区块）、`applyLanguage()` / `setLanguage()`、`applyTheme()` |
+| `L1–L37` | Head / SEO / 资源引入 | `og:*`、`twitter:*`、`canonical`、响应式 Hero `preload`、`site.webmanifest`、`gemini_theme.css`、`liquid_glass.js`、暗黑防闪烁脚本 |
+| `L38–L1933` | 基础内联样式 | `:root` / `body.dark-mode` 变量、紧凑 Hero（移动端轻量图）、3×3 宫格、详情角标/完整菜单卡、灯箱标题、`#toast`、5 项底栏 |
+| `L1935–L1966` | 结构化数据 + SVG 雪碧图 | `application/ld+json`；图标 `#i-sun` `#i-pin` `#i-map` `#i-food` `#i-car` `#i-hospital` `#i-bag` `#i-bolt` `#i-camera` `#i-book` `#i-heart` `#i-user` `#i-arrow` `#i-back` `#i-moon` `#i-share` `#i-compass` |
+| `L1969–L2126` | 首页视图 `#homeView` | 紧凑 Hero、3×3 宫格 `#quickActions`、速查面板 `#quickResourcePanel`、置顶收藏 `#favorites`、景点 `#nearby`、美食 `#food`、攻略 `#guides`、便民 `#tools`、页脚房东微信入口 `#openWechatBtn` |
+| `L2128–L2172` | 详情视图 + 底部导航 + 弹窗 | `#detailView`、5 项 `.bottom-nav`（含 `#favBadge`）、`#lightbox`、`#wechatModal`（`feel607`）、`#toast` |
+| `L2175–L2285` | 全站内置数据源 | `AMap()`、`parseDist()`、`places`(15)、`foods`(12)、`hospitals`(2)、`parking`(5)、`luggage`(4)、`charging`(3)、`utilityPlaces`(1)、`guides`(5)、`allItems`（全部图片已统一 `.webp`） |
+| `L2287–L2646` | 渲染/筛选/收藏/Toast/分享 | `text()`、`card()`、`quickActions`(9 项)、`openQuickResource()`、`setFoodFilter()`、`showResource()`、`safeStorage`、`showToast()`、`copyText()`、`sharePage()`、`itemPath()`、`toggleFavorite()` |
+| `L2648–L2973` | 详情/攻略/SEO/灯箱/弹窗 | `lastHomeScrollY`、`openDetail()`（规范 `/food/` `/parking/` `/places/` 路由 + 完整菜单卡）、`openGuide()`、`updateSeo()`、`openLightbox()`、`openWechatModal()` |
+| `L2975–L3103` | 路由/导航监听/双语/主题 | `routeFromUrl()`（支持 `/places|food|parking|guides/`）、`a.brand` SPA 返回、rAF 节流 `updateNavSpy()`、`applyLanguage()`、`syncThemeColor()`（太阳/月亮图标联动） |
 
 ### 3.3 客户端存储键（`localStorage`）
 
@@ -70,7 +71,7 @@
 
 ## 4. 未跟踪与辅助文件清单（避免新号反复排查）
 
-- **已跟踪但非线上核心**：`create_placeholders.py`（早期占位图脚本）、根目录 `jinxia.jpg` & `magong.jpg`（早期副本；主站实际引用 `img/jinxia.jpg` 和 `img/magong.jpg`）。
+- **已跟踪但非线上核心**：`create_placeholders.py`（早期占位图脚本）。
 - **未跟踪本地文件（勿 `git add`、勿误删）**：`.DS_Store`、`.workbuddy/`（含早期单条同步记忆）、`CODE.JPG`、`index.html.bak`、`index.html.bak2`、`jtw360.code-workspace`、`patch.js`、`patch2.js`、`patch3.js`。
 - **其他分支参考**：`check`（早期优化分支，已合入 `main`）、`dev-sync`（历史同步分支）、`trae/solo-agent-MexZNd`（早期改版分支）；日常开发统一在 `main`。
 
@@ -79,6 +80,18 @@
 ## 5. 最近任务日志（倒序置顶 · 滚动上限 10 条）
 
 > 超出 10 条时将最旧条目移入 `docs/handoff_archive/YYYY-MM.md`。每条严格控制在 ≤ 6 行。
+
+### [2026-11-25] `fdd3076` 全站体检与体验/路由/性能/SEO/PWA 综合修复
+- **目标**：系统排查交互缺陷、滚动性能瓶颈与 SEO/PWA 缺口并一次性修复。
+- **改动**：`index.html`（封装 `sharePage()` 剪贴板降级 + 液态毛玻璃 `#toast`、修复 `routeFromUrl()` 补齐 `/food/` 与 `/parking/` 路由、rAF 节流 `updateNavSpy()`、同步 `#themeButton` 太阳/月亮图标与 `aria-pressed`、`safeStorage` 防隐私模式异常、盘活 `#wechatModal` 并加页脚入口、修复 `a.brand` SPA 返回、清理废弃 `#i-search`、补齐收藏空态双语）；`gemini_theme.css`（移动端暂停 `body::before` 持续动画降耗 + `#toast` 样式）；`vercel.json`（安全响应头与 CSS/JS 缓存）；新增 `robots.txt`、`sitemap.xml`（48 URLs）、`site.webmanifest`。
+- **验证**：已通过 `node --check`（全部内联脚本 + `liquid_glass.js`）、JSON/XML 语法校验、53/53 图片零死链检查及无裸 `navigator.share?.` 校验。
+- **遗留与下一步**：已随 `fdd3076` 推送至 `origin/main` 触发 Vercel 自动部署。
+
+### [2026-11-24] `fdd3076` 全站图片全面优化（WebP 统一、响应式 Hero、详情菜单体验与缓存头）
+- **目标**：大幅降低全站图片流量并修复详情页长菜单图裁切与点击遮挡体验问题。
+- **改动**：`img/`（清理未引用 `jtw360logo.png` 与根目录副本 `jinxia.jpg`/`magong.jpg`，20 张 JPEG 全转高画质 WebP、精简超大 WebP 与美食缩略图、压缩 favicon PNG 并新增 `jtw360logo-sm.webp` 及移动版 `jinting-bay-hero-mobile.webp`，总量 8.07 MB → 3.45 MB 降幅 57.2%）；`index.html`（全站引用切 WebP、响应式 Hero 预加载与加载、修复 `.detail-hero::after` 拦截点击、新增缩放提示角标、美食完整菜单防裁切卡片、灯箱标题与 `onerror` 兜底）；`vercel.json`（`/img/*` 30 天强缓存）。
+- **验证**：已通过 `node --check` 校验全部内联脚本、校验 `vercel.json` 及 53/53 零死链零未引用图审计。
+- **遗留与下一步**：已随 `fdd3076` 推送至 `origin/main`。
 
 ### [2026-11-22] 移动端首屏 3×3 全功能宫格重构 & 移除搜索框
 - **目标**：面向移动端核心用户去掉多余搜索框，压缩 Hero，第一屏直接以宫格呈现全部功能模块并减少长距离翻页。
